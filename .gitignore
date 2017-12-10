@@ -1,0 +1,37 @@
+## .gitignore ##
+# Folder
+data
+
+# Python
+*.pyc
+# pyc
+
+# Image File 
+*.jpg
+*.png
+
+# Text File
+*.txt
+*.csv
+
+# 3D Data
+*.stl
+
+# DL Data
+*.zip
+*.dat
+
+# Model
+*.h5
+*.json
+
+# Matlab Code
+*.m
+
+
+# ignore all
+# *
+# */
+# allow any
+#!*.py
+#!*.bash
