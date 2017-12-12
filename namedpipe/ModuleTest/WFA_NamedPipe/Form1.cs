@@ -79,11 +79,10 @@ namespace WFA_NamedPipe
             {
                 try
                 {
-                    int iResult = cRand.Next(512);
-                    int[] arrayNum = new int[10];
+                    int[] arrayNum = new int[45];
                     for (int i =0; i<arrayNum.Length; i++)
                     {
-                        arrayNum[i] = cRand.Next(512);
+                        arrayNum[i] = cRand.Next(i);
                     }
                     var str = string.Join(",", arrayNum);
                     //'.' + 

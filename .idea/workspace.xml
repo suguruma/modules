@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/namedpipe/treeview_test.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/data.csv" afterPath="$PROJECT_DIR$/namedpipe/data.csv" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Form1.cs" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Form1.cs" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.exe" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.exe" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.pdb" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.pdb" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csproj.GenerateResource.Cache" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csproj.GenerateResource.Cache" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csprojResolveAssemblyReference.cache" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csprojResolveAssemblyReference.cache" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.exe" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.exe" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.pdb" afterPath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.pdb" />
       <change beforePath="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" afterPath="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +27,8 @@
       <file leaf-file-name="visual_recevier_graph_timeseriese.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="159" column="41" lean-forward="true" selection-start-line="159" selection-start-column="41" selection-end-line="159" selection-end-column="41" />
+            <state relative-caret-position="323">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -42,7 +51,13 @@
       <find>xlimmax</find>
       <find>pipe</find>
       <find>self.fname</find>
+      <find>self.combo.addItem</find>
+      <find>qlistview</find>
+      <find>SubWindow</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,14 +67,20 @@
       <list>
         <option value="$PROJECT_DIR$/namedpipe/visual_test.py" />
         <option value="$PROJECT_DIR$/namedpipe/visual_recevier.py" />
+        <option value="$PROJECT_DIR$/namedpipe/ModuleTest/treeview_test.py" />
+        <option value="$PROJECT_DIR$/namedpipe/treeview_test.py" />
+        <option value="$PROJECT_DIR$/qml/QtPainter.py" />
+        <option value="$PROJECT_DIR$/namedpipe/QtPainter.py" />
+        <option value="$PROJECT_DIR$/namedpipe/PointingViewer.qml" />
+        <option value="$PROJECT_DIR$/namedpipe/PointingRightHand.qml" />
         <option value="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="52" />
-    <option name="y" value="16" />
-    <option name="width" value="1453" />
+    <option name="x" value="366" />
+    <option name="y" value="22" />
+    <option name="width" value="1392" />
     <option name="height" value="1031" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -94,12 +115,17 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Terada\Documents\Projects\home\modules\namedpipe" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -114,6 +140,24 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.visual_recevier_graph_timeseriese">
+    <configuration name="QtPainter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/qml" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modules" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qml/QtPainter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="recevier_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -127,6 +171,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="modules" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/recevier_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="treeview_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/namedpipe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="modules" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/treeview_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -168,36 +230,20 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="visual_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/namedpipe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="modules" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/visual_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.recevier_test" />
-      <item index="1" class="java.lang.String" itemvalue="Python.visual_test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.visual_recevier" />
-      <item index="3" class="java.lang.String" itemvalue="Python.visual_recevier_graph_timeseriese" />
+      <item index="1" class="java.lang.String" itemvalue="Python.visual_recevier" />
+      <item index="2" class="java.lang.String" itemvalue="Python.visual_recevier_graph_timeseriese" />
+      <item index="3" class="java.lang.String" itemvalue="Python.treeview_test" />
+      <item index="4" class="java.lang.String" itemvalue="Python.QtPainter" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.visual_recevier_graph_timeseriese" />
-        <item index="1" class="java.lang.String" itemvalue="Python.recevier_test" />
-        <item index="2" class="java.lang.String" itemvalue="Python.visual_recevier" />
-        <item index="3" class="java.lang.String" itemvalue="Python.visual_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.QtPainter" />
+        <item index="2" class="java.lang.String" itemvalue="Python.treeview_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.recevier_test" />
+        <item index="4" class="java.lang.String" itemvalue="Python.visual_recevier" />
       </list>
     </recent_temporary>
   </component>
@@ -218,18 +264,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="52" y="16" width="1453" height="1031" extended-state="0" />
+    <frame x="366" y="22" width="1392" height="1031" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2407794" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2514535" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5024356" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.324295" sideWeight="0.49756438" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25921908" sideWeight="0.49756438" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991323" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -275,6 +321,16 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -348,10 +404,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/qml/PointingViewer.qml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qml/QtPainter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/treeview_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+          <folding>
+            <element signature="e#22#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/qml/QtPainter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="12" lean-forward="true" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/PointingRightHand.qml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/PointingViewer.qml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/QtPainter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="159" column="41" lean-forward="true" selection-start-line="159" selection-start-column="41" selection-end-line="159" selection-end-column="41" />
+        <state relative-caret-position="323">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>

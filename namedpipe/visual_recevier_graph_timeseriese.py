@@ -1,20 +1,42 @@
 #!/usr/bin/env python
 import sys
-import os
 import numpy as np
 from collections import deque
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from PyQt5.QtCore import (QLineF, QPointF, QRectF, Qt, QTimer)
-from PyQt5.QtGui import (QBrush, QColor, QPainter)
+from PyQt5.QtCore import (QLineF, QPointF, QRectF, Qt, QUrl, QTimer)
+from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QGuiApplication)
 from PyQt5.QtWidgets import (QApplication, QGraphicsView, QGraphicsScene, QGraphicsItem,
-                             QGridLayout, QVBoxLayout, QHBoxLayout, QSizePolicy,
+                             QGridLayout, QVBoxLayout, QHBoxLayout, QListView,
                              QLabel, QLineEdit, QPushButton)
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QLCDNumber, QSlider, QTextEdit, QCheckBox, 
-                             QTableWidget, QTableWidgetItem, QAction, QDialog, QSpinBox, QFileDialog)
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QLCDNumber, QSlider, QListWidget, QCheckBox,
+                             QTableWidget, QTableWidgetItem, QAction, QComboBox, QSpinBox, QFileDialog)
+from PyQt5.QtQuick import QQuickView
 
+class QMLWindow(QMainWindow):
+    def __init__(self, parent=None):
+        QMainWindow.__init__(self, parent)
+        self.initUI()
+
+    def initUI(self):
+        view = QQuickView()
+        container = QWidget.createWindowContainer(view, self)
+        container.setFixedWidth(400)
+        container.setFixedHeight(500)
+        #container.setMinimumSize(200, 200);
+        #container.setMaximumSize(200, 200);
+        container.setFocusPolicy(Qt.TabFocus)
+        view.setSource(QUrl("PointingViewer.qml"))
+
+        label = QLabel()
+        label.setText('Man')
+        vbox1 = QVBoxLayout()
+        vbox1.addWidget(label)
+        container.setLayout(vbox1)
+
+        self.setCentralWidget(container)
 
 class SubWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -64,7 +86,9 @@ class MainPlot():
         self.axes.grid(self.grid_flag)
         self.axes.set_xlim([self.xlim_min, self.xlim_max])
         self.axes.set_ylim([self.ylim_min, self.ylim_max])
-        colorlist = ["b", "g", "r", "c", "m", "y", "k", "w", '#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf']
+        colorlist = ["b", "g", "r", "c", "m", "y", "k", "w",
+                     '#e41a1c', '#377eb8', '#4daf4a', '#984ea3',
+                     '#ff7f00', '#ffff33', '#a65628', '#f781bf']
         
         if self.display_x:
             self.axes.plot(self.x, self.y1, color=colorlist[0])
@@ -82,6 +106,12 @@ class MainWindow(QMainWindow):
         ### Setting
         self.skip_header = True
         self.runOn = False
+        self.loop_connnect_timer = QTimer(self)
+        self.parts_dict = { "SpineBase":0, "SpineMid":1, "Neck":2, "Head":3,
+                            "ShoulderLeft":4, "ElbowLeft":5, "WristLeft":6, "HandLeft":7,
+                            "ShoulderRight":8, "ElbowRight":9, "WristRight":10, "HandRight":11,
+                            "SpineShoulder":12, "HandTipLeft":13, "HandTipRight":14
+        }
 
     def initUI(self):
         self.setWindowTitle('Main window') 
@@ -126,7 +156,7 @@ class MainWindow(QMainWindow):
         ###
         self.sldv1 = QSlider(Qt.Vertical, self)
         self.sldv1.setRange(1, 200)
-        self.sldv1.setValue(30)
+        self.sldv1.setValue(1)
         self.sldv1.setFixedHeight(200)
         self.sldv1qsb = QSpinBox()
         self.sldv1qsb.setRange(1, 9999)
@@ -134,7 +164,7 @@ class MainWindow(QMainWindow):
         self.sldv1.valueChanged.connect(self.sliderbar_display1)
         self.sldv2 = QSlider(Qt.Vertical, self)
         self.sldv2.setRange(-200, 0)
-        self.sldv2.setValue(-5)
+        self.sldv2.setValue(-1)
         self.sldv2.setFixedHeight(200)
         self.sldv2qsb = QSpinBox()
         self.sldv2qsb.setRange(-9999, 0)
@@ -148,12 +178,34 @@ class MainWindow(QMainWindow):
         restopBtn.clicked.connect(self.process_stop_restart)
         refreshBtn = QPushButton("Refresh")
         refreshBtn.clicked.connect(self.update_plot_data)
+
+        self.combo = QComboBox(self)
+        self.combo.addItem("SpineBase")
+        self.combo.addItem("SpineMid")
+        self.combo.addItem("Neck")
+        self.combo.addItem("Head")
+        self.combo.addItem("ShoulderLeft")
+        self.combo.addItem("ElbowLeft")
+        self.combo.addItem("WristLeft")
+        self.combo.addItem("HandLeft")
+        self.combo.addItem("ShoulderRight")
+        self.combo.addItem("ElbowRight")
+        self.combo.addItem("WristRight")
+        self.combo.addItem("HandRight")
+        self.combo.addItem("SpineShoulder")
+        self.combo.addItem("HandTipLeft")
+        self.combo.addItem("HandTipRight")
+
         self.cbx = QCheckBox('X', self)
         self.cby = QCheckBox('Y', self)
         self.cbz = QCheckBox('Z', self)
         self.cbx.toggle()
+        self.cby.toggle()
+        self.cbz.toggle()
         self.grid_cb = QCheckBox('Grid', self)
         self.grid_cb.toggle()
+        self.loop_connnect_cb = QCheckBox('Loop', self)
+        self.loop_connnect_cb.stateChanged.connect(self.loop_connect_namedpipe)
 
         ### set file layout
         self.fnameQle = QLineEdit(self)
@@ -162,21 +214,38 @@ class MainWindow(QMainWindow):
         self.openfile_Btn.clicked.connect(self.open_file)
         self.openfolder_Btn = QPushButton('Open Folder')
         self.openfolder_Btn.clicked.connect(self.open_folder)
+        self.fextQle = QLineEdit(self)
+        self.fextQle.setText("csv")
+        self.fextQle.setFixedWidth(75)
+        setFileBtn = QPushButton("Set File")
+        setFileBtn.clicked.connect(self.setfile_from_filelist)
+
+        self.qlistview = QListView(self)
+        self.qlw_model = QStandardItemModel(self)
+        self.qlistview.setModel(self.qlw_model)
+
         hbox0 = QHBoxLayout()
         hbox0.addWidget(self.openfile_Btn)
-        #hbox0.addWidget(self.openfolder_Btn)
         hbox0.addWidget(self.fnameQle)
 
+        hbox01 = QHBoxLayout()
+        vbox_hbox01 = QVBoxLayout()
+        vbox_hbox01.addWidget(self.openfolder_Btn)
+        vbox_hbox01.addWidget(self.fextQle)
+        vbox_hbox01.addWidget(setFileBtn)
+        hbox01.addLayout(vbox_hbox01)
+        hbox01.addWidget(self.qlistview)
+
         ### set layout
-        hbox = QHBoxLayout()
-        hbox.addWidget(upinlabel)
-        hbox.addWidget(lcd)
-        hbox.addWidget(mslabel)
-        hbox.addWidget(self.sld)
-        hbox.addStretch(1)
-        hbox.addWidget(registBtn)
-        hbox.addWidget(pnlabel)
-        hbox.addWidget(self.pnameQle)
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(upinlabel)
+        hbox1.addWidget(lcd)
+        hbox1.addWidget(mslabel)
+        hbox1.addWidget(self.sld)
+        hbox1.addStretch(1)
+        hbox1.addWidget(registBtn)
+        hbox1.addWidget(pnlabel)
+        hbox1.addWidget(self.pnameQle)
         
         ### set Layout2
         hbox2 = QHBoxLayout()
@@ -184,11 +253,13 @@ class MainWindow(QMainWindow):
         hbox2.addWidget(self.framelabel)
         hbox2.addStretch(1)
         hbox2.addWidget(self.grid_cb)
+        hbox2.addWidget(self.loop_connnect_cb)
         hbox2.addStretch(1)
         hbox2.addWidget(pltnum_label)
         hbox2.addWidget(self.pltnum_sld)
         hbox2.addWidget(self.pltnum_qsb)
         hbox2.addWidget(refreshBtn)
+        hbox2.addWidget(self.combo)
         hbox2.addWidget(self.cbx)
         hbox2.addWidget(self.cby)
         hbox2.addWidget(self.cbz)
@@ -206,7 +277,8 @@ class MainWindow(QMainWindow):
         
         vbox = QVBoxLayout()
         vbox.addLayout(hbox0)
-        vbox.addLayout(hbox)
+        vbox.addLayout(hbox01)
+        vbox.addLayout(hbox1)
         vbox.addLayout(hbox2)
         vbox.addLayout(hbox3)
         main_frame.setLayout(vbox)
@@ -219,6 +291,7 @@ class MainWindow(QMainWindow):
         self.readActionUI()
         self.connectActionUI()
         self.opensubWindowActionUI()
+        self.openQMLWindowActionUI()
         
         self.statusBar()
         menubar = self.menuBar()
@@ -229,6 +302,7 @@ class MainWindow(QMainWindow):
         toolbar.addAction(self.readAction)
         toolbar.addAction(self.connectAction)
         toolbar.addAction(self.openwindowAction)
+        toolbar.addAction(self.openQMLAction)
 
     ### ################
     def exitActionUI(self):
@@ -239,11 +313,13 @@ class MainWindow(QMainWindow):
 
     def readActionUI(self):
         self.readAction = QAction('Start', self)
+        self.readAction.setShortcut('Ctrl+S')
         self.readAction.setStatusTip('Start to read the data from the text file')
         self.readAction.triggered.connect(self.read_csvfile) 
     
     def connectActionUI(self):
         self.connectAction = QAction('Connect', self)
+        self.connectAction.setShortcut('Ctrl+C')
         self.connectAction.setStatusTip('Connect to get the data by the NamedPipes from other application')
         self.connectAction.triggered.connect(self.connect_namedpipe)
     
@@ -252,6 +328,12 @@ class MainWindow(QMainWindow):
         self.openwindowAction.setShortcut('Ctrl+W')
         self.openwindowAction.setStatusTip('Open the table window of features')
         self.openwindowAction.triggered.connect(self.open_subwindow) 
+
+    def openQMLWindowActionUI(self):
+        self.openQMLAction= QAction('QML', self)
+        self.openQMLAction.setShortcut('Ctrl+M')
+        self.openQMLAction.setStatusTip('QML')
+        self.openQMLAction.triggered.connect(self.open_qmlwindow)
 
     def declareCommonVal(self):
         self.counter = 0
@@ -272,7 +354,14 @@ class MainWindow(QMainWindow):
             self.timer = QTimer(self)
             self.timer.timeout.connect(self.update_figure)
             self.timer.start(self.sld.value()) #(ms)
-        
+
+    def loop_connect_namedpipe(self):
+        if self.loop_connnect_cb.checkState():
+            self.loop_connnect_timer.timeout.connect(self.connect_namedpipe)
+            self.loop_connnect_timer.start(1000)
+        else:
+            self.loop_connnect_timer.stop()
+
     def setting_pipename(self, pname):
         try:
             self.f = open(r'\\.\pipe\\' + pname, 'r+b', 0)
@@ -322,7 +411,18 @@ class MainWindow(QMainWindow):
 
     def open_folder(self):
         foldername = QFileDialog.getExistingDirectory(self, 'Open Directory') #, os.path.expanduser('~') + '/Desktop')
-        self.fnameQle.setText(foldername)
+        self.qlw_model.clear()
+
+        import glob
+        path = foldername + '\\' + '*' + self.fextQle.text()  #'C:\Python35\\*.txt'
+        files = glob.glob(path)
+        for filename in files:
+            self.qlw_model.appendRow(QStandardItem(filename))
+
+    def setfile_from_filelist(self):
+        idx = self.qlistview.selectionModel().currentIndex()
+        item = self.qlw_model.itemFromIndex(idx)
+        self.fnameQle.setText(item.text())
 
     ### window refresh
     def sliderbar_display1(self):
@@ -336,6 +436,11 @@ class MainWindow(QMainWindow):
     def open_subwindow(self):
         subWindow = SubWindow(self)
         subWindow.show()
+
+    ### QML
+    def open_qmlwindow(self):
+        QMLform = QMLWindow(self)
+        QMLform.show()
 
     ### graph update
     def update_figure(self):
@@ -392,9 +497,9 @@ class MainWindow(QMainWindow):
                 features = self.skip_space_csv(features)
                 features = np.array(features).astype(np.float64)
 
-                self.fval1.append(features[0])
-                self.fval2.append(features[1])
-                self.fval3.append(features[2])
+                self.fval1.append(features[0 + 3 * self.parts_dict[self.combo.currentText()]])
+                self.fval2.append(features[1 + 3 * self.parts_dict[self.combo.currentText()]])
+                self.fval3.append(features[2 + 3 * self.parts_dict[self.combo.currentText()]])
                 
                 if self.counter - 1 > self.pltnum_qsb.value():
                     self.fval1.popleft()
@@ -411,7 +516,7 @@ class MainWindow(QMainWindow):
 
 def main(args):
     app = QApplication(sys.argv)
-    mainWindow = MainWindow()
+    mainWindow = MainWindow() #QMLWindow()
     mainWindow.show()
     sys.exit(app.exec_())
 
