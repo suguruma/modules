@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import (QApplication, QGraphicsView, QGraphicsScene, QGraph
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QLCDNumber, QSlider, QListWidget, QCheckBox,
                              QTableWidget, QTableWidgetItem, QAction, QComboBox, QSpinBox, QFileDialog)
 from PyQt5.QtQuick import QQuickView
+from PyQt5.QtQuickWidgets import QQuickWidget
 
 class QMLWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -21,21 +22,25 @@ class QMLWindow(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        view = QQuickView()
-        container = QWidget.createWindowContainer(view, self)
-        container.setFixedWidth(400)
-        container.setFixedHeight(500)
+        container = QWidget()
         #container.setMinimumSize(200, 200);
         #container.setMaximumSize(200, 200);
         container.setFocusPolicy(Qt.TabFocus)
+        view = QQuickWidget()
         view.setSource(QUrl("PointingViewer.qml"))
+        view2 = QQuickWidget()
+        view2.setSource(QUrl("test.qml"))
+        view3 = QQuickWidget()
+        view3.setSource(QUrl("ChartViewTest.qml"))
 
         label = QLabel()
         label.setText('Man')
         vbox1 = QVBoxLayout()
         vbox1.addWidget(label)
+        vbox1.addWidget(view)
+        vbox1.addWidget(view2)
+        vbox1.addWidget(view3)
         container.setLayout(vbox1)
-
         self.setCentralWidget(container)
 
 class SubWindow(QMainWindow):
@@ -106,6 +111,7 @@ class MainWindow(QMainWindow):
         ### Setting
         self.skip_header = True
         self.runOn = False
+        self.fval = None
         self.loop_connnect_timer = QTimer(self)
         self.parts_dict = { "SpineBase":0, "SpineMid":1, "Neck":2, "Head":3,
                             "ShoulderLeft":4, "ElbowLeft":5, "WristLeft":6, "HandLeft":7,
@@ -137,12 +143,13 @@ class MainWindow(QMainWindow):
         pltnum_label.setText('Plot Num:')
         self.pltnum_qsb = QSpinBox()
         self.pltnum_qsb.setRange(10, 9999)
-        self.pltnum_qsb.setValue(100)
+        self.pltnum_qsb.setValue(300)
         self.pltnum_sld = QSlider(Qt.Horizontal, self)
         self.pltnum_sld.setRange(10, 1000)
-        self.pltnum_sld.setValue(100)
+        self.pltnum_sld.setValue(300)
         self.pltnum_sld.setFixedWidth(300)
         self.pltnum_sld.valueChanged.connect(self.sliderbar_display_plotnum)
+        self.pltnum_qsb.valueChanged.connect(self.qspinbox_display_plotnum)
 
         ### set Button, TextBox
         self.pnameQle = QLineEdit(self)
@@ -162,6 +169,7 @@ class MainWindow(QMainWindow):
         self.sldv1qsb.setRange(1, 9999)
         self.sldv1qsb.setValue(self.sldv1.value())
         self.sldv1.valueChanged.connect(self.sliderbar_display1)
+        self.sldv1qsb.valueChanged.connect(self.spinbox_display1)
         self.sldv2 = QSlider(Qt.Vertical, self)
         self.sldv2.setRange(-200, 0)
         self.sldv2.setValue(-1)
@@ -170,6 +178,7 @@ class MainWindow(QMainWindow):
         self.sldv2qsb.setRange(-9999, 0)
         self.sldv2qsb.setValue(self.sldv2.value())
         self.sldv2.valueChanged.connect(self.sliderbar_display2)
+        self.sldv2qsb.valueChanged.connect(self.spinbox_display2)
 
         ### display graph
         self.framelabel = QLabel()
@@ -195,6 +204,7 @@ class MainWindow(QMainWindow):
         self.combo.addItem("SpineShoulder")
         self.combo.addItem("HandTipLeft")
         self.combo.addItem("HandTipRight")
+        self.combo.currentTextChanged.connect(self.update_plot_data)
 
         self.cbx = QCheckBox('X', self)
         self.cby = QCheckBox('Y', self)
@@ -206,6 +216,30 @@ class MainWindow(QMainWindow):
         self.grid_cb.toggle()
         self.loop_connnect_cb = QCheckBox('Loop', self)
         self.loop_connnect_cb.stateChanged.connect(self.loop_connect_namedpipe)
+
+        ###
+        self.sldh1 = QSlider(Qt.Horizontal, self)
+        self.sldh1.setRange(-10, 1000)
+        self.sldh1.setValue(0)
+        self.sldh1qsb = QSpinBox()
+        self.sldh1qsb.setRange(-100, 9999)
+        self.sldh1qsb.setValue(self.sldh1.value())
+        self.sldh1.valueChanged.connect(self.sliderbar_display3)
+        self.sldh1qsb.valueChanged.connect(self.spinbox_display3)
+        self.sldh2 = QSlider(Qt.Horizontal, self)
+        self.sldh2.setRange(1, 1000)
+        self.sldh2.setValue(150)
+        self.sldh2qsb = QSpinBox()
+        self.sldh2qsb.setRange(1, 9999)
+        self.sldh2qsb.setValue(self.sldh2.value())
+        self.sldh2.valueChanged.connect(self.sliderbar_display4)
+        self.sldh2qsb.valueChanged.connect(self.spinbox_display4)
+        self.autoScrollqb = QCheckBox('Auto', self)
+        self.autoScrollLabel = QLabel()
+        self.autoScrollLabel.setText('Span:')
+        self.autoScrollSpanNum_qsb = QSpinBox()
+        self.autoScrollSpanNum_qsb.setRange(10, 1000)
+        self.autoScrollSpanNum_qsb.setValue(100)
 
         ### set file layout
         self.fnameQle = QLineEdit(self)
@@ -274,13 +308,24 @@ class MainWindow(QMainWindow):
         hbox3_vbox.addWidget(self.sldv2)
         hbox3.addLayout(hbox3_vbox)
         hbox3.addWidget(self.main_plot.canvas)
-        
+
+        ### set Layout4
+        hbox4 = QHBoxLayout()
+        hbox4.addWidget(self.sldh1)
+        hbox4.addWidget(self.sldh1qsb)
+        hbox4.addWidget(self.autoScrollLabel)
+        hbox4.addWidget(self.autoScrollSpanNum_qsb)
+        hbox4.addWidget(self.autoScrollqb)
+        hbox4.addWidget(self.sldh2qsb)
+        hbox4.addWidget(self.sldh2)
+
         vbox = QVBoxLayout()
         vbox.addLayout(hbox0)
         vbox.addLayout(hbox01)
         vbox.addLayout(hbox1)
         vbox.addLayout(hbox2)
         vbox.addLayout(hbox3)
+        vbox.addLayout(hbox4)
         main_frame.setLayout(vbox)
 
         ### set widget
@@ -337,9 +382,7 @@ class MainWindow(QMainWindow):
 
     def declareCommonVal(self):
         self.counter = 0
-        self.fval1 = deque([])
-        self.fval2 = deque([])
-        self.fval3 = deque([])        
+        self.fval = deque([])
 
     ### namedpipe 
     def regist_namedpipe(self):
@@ -349,8 +392,8 @@ class MainWindow(QMainWindow):
         if self.runOn:
             return 0
 
-        self.declareCommonVal()
         if self.setting_pipename(self.pname) > 0:
+            self.declareCommonVal()
             self.timer = QTimer(self)
             self.timer.timeout.connect(self.update_figure)
             self.timer.start(self.sld.value()) #(ms)
@@ -376,9 +419,9 @@ class MainWindow(QMainWindow):
     def read_csvfile(self):
         if self.runOn:
             return 0
-            
-        self.declareCommonVal()
+
         if self.setting_textname(self.fnameQle.text()) > 0:
+            self.declareCommonVal()
             self.timer = QTimer(self)
             self.timer.timeout.connect(self.update_figure)
             self.timer.start(self.sld.value()) #(ms)
@@ -431,6 +474,24 @@ class MainWindow(QMainWindow):
         self.sldv2qsb.setValue(self.sldv2.value())
     def sliderbar_display_plotnum(self):
         self.pltnum_qsb.setValue(self.pltnum_sld.value())
+    def qspinbox_display_plotnum(self):
+        self.pltnum_sld.setValue(self.pltnum_qsb.value())
+    def sliderbar_display3(self):
+        self.sldh1qsb.setValue(self.sldh1.value())
+    def sliderbar_display4(self):
+        self.sldh2qsb.setValue(self.sldh2.value())
+    def spinbox_display1(self):
+        self.sldv1.setValue(self.sldv1qsb.value())
+    def spinbox_display2(self):
+        self.sldv2.setValue(self.sldv2qsb.value())
+    def spinbox_display3(self):
+        self.sldh1.setValue(self.sldh1qsb.value())
+    def spinbox_display4(self):
+        self.sldh2.setValue(self.sldh2qsb.value())
+    def autoScrollMode(self):
+        if self.autoScrollqb.isChecked():
+            self.sldh1.setValue(len(self.fval)-self.autoScrollSpanNum_qsb.value())
+            self.sldh2.setValue(len(self.fval))
 
     #### new form
     def open_subwindow(self):
@@ -448,8 +509,17 @@ class MainWindow(QMainWindow):
         self.update_data()
         self.update_plot_data()        
         self.runOn = self.timer.isActive()
-    
+
+    def updateTargetData(self):
+        self.x = np.arange(len(self.fval))
+        fvalT = np.array(self.fval).T
+        self.y1 = fvalT[0 + 3 * self.parts_dict[self.combo.currentText()]]
+        self.y2 = fvalT[1 + 3 * self.parts_dict[self.combo.currentText()]]
+        self.y3 = fvalT[2 + 3 * self.parts_dict[self.combo.currentText()]]
+
     def update_plot_data(self):
+        self.updateTargetData()
+        self.autoScrollMode()
         self.main_plot.x = self.x
         self.main_plot.y1 = self.y1
         self.main_plot.y2 = self.y2
@@ -457,7 +527,8 @@ class MainWindow(QMainWindow):
         self.main_plot.display_x = self.cbx.checkState()
         self.main_plot.display_y = self.cby.checkState()
         self.main_plot.display_z = self.cbz.checkState()
-        self.main_plot.xlim_max = self.pltnum_qsb.value()
+        self.main_plot.xlim_min = self.sldh1.value()
+        self.main_plot.xlim_max = self.sldh2.value()
         self.main_plot.ylim_max =  self.sldv1qsb.value()
         self.main_plot.ylim_min =  self.sldv2qsb.value()
         self.main_plot.grid_flag = self.grid_cb.checkState()
@@ -467,7 +538,7 @@ class MainWindow(QMainWindow):
     def skip_space_csv(self, str_data):
         for i in range(len(str_data)):
             if len(str_data[i]) == 0:
-                str_data[i] = 0
+                str_data[i] = np.nan
         return str_data
     
     def update_data(self):
@@ -497,20 +568,12 @@ class MainWindow(QMainWindow):
                 features = self.skip_space_csv(features)
                 features = np.array(features).astype(np.float64)
 
-                self.fval1.append(features[0 + 3 * self.parts_dict[self.combo.currentText()]])
-                self.fval2.append(features[1 + 3 * self.parts_dict[self.combo.currentText()]])
-                self.fval3.append(features[2 + 3 * self.parts_dict[self.combo.currentText()]])
-                
-                if self.counter - 1 > self.pltnum_qsb.value():
-                    self.fval1.popleft()
-                    self.fval2.popleft()
-                    self.fval3.popleft()
+                self.fval.append(features)
 
-                self.x = np.arange(len(self.fval1))
-                self.y1 = self.fval1
-                self.y2 = self.fval2
-                self.y3 = self.fval3
-                
+                if self.counter - 1 > self.pltnum_qsb.value():
+                    self.fval.popleft()
+
+                self.updateTargetData()
                 self.framelabel.setText("Frame:{0}".format(self.counter - 1))
 
 
