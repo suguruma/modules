@@ -1,6 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
-import QtCharts 2.2
+
 
 Window {
     visible: true

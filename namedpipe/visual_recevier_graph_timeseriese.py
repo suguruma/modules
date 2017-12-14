@@ -15,6 +15,9 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QLCDNumber, QSlider, QListWid
                              QTableWidget, QTableWidgetItem, QAction, QComboBox, QSpinBox, QFileDialog)
 from PyQt5.QtQuick import QQuickView
 from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtQml import QQmlApplicationEngine
+
+
 
 class QMLWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -29,19 +32,34 @@ class QMLWindow(QMainWindow):
         view = QQuickWidget()
         view.setSource(QUrl("PointingViewer.qml"))
         view2 = QQuickWidget()
-        view2.setSource(QUrl("test.qml"))
-        view3 = QQuickWidget()
-        view3.setSource(QUrl("ChartViewTest.qml"))
+        view2.setSource(QUrl("ChartViewTest.qml"))
+        self.viewX = QQuickWidget()
+        self.viewX.setSource(QUrl("./qmlcustomlegend/main.qml"))
 
-        label = QLabel()
-        label.setText('Man')
-        vbox1 = QVBoxLayout()
-        vbox1.addWidget(label)
-        vbox1.addWidget(view)
-        vbox1.addWidget(view2)
-        vbox1.addWidget(view3)
-        container.setLayout(vbox1)
+        self.combo = QComboBox(self)
+        self.combo.addItem("qmlcustomlegend")
+        self.combo.addItem("qmlaxes")
+        self.combo.addItem("qmlpolarchart")
+        self.combo.addItem("qmlcustominput")
+        self.combo.addItem("qmlscatter")
+        self.combo.addItem("qmlspectrogram")
+        self.combo.currentTextChanged.connect(self.setComboBoxText)
+
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(self.combo)
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(view)
+        hbox2.addWidget(self.viewX)
+        #hbox2.addWidget(view2)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
+        container.setLayout(vbox)
         self.setCentralWidget(container)
+
+    def setComboBoxText(self):
+        self.viewX.setSource(QUrl("./{0}/main.qml".format(self.combo.currentText())))
+
 
 class SubWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -409,6 +427,8 @@ class MainWindow(QMainWindow):
         try:
             self.f = open(r'\\.\pipe\\' + pname, 'r+b', 0)
             self.flagOfDecode = True
+            if self.skip_header:
+                next(self.f)
             #print("Connect:{0}".format(pname))
             return 1
         except:
