@@ -2,18 +2,270 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.iml" afterPath="$PROJECT_DIR$/.idea/modules.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/LICENSE.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/QChart.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/QChart.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/QChartGallery.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/QChartGallery.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/qchart.js.pro" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/qml/jbQuick/qmldir" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/test.qml" afterPath="$PROJECT_DIR$/namedpipe/test.qml" />
-      <change beforePath="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" afterPath="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ChartViewTest.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ChartViewTest.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/.vs/ModuleTest/v15/.suo" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/.vs/ModuleTest/v15/sqlite3/storage.ide" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/App.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/CA_NamedPipe.csproj" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/Form1.Designer.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/Form1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/Form1.resx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/Program.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/Properties/AssemblyInfo.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/bin/Debug/CA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/bin/Debug/CA_NamedPipe.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/bin/Debug/CA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/bin/Debug/CA_NamedPipe.vshost.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/bin/Debug/CA_NamedPipe.vshost.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.Form1.resources" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.csproj.CoreCompileInputs.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.csproj.GenerateResource.Cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.csprojResolveAssemblyReference.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/CA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/CA_NamedPipe/obj/Release/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/ModuleTest.sln" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/App.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Form1.Designer.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Form1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Form1.resx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Program.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Properties/AssemblyInfo.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Properties/Resources.Designer.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Properties/Resources.resx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Properties/Settings.Designer.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/Properties/Settings.settings" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/WFA_NamedPipe.csproj" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.vshost.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Debug/WFA_NamedPipe.vshost.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.vshost.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.vshost.exe.config" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/bin/Release/WFA_NamedPipe.vshost.exe.manifest" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferences.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.Form1.resources" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.Properties.Resources.resources" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csproj.CoreCompileInputs.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csproj.GenerateResource.Cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.csprojResolveAssemblyReference.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Debug/WFA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/WFA_NamedPipe.Form1.resources" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/WFA_NamedPipe.Properties.Resources.resources" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/WFA_NamedPipe.csproj.GenerateResource.Cache" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/WFA_NamedPipe.exe" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/ModuleTest/WFA_NamedPipe/obj/Release/WFA_NamedPipe.pdb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/PointingRightHand.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/PointingRightHand.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/PointingViewer.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/PointingViewer.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/QtPainter.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/data.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/data2.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/funcanimation_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/namedpipe_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingHead.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingLeftArm.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingLeftHand.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingRightArm.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingRightHand.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/PointingViewer.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/QtPainter.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/paint/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View1.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View1.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View2.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View2.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View3.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/View3.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlaxes/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/Data.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/Data.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/NewButton.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/NewButton.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustominput/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/AnimatedAreaSeries.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/AnimatedAreaSeries.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewHighlighted.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewHighlighted.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewSelector.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewSelector.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewStacked.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/ChartViewStacked.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/CustomLegend.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/CustomLegend.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlcustomlegend/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View1.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View1.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View2.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View2.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View3.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/View3.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlpolarchart/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/Data.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/Data.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/NewButton.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/NewButton.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlscatter/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/Data.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/Data.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/NewButton.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/NewButton.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/qmlspectrogram/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/read_csv_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/recevier_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/test.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/test.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/clocks.pro" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/clocks.pro.user" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/clocks.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/clocks.qmlproject" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/clocks.qrc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/content/Clock.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/doc/src/clocks.qdoc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/clocks/main.cpp" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/doc/src/mapviewer.qdoc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/Geocode.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/GeocodeForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/Locale.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/LocaleForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/Message.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/MessageForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/ReverseGeocode.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/ReverseGeocodeForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteAddress.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteAddressForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteCoordinate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteCoordinateForm.ui.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteList.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteListDelegate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/forms/RouteListHeader.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/helper.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/helper.jsc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/main.cpp" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/CircleItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/ImageItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/MapComponent.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/MapComponent.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/MapSliders.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/MapSliders.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/Marker.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/MiniMap.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/PolygonItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/PolylineItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/map/RectangleItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/mapviewer.pro" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/mapviewer.pro.user" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/mapviewer.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/mapviewer.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/mapviewer.qrc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/ItemPopupMenu.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/ItemPopupMenu.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MainMenu.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MainMenu.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MapPopupMenu.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MapPopupMenu.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MarkerPopupMenu.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/mapviewer/menus/MarkerPopupMenu.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/LICENSE.md" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/QChart.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/QChart.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/QChartGallery.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/QChartGallery.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/README.md" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/qchart.js.pro" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qml/jbQuick/qmldir" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/Button.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/Button.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraBasic.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraDrag.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraDummy.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraFullScreen.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraFullScreenInverted.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraMove.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraOverlay.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraResize.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraRotate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/CameraSpin.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/Content.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/ErrorDialog.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/ErrorDialog.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/FileBrowser.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/FileBrowser.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/Scene.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneBasic.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneDrag.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneFullScreen.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneFullScreenInverted.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneMove.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneMulti.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneOverlay.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneResize.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneRotate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneSelectionPanel.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneSelectionPanel.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SceneSpin.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/SeekControl.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoBasic.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoDrag.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoDummy.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoFillMode.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoFullScreen.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoFullScreenInverted.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoItem.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoMetadata.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoMove.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoOverlay.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoPlaybackRate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoResize.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoRotate.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoSeek.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/VideoSpin.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlvideo/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlweather/main.qml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/tmp_qml/qmlweather/main.qmlc" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/treeview_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_btn_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_graph_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_matplot_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_menu_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_recevier.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_recevier_graph.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_slider_test.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/namedpipe/visual_test.py" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,13 +276,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="visual_recevier_graph_timeseriese.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="70" column="13" lean-forward="true" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+            <state relative-caret-position="-680">
+              <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plotdisplay_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="subdisplay_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="qmldisplay_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,6 +345,10 @@
       <find>sliderbar_display</find>
       <find>autoScrollMode</find>
       <find>100</find>
+      <find>open</find>
+      <find>open_file</find>
+      <find>print</find>
+      <find>fnameQle</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -78,14 +370,16 @@
         <option value="$PROJECT_DIR$/namedpipe/PointingRightHand.qml" />
         <option value="$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" />
         <option value="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+        <option value="$PROJECT_DIR$/namedpipe/main.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="172" />
-    <option name="y" value="52" />
-    <option name="width" value="1202" />
-    <option name="height" value="960" />
+    <option name="x" value="133" />
+    <option name="y" value="60" />
+    <option name="width" value="1457" />
+    <option name="height" value="904" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -114,7 +408,7 @@
             <path>
               <item name="modules" type="b2602c69:ProjectViewProjectNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="namedpipe" type="462c0819:PsiDirectoryNode" />
+              <item name="timeseriese_viewer" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -268,9 +562,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="172" y="52" width="1202" height="960" extended-state="0" />
+    <frame x="133" y="60" width="1457" height="904" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29173693" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24011104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25883695" sideWeight="0.50536096" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -320,173 +615,102 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
+    <entry file="file://$PROJECT_DIR$/namedpipe/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="32" column="30" lean-forward="true" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/test.qml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/funcanimation_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="10" lean-forward="false" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/funcanimation_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/namedpipe_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/test.qml" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/funcanimation_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/funcanimation_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/namedpipe_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_test.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/recevier_test.py" />
     <entry file="file://$PROJECT_DIR$/qml/PointingViewer.qml" />
     <entry file="file://$PROJECT_DIR$/qml/QtPainter.py" />
-    <entry file="file://$PROJECT_DIR$/namedpipe/treeview_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="53" column="45" lean-forward="false" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/namedpipe/treeview_test.py" />
     <entry file="file://$PROJECT_DIR$/namedpipe/qml/QtPainter.py" />
-    <entry file="file://$PROJECT_DIR$/namedpipe/PointingRightHand.qml">
+    <entry file="file://$PROJECT_DIR$/namedpipe/PointingRightHand.qml" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/PointingViewer.qml" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/QtPainter.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/test.qml" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
+    <entry file="file://$PROJECT_DIR$/namedpipe/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/PointingViewer.qml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/QtPainter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/test.qml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="493">
+          <caret line="29" column="44" lean-forward="false" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/qml_new_windowtest.py">
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/PyQt5/QtWidgets.pyi">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+        <state relative-caret-position="255">
+          <caret line="7104" column="6" lean-forward="false" selection-start-line="7104" selection-start-column="6" selection-end-line="7104" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py">
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/qmldisplay_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="70" column="13" lean-forward="true" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+        <state relative-caret-position="0">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-680">
+          <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>

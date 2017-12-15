@@ -2,124 +2,24 @@
 import sys
 import numpy as np
 from collections import deque
-
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-
-from PyQt5.QtCore import (QLineF, QPointF, QRectF, Qt, QUrl, QTimer)
-from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QGuiApplication)
-from PyQt5.QtWidgets import (QApplication, QGraphicsView, QGraphicsScene, QGraphicsItem,
-                             QGridLayout, QVBoxLayout, QHBoxLayout, QListView,
-                             QLabel, QLineEdit, QPushButton)
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QLCDNumber, QSlider, QListWidget, QCheckBox,
-                             QTableWidget, QTableWidgetItem, QAction, QComboBox, QSpinBox, QFileDialog)
-from PyQt5.QtQuick import QQuickView
+from PyQt5.QtCore import (Qt, QUrl, QTimer)
+from PyQt5.QtGui import (QStandardItemModel, QStandardItem)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
+                               QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
+                               QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog)
 from PyQt5.QtQuickWidgets import QQuickWidget
-from PyQt5.QtQml import QQmlApplicationEngine
 
+#from PyQt5.QtGui import QGuiApplication
+#from PyQt5.QtCore import (QLineF, QPointF, QRectF)
+#from PyQt5.QtWidgets import (QGraphicsView, QGraphicsScene, QGraphicsItem, QListWidget)
+#from PyQt5.QtQuick import QQuickView
+#from PyQt5.QtQml import QQmlApplicationEngine
 
-
-class QMLWindow(QMainWindow):
-    def __init__(self, parent=None):
-        QMainWindow.__init__(self, parent)
-        self.initUI()
-
-    def initUI(self):
-        container = QWidget()
-        #container.setMinimumSize(200, 200);
-        #container.setMaximumSize(200, 200);
-        container.setFocusPolicy(Qt.TabFocus)
-        view = QQuickWidget()
-        view.setSource(QUrl("PointingViewer.qml"))
-        view2 = QQuickWidget()
-        view2.setSource(QUrl("ChartViewTest.qml"))
-        self.viewX = QQuickWidget()
-        self.viewX.setSource(QUrl("./qmlcustomlegend/main.qml"))
-
-        self.combo = QComboBox(self)
-        self.combo.addItem("qmlcustomlegend")
-        self.combo.addItem("qmlaxes")
-        self.combo.addItem("qmlpolarchart")
-        self.combo.addItem("qmlcustominput")
-        self.combo.addItem("qmlscatter")
-        self.combo.addItem("qmlspectrogram")
-        self.combo.currentTextChanged.connect(self.setComboBoxText)
-
-        hbox1 = QHBoxLayout()
-        hbox1.addWidget(self.combo)
-        hbox2 = QHBoxLayout()
-        hbox2.addWidget(view)
-        hbox2.addWidget(self.viewX)
-        #hbox2.addWidget(view2)
-        vbox = QVBoxLayout()
-        vbox.addLayout(hbox1)
-        vbox.addLayout(hbox2)
-        container.setLayout(vbox)
-        self.setCentralWidget(container)
-
-    def setComboBoxText(self):
-        self.viewX.setSource(QUrl("./{0}/main.qml".format(self.combo.currentText())))
-
-
-class SubWindow(QMainWindow):
-    def __init__(self, parent=None):
-        QMainWindow.__init__(self, parent)
-        self.initUI()
-
-    def initUI(self):
-        self.setWindowTitle('Sub window') 
-        self.resize(640,480)
-        sub_frame = QWidget()
-        label = QLabel()
-        label.setText('Features')
-        table = QTableWidget()
-        table.setRowCount(10)
-        table.setColumnCount(10)
-        table.setItem(0,0, QTableWidgetItem("1"))
-        table.setItem(0,1, QTableWidgetItem("2"))
-        table.setItem(1,0, QTableWidgetItem("3"))
-        table.setItem(1,1, QTableWidgetItem("4"))
-        
-        grid = QGridLayout()
-        grid.addWidget(label)
-        grid.addWidget(table)
-        sub_frame.setLayout(grid)
-        self.setCentralWidget(sub_frame)
-
-class MainPlot():
-    def __init__(self, parent=None):
-        self.dpi = 100
-        self.fig = Figure((10,5), dpi=self.dpi)
-        self.canvas = FigureCanvas(self.fig)
-        self.canvas.setParent(parent)
-        self.axes = self.fig.add_subplot(111)
-        self.x = None
-        self.y1 = None
-        self.y2 = None
-        self.y3 = None
-        self.display_y = True
-        self.xlim_min = 0
-        self.xlim_max = 100
-        self.ylim_max = 50
-        self.ylim_min = 0
-        self.grid_flag = True
-
-    def draw(self):
-        self.axes.clear()
-        self.axes.grid(self.grid_flag)
-        self.axes.set_xlim([self.xlim_min, self.xlim_max])
-        self.axes.set_ylim([self.ylim_min, self.ylim_max])
-        colorlist = ["b", "g", "r", "c", "m", "y", "k", "w",
-                     '#e41a1c', '#377eb8', '#4daf4a', '#984ea3',
-                     '#ff7f00', '#ffff33', '#a65628', '#f781bf']
-        
-        if self.display_x:
-            self.axes.plot(self.x, self.y1, color=colorlist[0])
-        if self.display_y:
-            self.axes.plot(self.x, self.y2, color=colorlist[1])
-        if self.display_z:
-            self.axes.plot(self.x, self.y3, color=colorlist[2])
-        self.canvas.draw()
+from mypackage.plotdisplay_test import MainPlotWindow
+from mypackage.qmldisplay_test import QMLWindow
+from mypackage.subdisplay_test import SubWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -136,11 +36,13 @@ class MainWindow(QMainWindow):
                             "ShoulderRight":8, "ElbowRight":9, "WristRight":10, "HandRight":11,
                             "SpineShoulder":12, "HandTipLeft":13, "HandTipRight":14
         }
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_figure)
 
     def initUI(self):
-        self.setWindowTitle('Main window') 
+        self.setWindowTitle('Main window')
         main_frame = QWidget()
-        self.main_plot = MainPlot(main_frame)
+        self.main_plot = MainPlotWindow(main_frame)
 
         ### set Slider for refresh
         upinlabel = QLabel()
@@ -155,7 +57,7 @@ class MainWindow(QMainWindow):
         self.sld.setFixedWidth(300)
         self.sld.setTickPosition(QSlider.TicksBothSides)
         self.sld.valueChanged.connect(lcd.display)
-        
+
         ### set Spinbox
         pltnum_label = QLabel()
         pltnum_label.setText('Plot Num:')
@@ -298,7 +200,7 @@ class MainWindow(QMainWindow):
         hbox1.addWidget(registBtn)
         hbox1.addWidget(pnlabel)
         hbox1.addWidget(self.pnameQle)
-        
+
         ### set Layout2
         hbox2 = QHBoxLayout()
         hbox2.addWidget(restopBtn)
@@ -348,14 +250,14 @@ class MainWindow(QMainWindow):
 
         ### set widget
         self.setCentralWidget(main_frame)
-   
+
         ###
         self.exitActionUI()
         self.readActionUI()
         self.connectActionUI()
         self.opensubWindowActionUI()
         self.openQMLWindowActionUI()
-        
+
         self.statusBar()
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
@@ -378,19 +280,19 @@ class MainWindow(QMainWindow):
         self.readAction = QAction('Start', self)
         self.readAction.setShortcut('Ctrl+S')
         self.readAction.setStatusTip('Start to read the data from the text file')
-        self.readAction.triggered.connect(self.read_csvfile) 
-    
+        self.readAction.triggered.connect(self.read_csvfile)
+
     def connectActionUI(self):
         self.connectAction = QAction('Connect', self)
         self.connectAction.setShortcut('Ctrl+C')
         self.connectAction.setStatusTip('Connect to get the data by the NamedPipes from other application')
         self.connectAction.triggered.connect(self.connect_namedpipe)
-    
+
     def opensubWindowActionUI(self):
         self.openwindowAction= QAction('Display', self)
         self.openwindowAction.setShortcut('Ctrl+W')
         self.openwindowAction.setStatusTip('Open the table window of features')
-        self.openwindowAction.triggered.connect(self.open_subwindow) 
+        self.openwindowAction.triggered.connect(self.open_subwindow)
 
     def openQMLWindowActionUI(self):
         self.openQMLAction= QAction('QML', self)
@@ -402,18 +304,15 @@ class MainWindow(QMainWindow):
         self.counter = 0
         self.fval = deque([])
 
-    ### namedpipe 
+    ### namedpipe
     def regist_namedpipe(self):
         self.pname = self.pnameQle.text()
-        
+
     def connect_namedpipe(self):
         if self.runOn:
             return 0
-
         if self.setting_pipename(self.pname) > 0:
             self.declareCommonVal()
-            self.timer = QTimer(self)
-            self.timer.timeout.connect(self.update_figure)
             self.timer.start(self.sld.value()) #(ms)
 
     def loop_connect_namedpipe(self):
@@ -439,21 +338,18 @@ class MainWindow(QMainWindow):
     def read_csvfile(self):
         if self.runOn:
             return 0
-
         if self.setting_textname(self.fnameQle.text()) > 0:
             self.declareCommonVal()
-            self.timer = QTimer(self)
-            self.timer.timeout.connect(self.update_figure)
             self.timer.start(self.sld.value()) #(ms)
 
     def setting_textname(self, fname):
         try:
             self.f = open(fname, 'r')
             self.flagOfDecode = False
-            
+
             if self.skip_header:
                 next(self.f)
-            
+
             #print("Connect:{0}".format(fname))
             return 1
         except:
@@ -527,7 +423,7 @@ class MainWindow(QMainWindow):
     def update_figure(self):
         self.counter += 1
         self.update_data()
-        self.update_plot_data()        
+        self.update_plot_data()
         self.runOn = self.timer.isActive()
 
     def updateTargetData(self):
@@ -554,13 +450,13 @@ class MainWindow(QMainWindow):
         self.main_plot.grid_flag = self.grid_cb.checkState()
 
         self.main_plot.draw()
-    
+
     def skip_space_csv(self, str_data):
         for i in range(len(str_data)):
             if len(str_data[i]) == 0:
                 str_data[i] = np.nan
         return str_data
-    
+
     def update_data(self):
         try:
             s = self.f.readline()
@@ -571,16 +467,16 @@ class MainWindow(QMainWindow):
             self.timer.stop()
             #print("Can't get the data")
         finally:
-            pass    
-        
+            pass
+
         if(proc_on):
             ## decode flag
             if(self.flagOfDecode):
                 str_data = s.decode('utf-8').split('\r\n')[0]
             else:
                 str_data = s.split('\n')[0];
-                
-            if str_data == '':               
+
+            if str_data == '':
                 self.timer.stop() #タイマーを起動させ続けると動作が重くなるため注意
                 self.f.close()
             else:
@@ -596,10 +492,9 @@ class MainWindow(QMainWindow):
                 self.updateTargetData()
                 self.framelabel.setText("Frame:{0}".format(self.counter - 1))
 
-
 def main(args):
     app = QApplication(sys.argv)
-    mainWindow = MainWindow() #QMLWindow()
+    mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec_())
 
