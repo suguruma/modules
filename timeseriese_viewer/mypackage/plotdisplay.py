@@ -36,6 +36,7 @@ class MainPlotWindow():
         self.th_x_min = 0
         self.th_y_min = 0
         self.th_z_min = 0
+        self.current_x = 0
 
     def draw(self):
         self.axes.clear()
@@ -43,7 +44,7 @@ class MainPlotWindow():
         self.axes.set_xlim([self.xlim_min, self.xlim_max])
         self.axes.set_ylim([self.ylim_min, self.ylim_max])
         colorlist = ["b", "g", "r", "c", "m", "y", "k", "w",
-                     '#377eb8','#4daf4a', '#e41a1c', '#984ea3',
+                     '#377eb8','#4daf4a', '#e41a1c', '#000000',
                      '#ff7f00', '#ffff33', '#a65628', '#f781bf']
         linestyles = ['-', '--', '-.', ':']
 
@@ -51,18 +52,19 @@ class MainPlotWindow():
             self.axes.plot(self.x, self.y1, color=colorlist[0])
 
             # threshold line
-            self.axes.hlines(self.th_x , self.xlim_min, self.xlim_max, colorlist[8], linestyles[1])
-            self.axes.hlines(self.th_x_max , self.xlim_min, self.xlim_max, colorlist[8], linestyles[3], alpha=0.7)
-            self.axes.hlines(self.th_x_min , self.xlim_min, self.xlim_max, colorlist[8], linestyles[3], alpha=0.7)
+            self.axes.hlines(self.th_x , self.xlim_min, self.xlim_max, colorlist[8], linestyles[3])
+            self.axes.hlines(self.th_x_max , self.xlim_min, self.xlim_max, colorlist[8], linestyles[1], alpha=0.5)
+            self.axes.hlines(self.th_x_min , self.xlim_min, self.xlim_max, colorlist[8], linestyles[1], alpha=0.5)
         if self.display_y:
             self.axes.plot(self.x, self.y2, color=colorlist[1])
-            self.axes.hlines(self.th_y , self.xlim_min, self.xlim_max, colorlist[9], linestyles[1])
-            self.axes.hlines(self.th_y_max , self.xlim_min, self.xlim_max, colorlist[9], linestyles[3], alpha=0.7)
-            self.axes.hlines(self.th_y_min , self.xlim_min, self.xlim_max, colorlist[9], linestyles[3], alpha=0.7)
+            self.axes.hlines(self.th_y , self.xlim_min, self.xlim_max, colorlist[9], linestyles[3])
+            self.axes.hlines(self.th_y_max , self.xlim_min, self.xlim_max, colorlist[9], linestyles[1], alpha=0.5)
+            self.axes.hlines(self.th_y_min , self.xlim_min, self.xlim_max, colorlist[9], linestyles[1], alpha=0.5)
         if self.display_z:
             self.axes.plot(self.x, self.y3, color=colorlist[2])
-            self.axes.hlines(self.th_z , self.xlim_min, self.xlim_max, colorlist[10], linestyles[1])
-            self.axes.hlines(self.th_z_max , self.xlim_min, self.xlim_max, colorlist[10], linestyles[3], alpha=0.7)
-            self.axes.hlines(self.th_z_min , self.xlim_min, self.xlim_max, colorlist[10], linestyles[3], alpha=0.7)
+            self.axes.hlines(self.th_z , self.xlim_min, self.xlim_max, colorlist[10], linestyles[3])
+            self.axes.hlines(self.th_z_max , self.xlim_min, self.xlim_max, colorlist[10], linestyles[1], alpha=0.5)
+            self.axes.hlines(self.th_z_min , self.xlim_min, self.xlim_max, colorlist[10], linestyles[1], alpha=0.5)
 
+        self.axes.vlines(self.current_x , self.ylim_min, self.ylim_max, colorlist[11], linestyles[0], alpha=0.7)
         self.canvas.draw()

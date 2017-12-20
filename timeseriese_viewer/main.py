@@ -19,7 +19,9 @@ from PyQt5.QtQuickWidgets import QQuickWidget
 
 from mypackage.plotdisplay import MainPlotWindow
 from mypackage.qmldisplay_test import QMLWindow
-from mypackage.subdisplay_test import SubWindow
+from mypackage.subdisplay_test import FeaturesWindow
+from mypackage.calcactivity import KeyActivityTime
+from mypackage.timedisplay import OperatingTimeWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -58,8 +60,16 @@ class MainWindow(QMainWindow):
         self.flagKeyActiveY = False
         self.flagKeyActiveZ = False
 
+        ### Key Acitivity
+        self.keyfunc = KeyActivityTime()
+        self.timeWindow = OperatingTimeWindow()
+        self.timeWindow.show()
+
+        ### Check Features
+        self.featuresWindow = FeaturesWindow()
+
     def initUI(self):
-        self.setWindowTitle('Time Seriese Viewer ver.0.1')
+        self.setWindowTitle('Time Seriese Analysis ver.0.1')
         main_frame = QWidget()
         self.main_plot = MainPlotWindow(main_frame)
 
@@ -183,6 +193,10 @@ class MainWindow(QMainWindow):
         ### display frame image
         self.lbl_image = QLabel(self)
         #self.lbl_image.setPixmap(QPixmap("./data/bg.jpg"))
+        self.frameNumbSpb = QSpinBox()
+        self.frameNumbSpb.setRange(0, 9999)
+        self.frameNumbSpb.setValue(0)
+        self.frameNumbSpb.valueChanged.connect(self.updateWrapper)
 
         ### set file layout
         self.fnameQle = QLineEdit(self)
@@ -231,6 +245,7 @@ class MainWindow(QMainWindow):
         self.th_sldvXqsb.setRange(-50, 50)
         self.th_sldvXqsb.setValue(self.th_sldvX.value())
         self.th_sldvX.valueChanged.connect(self.setGraphParameter)
+        self.th_sldvX.valueChanged.connect(self.refreshGraphSlider)
 
         self.th_sldvY = QSlider(Qt.Vertical, self)
         self.th_sldvY.setRange(-50, 50)
@@ -239,6 +254,7 @@ class MainWindow(QMainWindow):
         self.th_sldvYqsb.setRange(-50, 50)
         self.th_sldvYqsb.setValue(self.th_sldvY.value())
         self.th_sldvY.valueChanged.connect(self.setGraphParameter)
+        self.th_sldvY.valueChanged.connect(self.refreshGraphSlider)
 
         self.th_sldvZ = QSlider(Qt.Vertical, self)
         self.th_sldvZ.setRange(-50, 50)
@@ -247,14 +263,18 @@ class MainWindow(QMainWindow):
         self.th_sldvZqsb.setRange(-50, 50)
         self.th_sldvZqsb.setValue(self.th_sldvZ.value())
         self.th_sldvZ.valueChanged.connect(self.setGraphParameter)
+        self.th_sldvZ.valueChanged.connect(self.refreshGraphSlider)
 
         ###
         self.th_varianceXqsb = QSpinBox()
         self.th_varianceXqsb.setRange(0, 1000)
+        self.th_varianceXqsb.valueChanged.connect(self.refreshGraphSpinBox)
         self.th_varianceYqsb = QSpinBox()
         self.th_varianceYqsb.setRange(0, 1000)
+        self.th_varianceYqsb.valueChanged.connect(self.refreshGraphSpinBox)
         self.th_varianceZqsb = QSpinBox()
         self.th_varianceZqsb.setRange(0, 1000)
+        self.th_varianceZqsb.valueChanged.connect(self.refreshGraphSpinBox)
 
         ### set layout
         hbox1 = QHBoxLayout()
@@ -271,6 +291,7 @@ class MainWindow(QMainWindow):
         hbox2 = QHBoxLayout()
         hbox2.addWidget(restopBtn)
         hbox2.addWidget(self.framelabel)
+        hbox2.addWidget(self.frameNumbSpb)
         hbox2.addStretch(1)
         hbox2.addWidget(self.grid_cb)
         hbox2.addWidget(self.loop_connnect_cb)
@@ -400,6 +421,7 @@ class MainWindow(QMainWindow):
         self.counter = 0
         self.fval = deque([])
         self.imglist = deque([])
+        self.keyfunc.initFrameLabel()
 
     ### namedpipe
     def regist_namedpipe(self):
@@ -436,7 +458,7 @@ class MainWindow(QMainWindow):
         if self.runOn:
             return 0
         if self.setting_textname(self.fnameQle.text()) > 0:
-            print("Start: Data Analysis ...")
+            #print("Start: Data Analysis ...")
             self.declareCommonVal()
             self.getFrameImages()
             self.timer.start(self.sld.value()) #(ms)
@@ -486,7 +508,7 @@ class MainWindow(QMainWindow):
         self.fnameQle.setText(filename[0])
 
     def open_folder(self):
-        foldername = QFileDialog.getExistingDirectory(self, 'Open Directory') #, os.path.expanduser('~') + '/Desktop')
+        foldername = QFileDialog.getExistingDirectory(self, 'Open Directory', '.') #, os.path.expanduser('~') + '/Desktop')
         self.qlw_model.clear()
 
         import glob
@@ -507,6 +529,8 @@ class MainWindow(QMainWindow):
         self.sldh1qsb.setValue(self.sldh1.value())
         self.sldh2qsb.setValue(self.sldh2.value())
         self.pltnum_qsb.setValue(self.pltnum_sld.value())
+        if not self.runOn:
+            self.update_plot_data()
 
     def refreshGraphSlider(self):
         self.sldv1.setValue(self.sldv1qsb.value())
@@ -514,6 +538,8 @@ class MainWindow(QMainWindow):
         self.sldh1.setValue(self.sldh1qsb.value())
         self.sldh2.setValue(self.sldh2qsb.value())
         self.pltnum_sld.setValue(self.pltnum_qsb.value())
+        if not self.runOn:
+            self.update_plot_data()
 
     def autoScrollMode(self):
         if self.autoScrollqb.isChecked():
@@ -527,8 +553,7 @@ class MainWindow(QMainWindow):
 
     #### new form
     def open_subwindow(self):
-        subWindow = SubWindow(self)
-        subWindow.show()
+        self.featuresWindow.show()
 
     ### QML
     def open_qmlwindow(self):
@@ -548,9 +573,11 @@ class MainWindow(QMainWindow):
             self.flagKeyActiveZ = True
 
         if self.flagKeyActiveX and self.flagKeyActiveY and self.flagKeyActiveZ:
-            print("Key Frame:{0}".format(self.counter))
+            self.keyfunc.setFrameLabel(1) #"key")
+            #print("Key Frame:{0}".format(self.counter))
         else:
-            print("Main Frame:{0}".format(self.counter))
+            self.keyfunc.setFrameLabel(0) # "main")
+            #print("Main Frame:{0}".format(self.counter))
 
     ### graph update
     def update_figure(self):
@@ -558,6 +585,13 @@ class MainWindow(QMainWindow):
         self.update_data()
         self.update_plot_data()
         self.runOn = self.timer.isActive()
+
+        if not self.runOn:
+            #print("Analysis End")
+            self.keyfunc.FPS = self.timeWindow.fpsSb.value()
+            self.keyfunc.displayLabel()
+            self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
+            self.timeWindow.calcDifferenceOperatingTime()
 
     def updateTargetData(self):
         self.x = np.arange(len(self.fval))
@@ -568,7 +602,7 @@ class MainWindow(QMainWindow):
         self.th_x = self.th_sldvXqsb.value() / self.th_sldv_baseX_qsb.value()
         self.th_y = self.th_sldvYqsb.value() / self.th_sldv_baseY_qsb.value()
         self.th_z = self.th_sldvZqsb.value() / self.th_sldv_baseZ_qsb.value()
-        self.th_x_variance = self.th_varianceXqsb.value()  / self.th_sldv_baseX_qsb.value()
+        self.th_x_variance = self.th_varianceXqsb.value() / self.th_sldv_baseX_qsb.value()
         self.th_x_max = self.th_x + self.th_x_variance
         self.th_x_min = self.th_x - self.th_x_variance
         self.th_y_variance = self.th_varianceYqsb.value() / self.th_sldv_baseY_qsb.value()
@@ -590,8 +624,8 @@ class MainWindow(QMainWindow):
         self.main_plot.display_z = self.cbz.checkState()
         self.main_plot.xlim_min = self.sldh1.value()
         self.main_plot.xlim_max = self.sldh2.value()
-        self.main_plot.ylim_max =  self.sldv1qsb.value()
-        self.main_plot.ylim_min =  self.sldv2qsb.value()
+        self.main_plot.ylim_max = self.sldv1qsb.value()
+        self.main_plot.ylim_min = self.sldv2qsb.value()
         self.main_plot.grid_flag = self.grid_cb.checkState()
         self.main_plot.th_x = self.th_x
         self.main_plot.th_x_max = self.th_x_max
@@ -602,14 +636,18 @@ class MainWindow(QMainWindow):
         self.main_plot.th_z = self.th_z
         self.main_plot.th_z_max = self.th_z_max
         self.main_plot.th_z_min = self.th_z_min
+        self.main_plot.current_x = self.frameNumbSpb.value()
         self.updateImage()
         self.calcActivityStatus()
         self.main_plot.draw()
 
     def updateImage(self):
-        if self.counter < len(self.imglist):
-            self.lbl_image.setPixmap(QPixmap(self.imglist[self.counter]))
+        if self.frameNumbSpb.value() < len(self.imglist):
+            self.lbl_image.setPixmap(QPixmap(self.imglist[self.frameNumbSpb.value()]))
 
+    def updateWrapper(self):
+        if not self.runOn and 0 < self.counter - 1:
+            self.update_plot_data()
 
     def skip_space_csv(self, str_data):
         for i in range(len(str_data)):
@@ -650,7 +688,8 @@ class MainWindow(QMainWindow):
                     self.fval.popleft()
 
                 self.updateTargetData()
-                self.framelabel.setText("Frame:{0}".format(self.counter - 1))
+                self.frameNumbSpb.setValue(self.counter - 1)
+                self.framelabel.setText("Frame:") #{0}".format(self.counter - 1))
 
 def main(args):
     app = QApplication(sys.argv)
