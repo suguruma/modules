@@ -22,11 +22,27 @@ from mypackage.qmldisplay_test import QMLWindow
 from mypackage.subdisplay_test import FeaturesWindow
 from mypackage.calcactivity import KeyActivityTime
 from mypackage.timedisplay import OperatingTimeWindow
+from mypackage.uidisplay import UI_MainWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
+        self.setWindowTitle('Time Seriese Analysis ver.0.1')
+        self.setGeometry(400, 100, 0, 0);
+        self.setParameter()
+        self.ui = UI_MainWindow()
+        self.ui.setupUi(self)
+
+        ### Key Acitivity
+        self.keyfunc = KeyActivityTime()
+        self.timeWindow = OperatingTimeWindow()
+        self.timeWindow.show()
+
+        ### Check Features
+        self.featuresWindow = FeaturesWindow()
+
+    def setParameter(self):
         ### Setting Graph
         self.th_x = 0.5
         self.th_x_variance = 0.2
@@ -51,371 +67,17 @@ class MainWindow(QMainWindow):
                             "ShoulderRight":8, "ElbowRight":9, "WristRight":10, "HandRight":11,
                             "SpineShoulder":12, "HandTipLeft":13, "HandTipRight":14
         }
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_figure)
-        self.initUI()
 
         ### Activity Parameter
         self.flagKeyActiveX = False
         self.flagKeyActiveY = False
         self.flagKeyActiveZ = False
 
-        ### Key Acitivity
-        self.keyfunc = KeyActivityTime()
-        self.timeWindow = OperatingTimeWindow()
-        self.timeWindow.show()
-
-        ### Check Features
-        self.featuresWindow = FeaturesWindow()
-
-    def initUI(self):
-        self.setWindowTitle('Time Seriese Analysis ver.0.1')
-        main_frame = QWidget()
-        self.main_plot = MainPlotWindow(main_frame)
-
-        ### set Slider for refresh
-        upinlabel = QLabel()
-        upinlabel.setText('Update Interval:')
-        mslabel = QLabel()
-        mslabel.setText('msec')
-        lcd = QLCDNumber(self)
-        lcd.display(30)
-        self.sld = QSlider(Qt.Horizontal, self)
-        self.sld.setRange(1, 1000)
-        self.sld.setValue(30)
-        self.sld.setFixedWidth(300)
-        self.sld.setTickPosition(QSlider.TicksBothSides)
-        self.sld.valueChanged.connect(lcd.display)
-
-        ### set Spinbox
-        pltnum_label = QLabel()
-        pltnum_label.setText('Plot Num:')
-        self.pltnum_qsb = QSpinBox()
-        self.pltnum_qsb.setRange(10, 9999)
-        self.pltnum_qsb.setValue(300)
-        self.pltnum_sld = QSlider(Qt.Horizontal, self)
-        self.pltnum_sld.setRange(10, 1000)
-        self.pltnum_sld.setValue(300)
-        self.pltnum_sld.setFixedWidth(300)
-        self.pltnum_sld.valueChanged.connect(self.refreshGraphSpinBox)
-        self.pltnum_qsb.valueChanged.connect(self.refreshGraphSlider)
-
-        ### set Button, TextBox
-        self.pnameQle = QLineEdit(self)
-        self.pnameQle.setText("NPtest")
-        pnlabel = QLabel()
-        pnlabel.setText('Pipe Name:')
-        registBtn = QPushButton("Register")
-        registBtn.clicked.connect(self.regist_namedpipe)
-        self.regist_namedpipe()
-
-        ###
-        self.sldv1 = QSlider(Qt.Vertical, self)
-        self.sldv1.setRange(1, 200)
-        self.sldv1.setValue(1)
-        self.sldv1.setFixedHeight(200)
-        self.sldv1qsb = QSpinBox()
-        self.sldv1qsb.setRange(1, 9999)
-        self.sldv1qsb.setValue(self.sldv1.value())
-        self.sldv1.valueChanged.connect(self.refreshGraphSpinBox)
-        self.sldv1qsb.valueChanged.connect(self.refreshGraphSlider)
-        self.sldv2 = QSlider(Qt.Vertical, self)
-        self.sldv2.setRange(-200, 0)
-        self.sldv2.setValue(-1)
-        self.sldv2.setFixedHeight(200)
-        self.sldv2qsb = QSpinBox()
-        self.sldv2qsb.setRange(-9999, 0)
-        self.sldv2qsb.setValue(self.sldv2.value())
-        self.sldv2.valueChanged.connect(self.refreshGraphSpinBox)
-        self.sldv2qsb.valueChanged.connect(self.refreshGraphSlider)
-
-        ### display graph
-        self.framelabel = QLabel()
-        self.framelabel.setText("Frame:{0}".format(0))
-        restopBtn = QPushButton("Stop | Restart")
-        restopBtn.clicked.connect(self.process_stop_restart)
-        refreshBtn = QPushButton("Refresh")
-        refreshBtn.clicked.connect(self.update_plot_data)
-
-        self.combo = QComboBox(self)
-        self.combo.addItem("SpineBase")
-        self.combo.addItem("HandLeft")
-        self.combo.addItem("HandRight")
-        self.combo.addItem("ShoulderLeft")
-        self.combo.addItem("ShoulderRight")
-        self.combo.addItem("Head")
-        self.combo.addItem("SpineMid")
-        self.combo.addItem("Neck")
-        self.combo.addItem("ElbowLeft")
-        self.combo.addItem("WristLeft")
-        self.combo.addItem("ElbowRight")
-        self.combo.addItem("WristRight")
-        self.combo.addItem("SpineShoulder")
-        self.combo.addItem("HandTipLeft")
-        self.combo.addItem("HandTipRight")
-        self.combo.currentTextChanged.connect(self.update_plot_data)
-
-        self.cbx = QCheckBox('X', self)
-        self.cby = QCheckBox('Y', self)
-        self.cbz = QCheckBox('Z', self)
-        self.cbx.toggle()
-        self.cby.toggle()
-        self.cbz.toggle()
-        self.grid_cb = QCheckBox('Grid', self)
-        self.grid_cb.toggle()
-        self.loop_connnect_cb = QCheckBox('Loop', self)
-        self.loop_connnect_cb.stateChanged.connect(self.loop_connect_namedpipe)
-
-        ###
-        self.sldh1 = QSlider(Qt.Horizontal, self)
-        self.sldh1.setRange(-10, 1000)
-        self.sldh1.setValue(0)
-        self.sldh1qsb = QSpinBox()
-        self.sldh1qsb.setRange(-100, 9999)
-        self.sldh1qsb.setValue(self.sldh1.value())
-        self.sldh1.valueChanged.connect(self.refreshGraphSpinBox)
-        self.sldh1qsb.valueChanged.connect(self.refreshGraphSlider)
-        self.sldh2 = QSlider(Qt.Horizontal, self)
-        self.sldh2.setRange(1, 1000)
-        self.sldh2.setValue(150)
-        self.sldh2qsb = QSpinBox()
-        self.sldh2qsb.setRange(1, 9999)
-        self.sldh2qsb.setValue(self.sldh2.value())
-        self.sldh2.valueChanged.connect(self.refreshGraphSpinBox)
-        self.sldh2qsb.valueChanged.connect(self.refreshGraphSlider)
-        self.autoScrollqb = QCheckBox('Auto', self)
-        self.autoScrollLabel = QLabel()
-        self.autoScrollLabel.setText('Span:')
-        self.autoScrollSpanNum_qsb = QSpinBox()
-        self.autoScrollSpanNum_qsb.setRange(10, 1000)
-        self.autoScrollSpanNum_qsb.setValue(100)
-
-        ### display frame image
-        self.lbl_image = QLabel(self)
-        #self.lbl_image.setPixmap(QPixmap("./data/bg.jpg"))
-        self.frameNumbSpb = QSpinBox()
-        self.frameNumbSpb.setRange(0, 9999)
-        self.frameNumbSpb.setValue(0)
-        self.frameNumbSpb.valueChanged.connect(self.updateWrapper)
-
-        ### set file layout
-        self.fnameQle = QLineEdit(self)
-        self.fnameQle.setText("data.csv")
-        self.openfile_Btn = QPushButton('Open File')
-        self.openfile_Btn.clicked.connect(self.open_file)
-        self.openfolder_Btn = QPushButton('Open Folder')
-        self.openfolder_Btn.clicked.connect(self.open_folder)
-        self.fextQle = QLineEdit(self)
-        self.fextQle.setText("csv")
-        self.fextQle.setFixedWidth(75)
-        setFileBtn = QPushButton("Set File")
-        setFileBtn.clicked.connect(self.setfile_from_filelist)
-
-        self.qlistview = QListView(self)
-        self.qlw_model = QStandardItemModel(self)
-        self.qlistview.setModel(self.qlw_model)
-
-        hbox0 = QHBoxLayout()
-        hbox0.addWidget(self.openfile_Btn)
-        hbox0.addWidget(self.fnameQle)
-
-        hbox01 = QHBoxLayout()
-        vbox_hbox01 = QVBoxLayout()
-        vbox_hbox01.addWidget(self.openfolder_Btn)
-        vbox_hbox01.addWidget(self.fextQle)
-        vbox_hbox01.addWidget(setFileBtn)
-        hbox01.addLayout(vbox_hbox01)
-        hbox01.addWidget(self.qlistview)
-
-        ### threshold set UI
-        self.th_sldv_baseX_qsb = QSpinBox()
-        self.th_sldv_baseX_qsb.setRange(1, 1000)
-        self.th_sldv_baseX_qsb.setValue(20)
-        self.th_sldv_baseY_qsb = QSpinBox()
-        self.th_sldv_baseY_qsb.setRange(1, 1000)
-        self.th_sldv_baseY_qsb.setValue(20)
-        self.th_sldv_baseZ_qsb = QSpinBox()
-        self.th_sldv_baseZ_qsb.setRange(1, 1000)
-        self.th_sldv_baseZ_qsb.setValue(20)
-
-        self.th_sldvX = QSlider(Qt.Vertical, self)
-        self.th_sldvX.setRange(-50, 50)
-        self.th_sldvX.setValue(0)
-        self.th_sldvXqsb = QSpinBox()
-        self.th_sldvXqsb.setRange(-50, 50)
-        self.th_sldvXqsb.setValue(self.th_sldvX.value())
-        self.th_sldvX.valueChanged.connect(self.setGraphParameter)
-        self.th_sldvX.valueChanged.connect(self.refreshGraphSlider)
-
-        self.th_sldvY = QSlider(Qt.Vertical, self)
-        self.th_sldvY.setRange(-50, 50)
-        self.th_sldvY.setValue(0)
-        self.th_sldvYqsb = QSpinBox()
-        self.th_sldvYqsb.setRange(-50, 50)
-        self.th_sldvYqsb.setValue(self.th_sldvY.value())
-        self.th_sldvY.valueChanged.connect(self.setGraphParameter)
-        self.th_sldvY.valueChanged.connect(self.refreshGraphSlider)
-
-        self.th_sldvZ = QSlider(Qt.Vertical, self)
-        self.th_sldvZ.setRange(-50, 50)
-        self.th_sldvZ.setValue(0)
-        self.th_sldvZqsb = QSpinBox()
-        self.th_sldvZqsb.setRange(-50, 50)
-        self.th_sldvZqsb.setValue(self.th_sldvZ.value())
-        self.th_sldvZ.valueChanged.connect(self.setGraphParameter)
-        self.th_sldvZ.valueChanged.connect(self.refreshGraphSlider)
-
-        ###
-        self.th_varianceXqsb = QSpinBox()
-        self.th_varianceXqsb.setRange(0, 1000)
-        self.th_varianceXqsb.valueChanged.connect(self.refreshGraphSpinBox)
-        self.th_varianceYqsb = QSpinBox()
-        self.th_varianceYqsb.setRange(0, 1000)
-        self.th_varianceYqsb.valueChanged.connect(self.refreshGraphSpinBox)
-        self.th_varianceZqsb = QSpinBox()
-        self.th_varianceZqsb.setRange(0, 1000)
-        self.th_varianceZqsb.valueChanged.connect(self.refreshGraphSpinBox)
-
-        ### set layout
-        hbox1 = QHBoxLayout()
-        hbox1.addWidget(upinlabel)
-        hbox1.addWidget(lcd)
-        hbox1.addWidget(mslabel)
-        hbox1.addWidget(self.sld)
-        hbox1.addStretch(1)
-        hbox1.addWidget(registBtn)
-        hbox1.addWidget(pnlabel)
-        hbox1.addWidget(self.pnameQle)
-
-        ### set Layout2
-        hbox2 = QHBoxLayout()
-        hbox2.addWidget(restopBtn)
-        hbox2.addWidget(self.framelabel)
-        hbox2.addWidget(self.frameNumbSpb)
-        hbox2.addStretch(1)
-        hbox2.addWidget(self.grid_cb)
-        hbox2.addWidget(self.loop_connnect_cb)
-        hbox2.addStretch(1)
-        hbox2.addWidget(pltnum_label)
-        hbox2.addWidget(self.pltnum_sld)
-        hbox2.addWidget(self.pltnum_qsb)
-        hbox2.addWidget(refreshBtn)
-        hbox2.addWidget(self.combo)
-        hbox2.addWidget(self.cbx)
-        hbox2.addWidget(self.cby)
-        hbox2.addWidget(self.cbz)
-
-        ### set Layout3
-        hbox3 = QHBoxLayout()
-
-        ## set image
-        hbox3.addWidget(self.lbl_image)
-
-        hbox3_vbox = QVBoxLayout()
-        hbox3_vbox.addWidget(self.sldv1)
-        hbox3_vbox.addWidget(self.sldv1qsb)
-        hbox3_vbox.addStretch(1)
-        hbox3_vbox.addWidget(self.sldv2qsb)
-        hbox3_vbox.addWidget(self.sldv2)
-
-        ## set threshold param
-        hbox3.addLayout(hbox3_vbox)
-        hbox3.addWidget(self.main_plot.canvas, 10)
-        hbox3_th = QHBoxLayout()
-        hbox3_vbox_th1 = QVBoxLayout()
-        hbox3_vbox_th1.addWidget(self.th_sldvXqsb)
-        hbox3_vbox_th1.addWidget(self.th_sldvX)
-        hbox3_vbox_th1.addWidget(self.th_sldv_baseX_qsb)
-        hbox3_vbox_th1.addWidget(self.th_varianceXqsb)
-        hbox3_th.addLayout(hbox3_vbox_th1)
-        hbox3_vbox_th2 = QVBoxLayout()
-        hbox3_vbox_th2.addWidget(self.th_sldvYqsb)
-        hbox3_vbox_th2.addWidget(self.th_sldvY)
-        hbox3_vbox_th2.addWidget(self.th_sldv_baseY_qsb)
-        hbox3_vbox_th2.addWidget(self.th_varianceYqsb)
-        hbox3_th.addLayout(hbox3_vbox_th2)
-        hbox3_vbox_th3 = QVBoxLayout()
-        hbox3_vbox_th3.addWidget(self.th_sldvZqsb)
-        hbox3_vbox_th3.addWidget(self.th_sldvZ)
-        hbox3_vbox_th3.addWidget(self.th_sldv_baseZ_qsb)
-        hbox3_vbox_th3.addWidget(self.th_varianceZqsb)
-        hbox3_th.addLayout(hbox3_vbox_th3)
-        hbox3.addLayout(hbox3_th)
-
-        ### set Layout4
-        hbox4 = QHBoxLayout()
-        hbox4.addWidget(self.sldh1)
-        hbox4.addWidget(self.sldh1qsb)
-        hbox4.addWidget(self.autoScrollLabel)
-        hbox4.addWidget(self.autoScrollSpanNum_qsb)
-        hbox4.addWidget(self.autoScrollqb)
-        hbox4.addWidget(self.sldh2qsb)
-        hbox4.addWidget(self.sldh2)
-
-        vbox = QVBoxLayout()
-        vbox.addLayout(hbox0)
-        vbox.addLayout(hbox01)
-        vbox.addLayout(hbox1)
-        vbox.addLayout(hbox2)
-        vbox.addLayout(hbox3, 10)
-        vbox.addLayout(hbox4)
-        main_frame.setLayout(vbox)
-
-        ### set widget
-        self.setCentralWidget(main_frame)
-
-        ### set UI
-        self.exitActionUI()
-        self.readActionUI()
-        self.connectActionUI()
-        self.opensubWindowActionUI()
-        self.openQMLWindowActionUI()
-
-        self.statusBar()
-        menubar = self.menuBar()
-        fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(self.exitAction)
-        menubar.addMenu('&Run')
-        menubar.addMenu('&Tool')
-        menubar.addMenu('&Window')
-        menubar.addMenu('&Help')
-
-        toolbar = self.addToolBar('MainToolBar')
-        toolbar.addAction(self.readAction)
-        toolbar.addAction(self.connectAction)
-        toolbar.addAction(self.openwindowAction)
-        toolbar.addAction(self.openQMLAction)
-
-    ### ################
-    def exitActionUI(self):
-        self.exitAction = QAction('Exit', self)
-        self.exitAction.setShortcut('Ctrl+Q')
-        self.exitAction.setStatusTip('Exit application')
-        self.exitAction.triggered.connect(self.close)
-
-    def readActionUI(self):
-        self.readAction = QAction('Start', self)
-        self.readAction.setShortcut('Ctrl+S')
-        self.readAction.setStatusTip('Start to read the data from the text file')
-        self.readAction.triggered.connect(self.read_csvfile)
-
-    def connectActionUI(self):
-        self.connectAction = QAction('Connect', self)
-        self.connectAction.setShortcut('Ctrl+C')
-        self.connectAction.setStatusTip('Connect to get the data by the NamedPipes from other application')
-        self.connectAction.triggered.connect(self.connect_namedpipe)
-
-    def opensubWindowActionUI(self):
-        self.openwindowAction= QAction('Display', self)
-        self.openwindowAction.setShortcut('Ctrl+W')
-        self.openwindowAction.setStatusTip('Open the table window of features')
-        self.openwindowAction.triggered.connect(self.open_subwindow)
-
-    def openQMLWindowActionUI(self):
-        self.openQMLAction= QAction('QML', self)
-        self.openQMLAction.setShortcut('Ctrl+M')
-        self.openQMLAction.setStatusTip('QML')
-        self.openQMLAction.triggered.connect(self.open_qmlwindow)
+    ### image
+    def changeImageSize(self):
+        self.lbl_image.setFixedSize(self.spb_imgWidth.value(), self.spb_imgHeight.value())
+    def isDisplayImageInfomation(self):
+        self.gb_imageInfo.setVisible(self.cb_imgDisplay.checkState())
 
     def declareCommonVal(self):
         self.counter = 0
@@ -426,6 +88,8 @@ class MainWindow(QMainWindow):
     ### namedpipe
     def regist_namedpipe(self):
         self.pname = self.pnameQle.text()
+
+
 
     def connect_namedpipe(self):
         if self.runOn:
@@ -453,6 +117,7 @@ class MainWindow(QMainWindow):
             #print("Not Connect:{0}".format(pname))
             return -1
 
+
     ### text
     def read_csvfile(self):
         if self.runOn:
@@ -468,6 +133,7 @@ class MainWindow(QMainWindow):
         str_path = self.fnameQle.text()
         str_path = str_path.replace("coordinate", "img").split('.csv')[0]
         self.imageFolder = str_path + "/*"
+        self.le_imgPath.setText(self.imageFolder)
 
         import glob
         import re
@@ -529,6 +195,7 @@ class MainWindow(QMainWindow):
         self.sldh1qsb.setValue(self.sldh1.value())
         self.sldh2qsb.setValue(self.sldh2.value())
         self.pltnum_qsb.setValue(self.pltnum_sld.value())
+        self.frameNumbSpb.setValue(self.sld_frameNum.value())
         if not self.runOn:
             self.update_plot_data()
 
@@ -538,6 +205,8 @@ class MainWindow(QMainWindow):
         self.sldh1.setValue(self.sldh1qsb.value())
         self.sldh2.setValue(self.sldh2qsb.value())
         self.pltnum_sld.setValue(self.pltnum_qsb.value())
+        self.sld_frameNum.setMaximum(self.pltnum_qsb.value())
+        self.sld_frameNum.setValue(self.frameNumbSpb.value())
         if not self.runOn:
             self.update_plot_data()
 
