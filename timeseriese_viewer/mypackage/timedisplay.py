@@ -20,6 +20,7 @@ class OperatingTimeWindow(QMainWindow):
 
     def initUI(self):
         self.setWindowTitle('Operating Time')
+        self.setGeometry(100, 100, 0, 0);
         #self.resize(160,240)
         sub_frame = QWidget()
 
