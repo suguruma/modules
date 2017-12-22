@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self, parent)
 
         self.setWindowTitle('Time Seriese Analysis ver.0.2')
-        self.setGeometry(400, 100, 0, 0);
+        self.setGeometry(50, 100, 0, 0);
         self.setParameter()
         self.ui = UI_MainWindow()
         self.ui.setupUi(self)
@@ -37,6 +37,7 @@ class MainWindow(QMainWindow):
         ### Key Acitivity
         self.keyfunc = KeyActivityTime()
         self.timeWindow = OperatingTimeWindow()
+        self.timeWindow.setupUI(self)
         self.timeWindow.show()
 
         ### Check Features
@@ -257,6 +258,9 @@ class MainWindow(QMainWindow):
 
         if not self.runOn:
             #print("Analysis End")
+            if not self.cb_Animation.checkState():
+                self.main_plot.draw()
+
             self.keyfunc.FPS = self.timeWindow.fpsSb.value()
             self.keyfunc.displayLabel()
             self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
@@ -308,7 +312,9 @@ class MainWindow(QMainWindow):
         self.main_plot.current_x = self.frameNumbSpb.value()
         self.updateImage()
         self.calcActivityStatus()
-        self.main_plot.draw()
+
+        if self.cb_Animation.checkState() or not self.runOn:
+            self.main_plot.draw()
 
     def updateImage(self):
         if self.frameNumbSpb.value() < len(self.imglist):

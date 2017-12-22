@@ -26,7 +26,7 @@ class UI_MainWindow(object):
         self.frameInfomationUI(mui)
         self.figureInfomationUI(mui)
         self.imageUI(mui)
-        self.thresholdUI(mui)
+        #self.thresholdUI(mui)
 
     def initUI(self, mui):
         mui.gb_readData = QGroupBox()
@@ -261,14 +261,17 @@ class UI_MainWindow(object):
         mui.cbx = QCheckBox('X')
         mui.cby = QCheckBox('Y')
         mui.cbz = QCheckBox('Z')
-        mui.cbx.toggle()
-        mui.cby.toggle()
-        mui.cbz.toggle()
+        mui.cbx.setChecked(True)
+        mui.cby.setChecked(True)
+        mui.cbz.setChecked(True)
         mui.cb_imgDisplay = QCheckBox('Display Image')
-        mui.cb_imgDisplay.toggle()
+        mui.cb_imgDisplay.setChecked(True)
         mui.cb_imgDisplay.stateChanged.connect(mui.isDisplayImageInfomation)
         mui.grid_cb = QCheckBox('Grid')
-        mui.grid_cb.toggle()
+        mui.grid_cb.setChecked(True)
+        mui.cb_Animation = QCheckBox('Animation')
+        mui.cb_Animation.setChecked(True)
+
         ###
         mui.sldh1 = QSlider(Qt.Horizontal)
         mui.sldh1.setRange(-10, 1000)
@@ -295,6 +298,7 @@ class UI_MainWindow(object):
         ### -1-
         hbox1 = QHBoxLayout()
         hbox1.addWidget(mui.cb_imgDisplay)
+        hbox1.addWidget(mui.cb_Animation)
         hbox1.addWidget(refreshBtn)
         hbox1.addWidget(mui.grid_cb)
         hbox1.addWidget(mui.combo)
