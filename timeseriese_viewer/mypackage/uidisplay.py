@@ -88,7 +88,7 @@ class UI_MainWindow(object):
     def readDataUI(self, mui):
         ### Add Element
         mui.fnameQle = QLineEdit()
-        mui.fnameQle.setText("data.csv")
+        mui.fnameQle.setText("CSV File")
         mui.openfile_Btn = QPushButton('Open File')
         mui.openfile_Btn.clicked.connect(mui.open_file)
         mui.openfolder_Btn = QPushButton('Open Folder')
@@ -96,22 +96,23 @@ class UI_MainWindow(object):
         mui.fextQle = QLineEdit()
         mui.fextQle.setText("csv")
         mui.fextQle.setFixedWidth(120)
-        btn_setFile = QPushButton("Set File")
-        btn_setFile.clicked.connect(mui.setfile_from_filelist)
+        mui.cb_autoSelectFileOn = QCheckBox("Auto Selection")
         mui.qlistview = QListView()
         mui.qlw_model = QStandardItemModel()
         mui.qlistview.setModel(mui.qlw_model)
+        mui.qlistview.clicked.connect(mui.setfile_from_filelist)
         mui.qlistview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Ignored)
 
         ### -1-
         hbox1 = QHBoxLayout()
         hbox1.addWidget(mui.openfile_Btn)
         hbox1.addWidget(mui.fnameQle)
+
         ### |1|
         vbox_left = QVBoxLayout()
         vbox_left.addWidget(mui.openfolder_Btn)
         vbox_left.addWidget(mui.fextQle)
-        vbox_left.addWidget(btn_setFile)
+        vbox_left.addWidget(mui.cb_autoSelectFileOn)
         ### -2-
         hbox2 = QHBoxLayout()
         hbox2.addLayout(vbox_left)

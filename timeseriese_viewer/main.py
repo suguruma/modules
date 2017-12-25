@@ -4,11 +4,12 @@ import numpy as np
 from collections import deque
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-from PyQt5.QtCore import (Qt, QUrl, QTimer)
+from PyQt5.QtCore import (Qt, QUrl, QTimer, QModelIndex, QPoint)
 from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QPixmap)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
-                               QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog)
+                               QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog
+                             )
 from PyQt5.QtQuickWidgets import QQuickWidget
 
 #from PyQt5.QtGui import QGuiApplication
@@ -44,20 +45,33 @@ class MainWindow(QMainWindow):
         self.featuresWindow = FeaturesWindow()
 
     def setParameter(self):
-        ### Setting Graph
-        self.th_x = 0.5
-        self.th_x_variance = 0.2
-        self.th_x_max = self.th_x + self.th_x_variance
-        self.th_x_min = self.th_x - self.th_x_variance
-        self.th_y = 0.5
-        self.th_y_variance = 0.2
-        self.th_y_max = self.th_y + self.th_y_variance
-        self.th_y_min = self.th_y - self.th_y_variance
-        self.th_z = 0.5
-        self.th_z_variance = 0.2
-        self.th_z_max = self.th_z + self.th_z_variance
-        self.th_z_min = self.th_z - self.th_z_variance
+        self.autoReadFileIndex = 0
 
+        ### Setting Graph
+        self.th_x1 = 0.5
+        self.th_x1_variance = 0.2
+        self.th_x1_max = self.th_x1 + self.th_x1_variance
+        self.th_x1_min = self.th_x1 - self.th_x1_variance
+        self.th_y1 = 0.5
+        self.th_y1_variance = 0.2
+        self.th_y1_max = self.th_y1 + self.th_y1_variance
+        self.th_y1_min = self.th_y1 - self.th_y1_variance
+        self.th_z1 = 0.5
+        self.th_z1_variance = 0.2
+        self.th_z1_max = self.th_z1 + self.th_z1_variance
+        self.th_z1_min = self.th_z1 - self.th_z1_variance
+        self.th_x2 = 0.5
+        self.th_x2_variance = 0.2
+        self.th_x2_max = self.th_x2 + self.th_x2_variance
+        self.th_x2_min = self.th_x2 - self.th_x2_variance
+        self.th_y2 = 0.5
+        self.th_y2_variance = 0.2
+        self.th_y2_max = self.th_y2 + self.th_y2_variance
+        self.th_y2_min = self.th_y2 - self.th_y2_variance
+        self.th_z2 = 0.5
+        self.th_z2_variance = 0.2
+        self.th_z2_max = self.th_z2 + self.th_z2_variance
+        self.th_z2_min = self.th_z2 - self.th_z2_variance
         ### Setting Main Window
         self.skip_header = True
         self.runOn = False
@@ -188,6 +202,7 @@ class MainWindow(QMainWindow):
         idx = self.qlistview.selectionModel().currentIndex()
         item = self.qlw_model.itemFromIndex(idx)
         self.fnameQle.setText(item.text())
+        self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
 
     ### window refresh
     def refreshGraphSpinBox(self):
@@ -217,9 +232,12 @@ class MainWindow(QMainWindow):
             self.sldh2.setValue(len(self.fval))
 
     def setGraphParameter(self):
-        self.th_sldvXqsb.setValue(self.th_sldvX.value())
-        self.th_sldvYqsb.setValue(self.th_sldvY.value())
-        self.th_sldvZqsb.setValue(self.th_sldvZ.value())
+        self.sb_thX1.setValue(self.sld_thX1.value())
+        self.sb_thY1.setValue(self.sld_thY1.value())
+        self.sb_thZ1.setValue(self.sld_thZ1.value())
+        self.sb_thX2.setValue(self.sld_thX2.value())
+        self.sb_thY2.setValue(self.sld_thY2.value())
+        self.sb_thZ2.setValue(self.sld_thZ2.value())
 
     #### new form
     def open_subwindow(self):
@@ -231,20 +249,39 @@ class MainWindow(QMainWindow):
         QMLform.show()
 
     def calcActivityStatus(self):
-        self.flagKeyActiveX = not self.cbx.checkState()
-        self.flagKeyActiveY = not self.cby.checkState()
-        self.flagKeyActiveZ = not self.cbz.checkState()
-        num = len(self.x) - 1
-        if self.th_x_min <= self.y1[num] and self.y1[num] <= self.th_x_max:
-            self.flagKeyActiveX = True
-        if self.th_y_min <= self.y2[num] and self.y2[num] <= self.th_y_max:
-            self.flagKeyActiveY = True
-        if self.th_z_min <= self.y3[num] and self.y3[num] <= self.th_z_max:
-            self.flagKeyActiveZ = True
+        self.flagKeyActiveX1 = not self.cb_thX1_on.checkState()
+        self.flagKeyActiveY1 = not self.cb_thY1_on.checkState()
+        self.flagKeyActiveZ1 = not self.cb_thZ1_on.checkState()
+        self.flagKeyActiveX2 = not self.cb_thX2_on.checkState()
+        self.flagKeyActiveY2 = not self.cb_thY2_on.checkState()
+        self.flagKeyActiveZ2 = not self.cb_thZ2_on.checkState()
+        check_flagKeyActive1 = True
+        check_flagKeyActive2 = True
 
-        if self.flagKeyActiveX and self.flagKeyActiveY and self.flagKeyActiveZ:
-            self.keyfunc.setFrameLabel(1) #"key")
-            #print("Key Frame:{0}".format(self.counter))
+        if self.flagKeyActiveX1 and self.flagKeyActiveY1 and self.flagKeyActiveZ1:
+            check_flagKeyActive1 = False
+        if self.flagKeyActiveX2 and self.flagKeyActiveY2 and self.flagKeyActiveZ2:
+            check_flagKeyActive2 = False
+
+        num = len(self.x) - 1
+        if self.th_x1_min <= self.y1[num] and self.y1[num] <= self.th_x1_max:
+            self.flagKeyActiveX1 = True
+        if self.th_y1_min <= self.y2[num] and self.y2[num] <= self.th_y1_max:
+            self.flagKeyActiveY1 = True
+        if self.th_z1_min <= self.y3[num] and self.y3[num] <= self.th_z1_max:
+            self.flagKeyActiveZ1 = True
+        if self.th_x2_min <= self.y1[num] and self.y1[num] <= self.th_x2_max:
+            self.flagKeyActiveX2 = True
+        if self.th_y2_min <= self.y2[num] and self.y2[num] <= self.th_y2_max:
+            self.flagKeyActiveY2 = True
+        if self.th_z2_min <= self.y3[num] and self.y3[num] <= self.th_z2_max:
+            self.flagKeyActiveZ2 = True
+
+        if self.flagKeyActiveX1 and self.flagKeyActiveY1 and self.flagKeyActiveZ1 and check_flagKeyActive1:
+            self.keyfunc.setFrameLabel(1) # "key")
+        elif self.flagKeyActiveX2 and self.flagKeyActiveY2 and self.flagKeyActiveZ2 and check_flagKeyActive2:
+            self.keyfunc.setFrameLabel(1) # "key")
+            print("Key Frame:{0}".format(self.counter))
         else:
             self.keyfunc.setFrameLabel(0) # "main")
             #print("Main Frame:{0}".format(self.counter))
@@ -266,24 +303,46 @@ class MainWindow(QMainWindow):
             self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
             self.timeWindow.calcDifferenceOperatingTime()
 
+            if self.cb_autoSelectFileOn.checkState():
+                self.autoReadFileIndex += 1
+                self.qlistview.setCurrentIndex(self.qlw_model.index(self.autoReadFileIndex, 0))
+                self.setfile_from_filelist()
+                self.read_csvfile()
+
+
     def updateTargetData(self):
         self.x = np.arange(len(self.fval))
         fvalT = np.array(self.fval).T
         self.y1 = fvalT[0 + 3 * self.parts_dict[self.combo.currentText()]]
         self.y2 = fvalT[1 + 3 * self.parts_dict[self.combo.currentText()]]
         self.y3 = fvalT[2 + 3 * self.parts_dict[self.combo.currentText()]]
-        self.th_x = self.th_sldvXqsb.value() / self.th_sldv_baseX_qsb.value()
-        self.th_y = self.th_sldvYqsb.value() / self.th_sldv_baseY_qsb.value()
-        self.th_z = self.th_sldvZqsb.value() / self.th_sldv_baseZ_qsb.value()
-        self.th_x_variance = self.th_varianceXqsb.value() / self.th_sldv_baseX_qsb.value()
-        self.th_x_max = self.th_x + self.th_x_variance
-        self.th_x_min = self.th_x - self.th_x_variance
-        self.th_y_variance = self.th_varianceYqsb.value() / self.th_sldv_baseY_qsb.value()
-        self.th_y_max = self.th_y + self.th_y_variance
-        self.th_y_min = self.th_y - self.th_y_variance
-        self.th_z_variance = self.th_varianceZqsb.value() / self.th_sldv_baseZ_qsb.value()
-        self.th_z_max = self.th_z + self.th_z_variance
-        self.th_z_min = self.th_z - self.th_z_variance
+        #
+        self.th_x1 = self.sb_thX1.value() * self.sb_thX_scale.value()
+        self.th_y1 = self.sb_thY1.value() * self.sb_thY_scale.value()
+        self.th_z1 = self.sb_thZ1.value() * self.sb_thZ_scale.value()
+        self.th_x1_variance = self.sb_thX1Variance.value() * self.sb_thX_scale.value()
+        self.th_x1_max = self.th_x1 + self.th_x1_variance
+        self.th_x1_min = self.th_x1 - self.th_x1_variance
+        self.th_y1_variance = self.sb_thY1Variance.value() * self.sb_thY_scale.value()
+        self.th_y1_max = self.th_y1 + self.th_y1_variance
+        self.th_y1_min = self.th_y1 - self.th_y1_variance
+        self.th_z1_variance = self.sb_thZ1Variance.value() * self.sb_thZ_scale.value()
+        self.th_z1_max = self.th_z1 + self.th_z1_variance
+        self.th_z1_min = self.th_z1 - self.th_z1_variance
+        #
+        self.th_x2 = self.sb_thX2.value() * self.sb_thX_scale.value()
+        self.th_y2 = self.sb_thY2.value() * self.sb_thY_scale.value()
+        self.th_z2 = self.sb_thZ2.value() * self.sb_thZ_scale.value()
+        self.th_x2_variance = self.sb_thX2Variance.value() * self.sb_thX_scale.value()
+        self.th_x2_max = self.th_x2 + self.th_x2_variance
+        self.th_x2_min = self.th_x2 - self.th_x2_variance
+        self.th_y2_variance = self.sb_thY2Variance.value() * self.sb_thY_scale.value()
+        self.th_y2_max = self.th_y2 + self.th_y2_variance
+        self.th_y2_min = self.th_y2 - self.th_y2_variance
+        self.th_z2_variance = self.sb_thZ2Variance.value() * self.sb_thZ_scale.value()
+        self.th_z2_max = self.th_z2 + self.th_z2_variance
+        self.th_z2_min = self.th_z2 - self.th_z2_variance
+
 
     def update_plot_data(self):
         self.updateTargetData()
@@ -300,16 +359,35 @@ class MainWindow(QMainWindow):
         self.main_plot.ylim_max = self.sldv1qsb.value()
         self.main_plot.ylim_min = self.sldv2qsb.value()
         self.main_plot.grid_flag = self.grid_cb.checkState()
-        self.main_plot.th_x = self.th_x
-        self.main_plot.th_x_max = self.th_x_max
-        self.main_plot.th_x_min = self.th_x_min
-        self.main_plot.th_y = self.th_y
-        self.main_plot.th_y_max = self.th_y_max
-        self.main_plot.th_y_min = self.th_y_min
-        self.main_plot.th_z = self.th_z
-        self.main_plot.th_z_max = self.th_z_max
-        self.main_plot.th_z_min = self.th_z_min
+        #
+        self.main_plot.th_x1 = self.th_x1
+        self.main_plot.th_x1_max = self.th_x1_max
+        self.main_plot.th_x1_min = self.th_x1_min
+        self.main_plot.th_y1 = self.th_y1
+        self.main_plot.th_y1_max = self.th_y1_max
+        self.main_plot.th_y1_min = self.th_y1_min
+        self.main_plot.th_z1 = self.th_z1
+        self.main_plot.th_z1_max = self.th_z1_max
+        self.main_plot.th_z1_min = self.th_z1_min
+        #
+        self.main_plot.th_x2 = self.th_x2
+        self.main_plot.th_x2_max = self.th_x2_max
+        self.main_plot.th_x2_min = self.th_x2_min
+        self.main_plot.th_y2 = self.th_y2
+        self.main_plot.th_y2_max = self.th_y2_max
+        self.main_plot.th_y2_min = self.th_y2_min
+        self.main_plot.th_z2 = self.th_z2
+        self.main_plot.th_z2_max = self.th_z2_max
+        self.main_plot.th_z2_min = self.th_z2_min
         self.main_plot.current_x = self.frameNumbSpb.value()
+        #
+        self.main_plot.display_th_x1 = self.cb_thX1_on.checkState()
+        self.main_plot.display_th_x2 = self.cb_thX2_on.checkState()
+        self.main_plot.display_th_y1 = self.cb_thY1_on.checkState()
+        self.main_plot.display_th_y2 = self.cb_thY2_on.checkState()
+        self.main_plot.display_th_z1 = self.cb_thZ1_on.checkState()
+        self.main_plot.display_th_z2 = self.cb_thZ2_on.checkState()
+
         self.updateImage()
         self.calcActivityStatus()
 
