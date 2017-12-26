@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
-        self.setWindowTitle('Time Seriese Analysis ver.0.2')
+        self.setWindowTitle('Time Seriese Analysis ver.0.3')
         self.setGeometry(50, 100, 0, 0);
         self.setParameter()
         self.ui = UI_MainWindow()
@@ -88,6 +88,11 @@ class MainWindow(QMainWindow):
         self.flagKeyActiveY = False
         self.flagKeyActiveZ = False
 
+        ### Init Value
+        self.counter = 0
+        self.fval = deque([])
+        self.imglist = deque([])
+
     ### image
     def changeImageSize(self):
         self.lbl_image.setFixedSize(self.spb_imgWidth.value(), self.spb_imgHeight.value())
@@ -103,8 +108,6 @@ class MainWindow(QMainWindow):
     ### namedpipe
     def regist_namedpipe(self):
         self.pname = self.pnameQle.text()
-
-
 
     def connect_namedpipe(self):
         if self.runOn:
@@ -193,16 +196,17 @@ class MainWindow(QMainWindow):
         self.qlw_model.clear()
 
         import glob
-        path = foldername + '\\' + '*' + self.fextQle.text()  #'C:\Python35\\*.txt'
+        path = foldername + '/' + '*' + self.fextQle.text()  #'C:\Python35\\*.txt'
         files = glob.glob(path)
         for filename in files:
+            filename = filename.replace('\\','/')
             self.qlw_model.appendRow(QStandardItem(filename))
 
     def setfile_from_filelist(self):
         idx = self.qlistview.selectionModel().currentIndex()
         item = self.qlw_model.itemFromIndex(idx)
         self.fnameQle.setText(item.text())
-        self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
+        #self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
 
     ### window refresh
     def refreshGraphSpinBox(self):
@@ -228,16 +232,25 @@ class MainWindow(QMainWindow):
 
     def autoScrollMode(self):
         if self.autoScrollqb.isChecked():
-            self.sldh1.setValue(len(self.fval)-self.autoScrollSpanNum_qsb.value())
+            self.sldh1.setValue(len(self.fval) - self.autoScrollSpanNum_qsb.value())
             self.sldh2.setValue(len(self.fval))
 
-    def setGraphParameter(self):
+    def setSpinBoxGraphParameter(self):
         self.sb_thX1.setValue(self.sld_thX1.value())
         self.sb_thY1.setValue(self.sld_thY1.value())
         self.sb_thZ1.setValue(self.sld_thZ1.value())
         self.sb_thX2.setValue(self.sld_thX2.value())
         self.sb_thY2.setValue(self.sld_thY2.value())
         self.sb_thZ2.setValue(self.sld_thZ2.value())
+
+    def setSliderThresholdParameter(self):
+        self.sld_thX1.setValue(self.sb_thX1.value())
+        self.sld_thX2.setValue(self.sb_thX2.value())
+        self.sld_thY1.setValue(self.sb_thY1.value())
+        self.sld_thY2.setValue(self.sb_thY2.value())
+        self.sld_thZ1.setValue(self.sb_thZ1.value())
+        self.sld_thZ2.setValue(self.sb_thZ2.value())
+
 
     #### new form
     def open_subwindow(self):
@@ -279,9 +292,10 @@ class MainWindow(QMainWindow):
 
         if self.flagKeyActiveX1 and self.flagKeyActiveY1 and self.flagKeyActiveZ1 and check_flagKeyActive1:
             self.keyfunc.setFrameLabel(1) # "key")
+            #print("Key Frame:{0}".format(self.counter))
         elif self.flagKeyActiveX2 and self.flagKeyActiveY2 and self.flagKeyActiveZ2 and check_flagKeyActive2:
             self.keyfunc.setFrameLabel(1) # "key")
-            print("Key Frame:{0}".format(self.counter))
+            #print("Key Frame:{0}".format(self.counter))
         else:
             self.keyfunc.setFrameLabel(0) # "main")
             #print("Main Frame:{0}".format(self.counter))
@@ -301,14 +315,16 @@ class MainWindow(QMainWindow):
             self.keyfunc.FPS = self.timeWindow.fpsSb.value()
             self.keyfunc.displayLabel()
             self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
-            self.timeWindow.calcDifferenceOperatingTime()
+            self.timeWindow.getCalclationTime(self)
 
             if self.cb_autoSelectFileOn.checkState():
+                self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
                 self.autoReadFileIndex += 1
+                if self.qlw_model.rowCount() <= self.autoReadFileIndex:
+                    return 0
                 self.qlistview.setCurrentIndex(self.qlw_model.index(self.autoReadFileIndex, 0))
                 self.setfile_from_filelist()
                 self.read_csvfile()
-
 
     def updateTargetData(self):
         self.x = np.arange(len(self.fval))
@@ -343,10 +359,12 @@ class MainWindow(QMainWindow):
         self.th_z2_max = self.th_z2 + self.th_z2_variance
         self.th_z2_min = self.th_z2 - self.th_z2_variance
 
-
     def update_plot_data(self):
+        if len(self.fval) == 0:
+            return -1
         self.updateTargetData()
         self.autoScrollMode()
+        #
         self.main_plot.x = self.x
         self.main_plot.y1 = self.y1
         self.main_plot.y2 = self.y2
