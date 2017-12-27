@@ -8,8 +8,8 @@ from PyQt5.QtGui import (QStandardItemModel, QStandardItem)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
-                               QDoubleSpinBox, QGroupBox, QSizePolicy
-                             )
+                               QDoubleSpinBox, QGroupBox, QSizePolicy, QMessageBox
+                              )
 from PyQt5.QtQuickWidgets import QQuickWidget
 from configparser import ConfigParser
 
@@ -18,25 +18,29 @@ class OperatingTimeWindow(QMainWindow):
         self.initUI(mui)
         self.mainUI(mui)
         self.configUI(mui)
-        self.timeUI()
         self.thresholdUI(mui)
+        self.timeUI()
+        self.timeFigureUI(mui)
+
+        ## value
+        self.cycle_counter = 0
 
     def initUI(self, mui):
         self.gb_config = QGroupBox()
         self.gb_oprTime = QGroupBox()
         mui.gb_setThreshold = QGroupBox()
         mui.gb_setThreshold.setVisible(False)
+        self.gb_figTIme = QGroupBox()
 
     def mainUI(self, mui):
         self.setWindowTitle('Operating Time Calclation')
-        self.setGeometry(1350, 100, 0, 0);
-        self.setMinimumWidth(350)
+        self.setGeometry(1200, 50, 0, 0);
         main_frame = QWidget()
         vbox_main = QVBoxLayout()
         vbox_main.addWidget(self.gb_config)
-        vbox_main.addWidget(self.gb_oprTime)
         vbox_main.addWidget(mui.gb_setThreshold)
-        vbox_main.addStretch(1)
+        vbox_main.addWidget(self.gb_oprTime)
+        vbox_main.addWidget(self.gb_figTIme)
         main_frame.setLayout(vbox_main)
         self.setCentralWidget(main_frame)
 
@@ -47,9 +51,6 @@ class OperatingTimeWindow(QMainWindow):
         btn_saveConfig = QPushButton('Save')
         btn_saveConfig.clicked.connect(lambda : self.saveConfig(mui))
         self.le_saveConfig = QLineEdit()
-        self.cb_DisplayThresholdUI = QCheckBox('Display Setting Threshold Form')
-        self.cb_DisplayThresholdUI.setChecked(False)
-        self.cb_DisplayThresholdUI.stateChanged.connect(lambda : self.displayThresholdWindow(mui))
 
         ### -1-
         hbox1 = QHBoxLayout()
@@ -63,7 +64,6 @@ class OperatingTimeWindow(QMainWindow):
         vbox_gb_config = QVBoxLayout()
         vbox_gb_config.addLayout(hbox1)
         vbox_gb_config.addLayout(hbox2)
-        vbox_gb_config.addWidget(self.cb_DisplayThresholdUI)
 
         self.gb_config.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.gb_config.setTitle("Config File")
@@ -77,7 +77,6 @@ class OperatingTimeWindow(QMainWindow):
         self.stdOprTimeSb.setSingleStep(0.01)
         self.stdOprTimeSb.setSuffix(" [sec]")
         self.stdOprTimeSb.setValue(3.0)
-        self.stdOprTimeSb.valueChanged.connect(self.calcDifferenceOperatingTime)
         calcOprTimeTextLabel = QLabel()
         calcOprTimeTextLabel.setText('Calculation :')
         self.calcOprTimeLabel = QLabel()
@@ -92,6 +91,14 @@ class OperatingTimeWindow(QMainWindow):
         differenceTimeTextLabel.setText('Difference :')
         self.differenceTimeLabel = QLabel()
         self.differenceTimeLabel.setText('x.xxx')
+        self.cb_alarm = QCheckBox('Alarm Threshold:')
+        self.cb_alarm.setChecked(True)
+        self.dsb_alarmRange = QDoubleSpinBox()
+        self.dsb_alarmRange.setRange(0,10)
+        self.dsb_alarmRange.setValue(3.0)
+        self.dsb_alarmRange.setSingleStep(0.1)
+        self.dsb_alarmRange.setSuffix(' [sec]')
+
         self.cb_saveOprTime = QCheckBox('Save:')
         self.le_filepath = QLineEdit()
         self.le_filepath.setText("CSV File")
@@ -116,13 +123,15 @@ class OperatingTimeWindow(QMainWindow):
         hbox3.addWidget(differenceTimeTextLabel)
         hbox3.addWidget(self.differenceTimeLabel)
         hbox3.addStretch(1)
+        hbox3.addWidget(self.cb_alarm)
+        hbox3.addWidget(self.dsb_alarmRange)
         ### -4-
         hbox4 = QHBoxLayout()
         hbox4.addWidget(self.cb_saveOprTime)
         hbox4.addWidget(self.le_filepath)
         hbox4.addWidget(self.btn_save_fd)
 
-        ### |-1-2-3-|
+        ### |-1-2-3-4-|
         vbox_gb_oprTime = QVBoxLayout()
         vbox_gb_oprTime.addLayout(hbox1)
         vbox_gb_oprTime.addLayout(hbox2)
@@ -132,6 +141,60 @@ class OperatingTimeWindow(QMainWindow):
         self.gb_oprTime.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.gb_oprTime.setTitle("Operating Time")
         self.gb_oprTime.setLayout(vbox_gb_oprTime)
+
+    def timeFigureUI(self, mui):
+        fig = Figure((10,5), dpi=100)
+        self.canvas_time = FigureCanvas(fig)
+        self.axes = fig.add_subplot(111)
+        self.axes.clear()
+        self.x_cycle = deque([])
+        self.y_time = deque([])
+        self.axes.bar(self.x_cycle, self.y_time)
+
+        self.cb_registrationTime = QCheckBox('Registration')
+        self.cb_registrationTime.setChecked(True)
+        self.btn_initGraph = QPushButton('Init')
+        self.btn_initGraph.clicked.connect(self.clearGraph)
+        lbl_maxCount = QLabel('Num:')
+        self.sb_maxCount = QSpinBox()
+        self.sb_maxCount.setRange(1, 50)
+        self.sb_maxCount.setValue(10)
+        lbl_maxValue = QLabel('Val:')
+        self.sb_maxValue  = QSpinBox()
+        self.sb_maxValue.setRange(1, 50)
+        self.sb_maxValue.setValue(5)
+        lbl_mean = QLabel('Mean:')
+        self.le_mean = QLineEdit('')
+        lbl_variance = QLabel('Variance:')
+        self.le_variance = QLineEdit('')
+
+        ### -1-
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(self.cb_registrationTime)
+        hbox1.addStretch(1)
+        hbox1.addWidget(lbl_maxCount)
+        hbox1.addWidget(self.sb_maxCount)
+        hbox1.addStretch(1)
+        hbox1.addWidget(self.btn_initGraph)
+
+        ### -2-
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(lbl_maxValue)
+        hbox2.addWidget(self.sb_maxValue)
+        hbox2.addWidget(lbl_mean)
+        hbox2.addWidget(self.le_mean)
+        hbox2.addWidget(lbl_variance)
+        hbox2.addWidget(self.le_variance)
+
+        ### |-1-2-|
+        vbox_gb_figTIme = QVBoxLayout()
+        vbox_gb_figTIme.addLayout(hbox1)
+        vbox_gb_figTIme.addWidget(self.canvas_time)
+        vbox_gb_figTIme.addLayout(hbox2)
+
+        self.gb_figTIme.setMinimumHeight(350)
+        self.gb_figTIme.setTitle("Operation Time Graph")
+        self.gb_figTIme.setLayout(vbox_gb_figTIme)
 
     def thresholdUI(self, mui):
         ### Add Element
@@ -290,8 +353,8 @@ class OperatingTimeWindow(QMainWindow):
         vbox_gb_setThreshold.addLayout(hbox1)
         vbox_gb_setThreshold.addLayout(hbox2)
 
-        mui.gb_setThreshold.setMinimumHeight(500)
-        mui.gb_setThreshold.setVisible(self.cb_DisplayThresholdUI.isVisible())
+        mui.gb_setThreshold.setMinimumHeight(320)
+        mui.gb_setThreshold.setVisible(True)
         mui.gb_setThreshold.setTitle("Setting Threshold")
         mui.gb_setThreshold.setLayout(vbox_gb_setThreshold)
 
@@ -373,13 +436,53 @@ class OperatingTimeWindow(QMainWindow):
         config.write(open(self.le_saveConfig.text(), 'w'))
 
     def getCalclationTime(self, mui):
+        if self.cb_registrationTime.checkState():
+            self.setCalclationTimeGraph()
         self.calcDifferenceOperatingTime()
         if self.cb_saveOprTime.checkState():
             self.writeText(mui)
 
+    def setCalclationTimeGraph(self):
+        if(len(self.x_cycle)  >= self.sb_maxCount.value()):
+            self.x_cycle.popleft()
+            self.y_time.popleft()
+        self.cycle_counter += 1
+        self.x_cycle.append(self.cycle_counter)
+        self.y_time.append(float(self.calcOprTimeLabel.text()))
+        self.le_mean.setText("{0:.2f}".format(np.array(self.y_time).mean()))
+        self.le_variance.setText("{0:.2f}".format(self.calclVariance(np.array(self.y_time))))
+        self.draw_figure()
+
+    def draw_figure(self):
+        self.axes.clear()
+        self.axes.set_ylim([0, self.sb_maxValue.value()])
+        self.axes.bar(self.x_cycle, self.y_time, color='#6060AA')
+        self.canvas_time.draw()
+
+    def clearGraph(self):
+        self.cycle_counter = 0
+        self.x_cycle = deque([])
+        self.y_time = deque([])
+        self.draw_figure()
+
+    def calclVariance(self, val):
+        variance = np.sum((val * val)) / len(val) - (val.mean() * val.mean())
+        return variance
+
     def calcDifferenceOperatingTime(self):
         time = self.stdOprTimeSb.value() - float(self.calcOprTimeLabel.text())
         self.differenceTimeLabel.setText("{0:.2f}[sec]".format(time))
+        if self.cb_alarm.checkState():
+            if self.dsb_alarmRange.value() <= abs(time) and 0 < time:
+                self.popupMessage(0)
+            elif self.dsb_alarmRange.value() <= abs(time) and 0 > time:
+                self.popupMessage(1)
+
+    def popupMessage(self, signal):
+        if signal == 0:
+            QMessageBox.warning(self, 'Alarm Message', "Operating time is too FAST.", QMessageBox.Close)
+        elif signal == 1:
+            QMessageBox.warning(self, 'Alarm Message', "Operating time is too LATE.", QMessageBox.Close)
 
     def writeText(self, mui):
         import csv
@@ -402,6 +505,3 @@ class OperatingTimeWindow(QMainWindow):
             return 'True'
         else:
             return 'False'
-
-    def displayThresholdWindow(self, mui):
-        mui.gb_setThreshold.setVisible(self.cb_DisplayThresholdUI.isChecked())

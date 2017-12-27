@@ -4,8 +4,9 @@
     <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/timeseriese_viewer/main.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/main.py" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py" />
       <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
+      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" />
+      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/param.ini" afterPath="$PROJECT_DIR$/timeseriese_viewer/param.ini" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,22 +17,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="78" column="47" lean-forward="true" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
-              <folding>
-                <element signature="e#22#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="calcactivity.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
+            <state relative-caret-position="600">
               <caret line="95" column="45" lean-forward="false" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
@@ -43,8 +32,8 @@
       <file leaf-file-name="uidisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="103" column="22" lean-forward="true" selection-start-line="103" selection-start-column="22" selection-end-line="103" selection-end-column="79" />
+            <state relative-caret-position="5831">
+              <caret line="343" column="37" lean-forward="false" selection-start-line="343" selection-start-column="32" selection-end-line="343" selection-end-column="37" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -55,11 +44,9 @@
       <file leaf-file-name="timedisplay.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="34" column="33" lean-forward="true" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,10 +54,22 @@
       <file leaf-file-name="plotdisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="527">
               <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="321">
+              <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+              <folding>
+                <element signature="e#22#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,14 +86,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sld_thY1qsb</find>
-      <find>flagKeyActiveX</find>
-      <find>th_sldvX</find>
-      <find>sb_thX1</find>
-      <find>self.th_x</find>
-      <find>self.th_y</find>
-      <find>self.th</find>
-      <find>Vari</find>
       <find>fextQle</find>
       <find>setfile_from_filelist</find>
       <find>Status</find>
@@ -117,6 +108,14 @@
       <find>self</find>
       <find>Head</find>
       <find>Display</find>
+      <find>380</find>
+      <find>figureInfo</find>
+      <find>400</find>
+      <find>Width</find>
+      <find>draw</find>
+      <find>Diffe</find>
+      <find>standard</find>
+      <find>thresholdUI</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -162,15 +161,15 @@
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay_test.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py" />
-        <option value="$PROJECT_DIR$/timeseriese_viewer/main.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/main.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="182" />
-    <option name="y" value="24" />
+    <option name="x" value="146" />
+    <option name="y" value="7" />
     <option name="width" value="1599" />
     <option name="height" value="1005" />
   </component>
@@ -190,7 +189,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,6 +211,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -362,7 +361,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="182" y="24" width="1599" height="1005" extended-state="0" />
+    <frame x="146" y="7" width="1599" height="1005" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23310171" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -449,9 +448,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -503,9 +500,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -619,19 +614,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="78" column="47" lean-forward="true" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
+        <state relative-caret-position="600">
           <caret line="95" column="45" lean-forward="false" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
@@ -641,17 +626,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="103" column="22" lean-forward="true" selection-start-line="103" selection-start-column="22" selection-end-line="103" selection-end-column="79" />
+        <state relative-caret-position="5831">
+          <caret line="343" column="37" lean-forward="false" selection-start-line="343" selection-start-column="32" selection-end-line="343" selection-end-column="37" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="527">
           <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -661,11 +656,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="34" column="33" lean-forward="true" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="12" column="45" lean-forward="true" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>

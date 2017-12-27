@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self, parent)
 
         self.setWindowTitle('Time Seriese Analysis ver.0.3')
-        self.setGeometry(50, 100, 0, 0);
+        self.setGeometry(50, 50, 0, 0);
         self.setParameter()
         self.ui = UI_MainWindow()
         self.ui.setupUi(self)

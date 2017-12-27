@@ -26,7 +26,6 @@ class UI_MainWindow(object):
         self.frameInfomationUI(mui)
         self.figureInfomationUI(mui)
         self.imageUI(mui)
-        #self.thresholdUI(mui)
 
     def initUI(self, mui):
         mui.gb_readData = QGroupBox()
@@ -39,8 +38,6 @@ class UI_MainWindow(object):
         mui.gb_figureInfo.setVisible(False)
         mui.gb_imageInfo = QGroupBox()
         mui.gb_imageInfo.setVisible(False)
-        mui.gb_setThreshold = QGroupBox()
-        mui.gb_setThreshold.setVisible(False)
 
     def mainUI(self, mui):
         ### main
@@ -55,7 +52,6 @@ class UI_MainWindow(object):
         hbox1 = QHBoxLayout()
         hbox1.addWidget(mui.gb_imageInfo)
         hbox1.addWidget(mui.gb_figureInfo)
-        hbox1.addWidget(mui.gb_setThreshold)
         vbox.addLayout(hbox1)
         main_frame.setLayout(vbox)
 
@@ -336,7 +332,6 @@ class UI_MainWindow(object):
         vbox_gb_figureInfo.addLayout(hbox1)
         vbox_gb_figureInfo.addLayout(hbox3)
 
-        mui.gb_figureInfo.setMinimumWidth(700)
         mui.gb_figureInfo.setVisible(True)
         mui.gb_figureInfo.setTitle("Figure Information")
         mui.gb_figureInfo.setLayout(vbox_gb_figureInfo)
@@ -381,84 +376,6 @@ class UI_MainWindow(object):
         mui.gb_imageInfo.setVisible(True)
         mui.gb_imageInfo.setTitle("Image Information")
         mui.gb_imageInfo.setLayout(vbox_gb_imageInfo)
-
-    def thresholdUI(self, mui):
-        ### Add Element
-        mui.th_sldv_baseX_qsb = QSpinBox()
-        mui.th_sldv_baseX_qsb.setRange(1, 1000)
-        mui.th_sldv_baseX_qsb.setValue(20)
-        mui.th_sldv_baseY_qsb = QSpinBox()
-        mui.th_sldv_baseY_qsb.setRange(1, 1000)
-        mui.th_sldv_baseY_qsb.setValue(20)
-        mui.th_sldv_baseZ_qsb = QSpinBox()
-        mui.th_sldv_baseZ_qsb.setRange(1, 1000)
-        mui.th_sldv_baseZ_qsb.setValue(20)
-
-        mui.th_sldvX = QSlider(Qt.Vertical)
-        mui.th_sldvX.setRange(-50, 50)
-        mui.th_sldvX.setValue(0)
-        mui.th_sldvXqsb = QSpinBox()
-        mui.th_sldvXqsb.setRange(-50, 50)
-        mui.th_sldvXqsb.setValue(mui.th_sldvX.value())
-        mui.th_sldvX.valueChanged.connect(mui.setGraphParameter)
-        mui.th_sldvX.valueChanged.connect(mui.refreshGraphSlider)
-
-        mui.th_sldvY = QSlider(Qt.Vertical)
-        mui.th_sldvY.setRange(-50, 50)
-        mui.th_sldvY.setValue(0)
-        mui.th_sldvYqsb = QSpinBox()
-        mui.th_sldvYqsb.setRange(-50, 50)
-        mui.th_sldvYqsb.setValue(mui.th_sldvY.value())
-        mui.th_sldvY.valueChanged.connect(mui.setGraphParameter)
-        mui.th_sldvY.valueChanged.connect(mui.refreshGraphSlider)
-
-        mui.th_sldvZ = QSlider(Qt.Vertical)
-        mui.th_sldvZ.setRange(-50, 50)
-        mui.th_sldvZ.setValue(0)
-        mui.th_sldvZqsb = QSpinBox()
-        mui.th_sldvZqsb.setRange(-50, 50)
-        mui.th_sldvZqsb.setValue(mui.th_sldvZ.value())
-        mui.th_sldvZ.valueChanged.connect(mui.setGraphParameter)
-        mui.th_sldvZ.valueChanged.connect(mui.refreshGraphSlider)
-
-        ###
-        mui.th_varianceXqsb = QSpinBox()
-        mui.th_varianceXqsb.setRange(0, 1000)
-        mui.th_varianceXqsb.valueChanged.connect(mui.refreshGraphSpinBox)
-        mui.th_varianceYqsb = QSpinBox()
-        mui.th_varianceYqsb.setRange(0, 1000)
-        mui.th_varianceYqsb.valueChanged.connect(mui.refreshGraphSpinBox)
-        mui.th_varianceZqsb = QSpinBox()
-        mui.th_varianceZqsb.setRange(0, 1000)
-        mui.th_varianceZqsb.valueChanged.connect(mui.refreshGraphSpinBox)
-
-        ### |1|
-        vbox1 = QVBoxLayout()
-        vbox1.addWidget(mui.th_sldvXqsb)
-        vbox1.addWidget(mui.th_sldvX)
-        vbox1.addWidget(mui.th_sldv_baseX_qsb)
-        vbox1.addWidget(mui.th_varianceXqsb)
-        ### |2|
-        vbox2 = QVBoxLayout()
-        vbox2.addWidget(mui.th_sldvYqsb)
-        vbox2.addWidget(mui.th_sldvY)
-        vbox2.addWidget(mui.th_sldv_baseY_qsb)
-        vbox2.addWidget(mui.th_varianceYqsb)
-        ### |3|
-        vbox3 = QVBoxLayout()
-        vbox3.addWidget(mui.th_sldvZqsb)
-        vbox3.addWidget(mui.th_sldvZ)
-        vbox3.addWidget(mui.th_sldv_baseZ_qsb)
-        vbox3.addWidget(mui.th_varianceZqsb)
-        ### -|1|2|3|-
-        hbox_gb_setThreshold = QHBoxLayout()
-        hbox_gb_setThreshold.addLayout(vbox1)
-        hbox_gb_setThreshold.addLayout(vbox2)
-        hbox_gb_setThreshold.addLayout(vbox3)
-
-        mui.gb_setThreshold.setVisible(True)
-        mui.gb_setThreshold.setTitle("Setting Threshold")
-        mui.gb_setThreshold.setLayout(hbox_gb_setThreshold)
 
     ### ActionUI
     def exitActionUI(self, mui):

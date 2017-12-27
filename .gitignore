@@ -1,6 +1,8 @@
 ## .gitignore ##
 # Folder
 data
+timeseriese_viewer/__pycache__/*
+*workspace.xml
 
 # Python
 *.pyc
