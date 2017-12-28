@@ -20,7 +20,7 @@ from PyQt5.QtQuickWidgets import QQuickWidget
 
 from mypackage.plotdisplay import MainPlotWindow
 from mypackage.qmldisplay_test import QMLWindow
-from mypackage.subdisplay_test import FeaturesWindow
+from mypackage.modeldisplay import ModelWindow
 from mypackage.calcactivity import KeyActivityTime
 from mypackage.timedisplay import OperatingTimeWindow
 from mypackage.uidisplay import UI_MainWindow
@@ -41,8 +41,11 @@ class MainWindow(QMainWindow):
         self.timeWindow.setupUI(self)
         self.timeWindow.show()
 
-        ### Check Features
-        self.featuresWindow = FeaturesWindow()
+        self.modelWindow = ModelWindow()
+        self.modelWindow.setupUI(self)
+
+        #QMLform = QMLWindow(self)
+        #QMLform.show()
 
     def setParameter(self):
         self.autoReadFileIndex = 0
@@ -75,7 +78,6 @@ class MainWindow(QMainWindow):
         ### Setting Main Window
         self.skip_header = True
         self.runOn = False
-        self.fval = None
         self.loop_connnect_timer = QTimer(self)
         self.parts_dict = { "SpineBase":0, "SpineMid":1, "Neck":2, "Head":3,
                             "ShoulderLeft":4, "ElbowLeft":5, "WristLeft":6, "HandLeft":7,
@@ -145,6 +147,10 @@ class MainWindow(QMainWindow):
             self.declareCommonVal()
             self.getFrameImages()
             self.timer.start(self.sld.value()) #(ms)
+            self.modelWindow.flag_readFile = True
+            self.modelWindow.x = deque([])
+            self.modelWindow.fval = deque([])
+            self.modelWindow.counter = 0
 
     # set frame images
     def getFrameImages(self):
@@ -206,7 +212,6 @@ class MainWindow(QMainWindow):
         idx = self.qlistview.selectionModel().currentIndex()
         item = self.qlw_model.itemFromIndex(idx)
         self.fnameQle.setText(item.text())
-        #self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
 
     ### window refresh
     def refreshGraphSpinBox(self):
@@ -254,12 +259,11 @@ class MainWindow(QMainWindow):
 
     #### new form
     def open_subwindow(self):
-        self.featuresWindow.show()
+        self.timeWindow.show()
 
     ### QML
     def open_qmlwindow(self):
-        QMLform = QMLWindow(self)
-        QMLform.show()
+        self.modelWindow.show()
 
     def calcActivityStatus(self):
         self.flagKeyActiveX1 = not self.cb_thX1_on.checkState()
@@ -316,6 +320,7 @@ class MainWindow(QMainWindow):
             self.keyfunc.displayLabel()
             self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
             self.timeWindow.getCalclationTime(self)
+            self.modelWindow.update_model_frame_last(self)
 
             if self.cb_autoSelectFileOn.checkState():
                 self.autoReadFileIndex = self.qlistview.selectionModel().currentIndex().row()
@@ -323,6 +328,8 @@ class MainWindow(QMainWindow):
                 if self.qlw_model.rowCount() <= self.autoReadFileIndex:
                     return 0
                 self.qlistview.setCurrentIndex(self.qlw_model.index(self.autoReadFileIndex, 0))
+                if not self.modelWindow.thread_stop:
+                    self.modelWindow.th_me.join()
                 self.setfile_from_filelist()
                 self.read_csvfile()
 
@@ -407,6 +414,7 @@ class MainWindow(QMainWindow):
         self.main_plot.display_th_z2 = self.cb_thZ2_on.checkState()
 
         self.updateImage()
+        self.modelWindow.update_model_frame(self)
         self.calcActivityStatus()
 
         if self.cb_Animation.checkState() or not self.runOn:

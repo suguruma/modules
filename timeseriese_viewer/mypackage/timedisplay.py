@@ -92,7 +92,6 @@ class OperatingTimeWindow(QMainWindow):
         self.differenceTimeLabel = QLabel()
         self.differenceTimeLabel.setText('x.xxx')
         self.cb_alarm = QCheckBox('Alarm Threshold:')
-        self.cb_alarm.setChecked(True)
         self.dsb_alarmRange = QDoubleSpinBox()
         self.dsb_alarmRange.setRange(0,10)
         self.dsb_alarmRange.setValue(3.0)
@@ -152,7 +151,6 @@ class OperatingTimeWindow(QMainWindow):
         self.axes.bar(self.x_cycle, self.y_time)
 
         self.cb_registrationTime = QCheckBox('Registration')
-        self.cb_registrationTime.setChecked(True)
         self.btn_initGraph = QPushButton('Init')
         self.btn_initGraph.clicked.connect(self.clearGraph)
         lbl_maxCount = QLabel('Num:')
@@ -474,15 +472,19 @@ class OperatingTimeWindow(QMainWindow):
         self.differenceTimeLabel.setText("{0:.2f}[sec]".format(time))
         if self.cb_alarm.checkState():
             if self.dsb_alarmRange.value() <= abs(time) and 0 < time:
-                self.popupMessage(0)
+                self.popupMessage(0, abs(time))
             elif self.dsb_alarmRange.value() <= abs(time) and 0 > time:
-                self.popupMessage(1)
+                self.popupMessage(1, abs(time))
 
-    def popupMessage(self, signal):
+    def popupMessage(self, signal, time):
         if signal == 0:
-            QMessageBox.warning(self, 'Alarm Message', "Operating time is too FAST.", QMessageBox.Close)
+            QMessageBox.warning(self, 'Alarm Message',
+                                "標準作業時間({1:.2f}秒)と比較して{0:.2f}秒速いです".format(time, self.stdOprTimeSb.value()),
+                                QMessageBox.Close)
         elif signal == 1:
-            QMessageBox.warning(self, 'Alarm Message', "Operating time is too LATE.", QMessageBox.Close)
+            QMessageBox.warning(self, 'Alarm Message',
+                                "標準作業時間({1:.2f}秒)と比較して{0:.2f}秒遅いです".format(time, self.stdOprTimeSb.value()),
+                                QMessageBox.Close)
 
     def writeText(self, mui):
         import csv

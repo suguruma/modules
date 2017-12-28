@@ -403,7 +403,7 @@ class UI_MainWindow(object):
         mui.openwindowAction.triggered.connect(mui.open_subwindow)
 
     def openQMLWindowActionUI(self, mui):
-        mui.openQMLAction= QAction('QML')
+        mui.openQMLAction= QAction('Model')
         mui.openQMLAction.setShortcut('Ctrl+M')
-        mui.openQMLAction.setStatusTip('QML')
+        mui.openQMLAction.setStatusTip('Model')
         mui.openQMLAction.triggered.connect(mui.open_qmlwindow)
