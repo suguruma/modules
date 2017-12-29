@@ -14,14 +14,116 @@ from PyQt5.QtQuickWidgets import QQuickWidget
 from mypackage.plotdisplay import MainPlotWindow
 
 class ModelWindow(QMainWindow):
-    def setupUI(self, mui):
-        self.initUI(mui)
+    def closeEvent(self, event):
+        self.textname = ""
+        self.setWindowTitle('Model Window')
+        event.accept()
 
-    def initUI(self, mui):
+    def setupUI(self, mui):
+        self.initUI()
+        self.mainUI()
+        self.barUI()
+        self.drawUI()
+
+        self.setParameter(mui)
+
+    def initUI(self):
+        self.grid = QGridLayout()
+
+    def mainUI(self):
         self.setWindowTitle('Model Window')
         self.setGeometry(300, 100, 1000, 350)
         sub_frame = QWidget()
+        sub_frame.setLayout(self.grid)
+        self.setCentralWidget(sub_frame)
 
+    def barUI(self):
+        self.textActionUI()
+        self.windowActionUI()
+
+        self.cb_frontWindow = QCheckBox('Top')
+        self.cb_frontWindow.stateChanged.connect(self.changeWindowStaysMode)
+        self.cb_drawFigure = QCheckBox('Draw')
+        self.cb_drawFigure.setChecked(True)
+
+        toolbar = self.addToolBar('ToolBar')
+        toolbar.addAction(self.textAction)
+        toolbar.addWidget(self.cb_frontWindow)
+        toolbar.addWidget(self.cb_drawFigure)
+
+    def drawUI(self):
+        ### Image
+        scrollArea_image = QScrollArea()
+        self.lbl_image = QLabel()
+        self.lbl_image.setMinimumWidth(500)
+        self.lbl_image.setMinimumHeight(400)
+        scrollArea_image.setWidget(self.lbl_image)
+        scrollArea_image.setMinimumWidth(500)
+        ### Figure
+        self.model_plot = MainPlotWindow()
+        self.x = deque([])
+        self.y = deque([])
+        self.model_plot.axes.plot(self.x, self.y)
+        self.model_plot.canvas.setMinimumWidth(1)
+        ### |1|
+        vbox1 = QVBoxLayout()
+        vbox1.addWidget(scrollArea_image)
+        ### |2|
+        vbox2 = QVBoxLayout()
+        vbox2.addWidget(self.model_plot.canvas)
+        ### *1*2*
+        self.grid.addLayout(vbox1, 1, 0)
+        self.grid.addLayout(vbox2, 1, 1)
+
+    def textActionUI(self):
+        self.textAction = QAction('OpenFile')
+        self.textAction.setShortcut('Ctrl+O')
+        self.textAction.triggered.connect(self.read_csvfile)
+
+    def windowActionUI(self):
+        self.windowAction = QAction('Bottom2Top')
+        self.windowAction.setShortcut('Ctrl+F')
+        self.windowAction.triggered.connect(self.changeWindowStaysMode)
+
+    ##### -----
+    def changeWindowStaysMode(self):
+        if (self.cb_frontWindow.checkState()):
+            self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        else:
+            self.setWindowFlags(Qt.WindowStaysOnBottomHint)
+        self.show()
+
+    def read_csvfile(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file', '.')[0]
+        self.textname = fname
+        if (not fname == ""):
+            self.textname = fname
+            self.setWindowTitle('Model Window : {0}'.format(self.textname))
+            if self.setting_textname(self.textname) > 0:
+                self.getFrameImages()
+                self.flag_readFile = False
+            self.maxFrameNum = len(self.imglist)
+
+    def getFrameImages(self):
+        self.imglist = deque([])
+        str_path = self.textname
+        str_path = str_path.replace("coordinate", "img").split('.csv')[0]
+        imageFolder = str_path + "/*"
+
+        import glob
+        import re
+        def numericalSort(value):
+            numbers = re.compile(r'(\d+)')
+            parts = numbers.split(value)
+            parts[1::2] = map(int, parts[1::2])
+            return parts
+
+        files = sorted(glob.glob(imageFolder), key=numericalSort)
+        for filename in files:
+            self.imglist.append(filename)
+
+    ##### -----
+    def setParameter(self, mui):
         self.textname = ""
         self.imglist = deque([])
         self.skip_header = True
@@ -29,43 +131,11 @@ class ModelWindow(QMainWindow):
         self.counter = 0
         self.fval = deque([])
         self.model_timer = QTimer(self)
-        self.model_timer.timeout.connect(lambda : self.update_model_frame(mui))
+        self.model_timer.timeout.connect(lambda: self.update_model_frame(mui))
         self.flagFront = False
         self.thread_stop = False
-
-        self.textActionUI(mui)
-        self.windowActionUI(mui)
-
-        toolbar = self.addToolBar('ToolBar')
-        toolbar.addAction(self.textAction)
-        toolbar.addAction(self.windowAction)
-
-        scrollArea_image = QScrollArea()
-        self.lbl_image = QLabel()
-        self.lbl_image.setMinimumWidth(520)
-        self.lbl_image.setMinimumHeight(400)
-        scrollArea_image.setWidget(self.lbl_image)
-        scrollArea_image.setMinimumWidth(500)
-
-        ## Figure
-        self.model_plot = MainPlotWindow()
-        self.x = deque([])
-        self.y = deque([])
-        self.model_plot.axes.plot(self.x, self.y)
-
-        ### |1|
-        vbox1 = QVBoxLayout()
-        vbox1.addWidget(scrollArea_image)
-
-        vbox2 = QVBoxLayout()
-        vbox2.addWidget(self.model_plot.canvas)
-
-        grid = QGridLayout()
-        grid.addLayout(vbox1, 1, 0)
-        grid.addLayout(vbox2, 1, 1)
-
-        sub_frame.setLayout(grid)
-        self.setCentralWidget(sub_frame)
+        self.flag_drawOn = True
+        self.thread_stop_i = -1
 
     def update_model_frame(self, mui):
         if self.textname == "":
@@ -73,14 +143,18 @@ class ModelWindow(QMainWindow):
         if self.flag_readFile:
             self.setting_textname(self.textname)
             self.flag_readFile = False
-        self.updateImage(mui)
-        self.updateFigure(mui)
+        if self.cb_drawFigure.checkState():
+            self.updateImage(mui)
+            self.updateFigure(mui)
 
     def loop_update(self, mui, num):
         for i in range(num):
             self.thread_stop = False
             self.updateImage(mui)
             self.updateFigure(mui)
+            if self.thread_stop_i > 0:
+                self.thread_stop_i = -1
+                break
         self.thread_stop = True
 
     def update_model_frame_last(self, mui):
@@ -91,11 +165,8 @@ class ModelWindow(QMainWindow):
         num = self.maxFrameNum - self.counter
         self.th_me = threading.Thread(target=self.loop_update, name="th_me", args=(mui,num,))
         self.th_me.start()
-        #self.model_timer.start(mui.sld.value())
 
     def updateImage(self, mui):
-        #if mui.frameNumbSpb.value() < len(self.imglist):
-        #    self.lbl_image.setPixmap(QPixmap(self.imglist[mui.frameNumbSpb.value()]))
         if self.counter < self.maxFrameNum - 1:
             self.lbl_image.setPixmap(QPixmap(self.imglist[self.counter]))
 
@@ -110,7 +181,9 @@ class ModelWindow(QMainWindow):
         self.model_plot.ylim_max = mui.sldv1qsb.value()
         self.model_plot.ylim_min = mui.sldv2qsb.value()
         self.model_plot.grid_flag = mui.grid_cb.checkState()
-        self.model_plot.draw()
+
+        if mui.skipDrawCounter():
+            self.model_plot.draw()
 
     def update_data(self, mui):
         try:
@@ -148,9 +221,6 @@ class ModelWindow(QMainWindow):
                 self.model_plot.y1 = self.y1
                 self.model_plot.y2 = self.y2
                 self.model_plot.y3 = self.y3
-                #self.updateTargetData()
-                #self.frameNumbSpb.setValue(self.counter - 1)
-                #self.framelabel.setText("Frame:") #{0}".format(self.counter - 1))
 
     def setting_textname(self, fname):
         try:
@@ -167,50 +237,3 @@ class ModelWindow(QMainWindow):
                 str_data[i] = np.nan
         return str_data
 
-    def read_csvfile(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file', '.')[0]
-        self.textname = fname
-        if (not fname == ""):
-            self.textname = fname
-            self.setWindowTitle('Model Window : {0}'.format(self.textname))
-            if self.setting_textname(self.textname) > 0:
-                self.getFrameImages()
-                self.flag_readFile = False
-            self.maxFrameNum = len(self.imglist)
-
-    def getFrameImages(self):
-        self.imglist = deque([])
-        str_path = self.textname
-        str_path = str_path.replace("coordinate", "img").split('.csv')[0]
-        imageFolder = str_path + "/*"
-
-        import glob
-        import re
-        def numericalSort(value):
-            numbers = re.compile(r'(\d+)')
-            parts = numbers.split(value)
-            parts[1::2] = map(int, parts[1::2])
-            return parts
-
-        files = sorted(glob.glob(imageFolder), key=numericalSort)
-        for filename in files:
-            self.imglist.append(filename)
-
-    def textActionUI(self, mui):
-        self.textAction = QAction('Open')
-        self.textAction.setShortcut('Ctrl+O')
-        self.textAction.triggered.connect(self.read_csvfile)
-
-    def windowActionUI(self, mui):
-        self.windowAction = QAction('Front/Back')
-        self.windowAction.setShortcut('Ctrl+F')
-        self.windowAction.triggered.connect(self.changeWindowMode)
-
-    def changeWindowMode(self):
-        if (self.flagFront):
-            self.setWindowFlags(Qt.WindowStaysOnBottomHint)
-            self.flagFront = False
-        else:
-            self.setWindowFlags(Qt.WindowStaysOnTopHint)
-            self.flagFront = True
-        self.show()

@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/fps_test.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/video_test.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/timeseriese_viewer/main.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/main.py" />
+      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" />
+      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py" />
+      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" />
       <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
       <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" />
     </list>
@@ -19,18 +24,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="333" column="35" lean-forward="true" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calcactivity.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="95" column="45" lean-forward="false" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+            <state relative-caret-position="4503">
+              <caret line="475" column="40" lean-forward="false" selection-start-line="475" selection-start-column="40" selection-end-line="475" selection-end-column="40" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -41,32 +36,8 @@
       <file leaf-file-name="uidisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="384" column="51" lean-forward="true" selection-start-line="384" selection-start-column="51" selection-end-line="384" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="timedisplay.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="151" column="0" lean-forward="true" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plotdisplay.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+            <state relative-caret-position="980">
+              <caret line="398" column="32" lean-forward="true" selection-start-line="398" selection-start-column="32" selection-end-line="398" selection-end-column="32" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -77,8 +48,32 @@
       <file leaf-file-name="modeldisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="91" column="18" lean-forward="false" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="18" />
+            <state relative-caret-position="-1292">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="calcactivity.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-731">
+              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <folding>
+                <element signature="e#22#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timedisplay.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8806">
+              <caret line="518" column="0" lean-forward="true" selection-start-line="518" selection-start-column="0" selection-end-line="518" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -97,36 +92,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setting_textname</find>
-      <find>getFrameImages</find>
-      <find>main_plot</find>
-      <find>skip_space_csv</find>
-      <find>skip</find>
-      <find>comb</find>
-      <find>combo</find>
-      <find>part</find>
-      <find>updateTargetData</find>
-      <find>autoScrollMode</find>
-      <find>update_model_frame</find>
-      <find>update_mode</find>
-      <find>QTimer</find>
+      <find>connectViewAction</find>
+      <find>gb_</find>
+      <find>gb_connectData</find>
+      <find>setFi</find>
+      <find>process_stop_restart</find>
+      <find>triggered</find>
+      <find>close</find>
+      <find>mui.gb_setThreshold.</find>
+      <find>gb_setThreshold</find>
       <find>lcd</find>
-      <find>QLCDNumber</find>
-      <find>loop_connnect_timer</find>
-      <find>update_model_frame_last</find>
-      <find>Mini</find>
-      <find>model_timer</find>
-      <find>self.flag_readFile</find>
-      <find>read</find>
-      <find>self.counter</find>
-      <find>Width</find>
-      <find>read_csvfile</find>
-      <find>open_qmlwindow</find>
-      <find>open_</find>
-      <find>IF</find>
-      <find>alarm</find>
-      <find>modelWindow</find>
+      <find>th_me</find>
+      <find>thread_stop</find>
       <find>Auto</find>
+      <find>th_</find>
+      <find>self.model_plot.canvas</find>
+      <find>Width</find>
+      <find>Height</find>
+      <find>self.update_plot_data</find>
+      <find>draw</find>
+      <find>Draw</find>
+      <find>checkState</find>
+      <find>Animati</find>
+      <find>ModelWindow</find>
+      <find>modelWindow</find>
+      <find>main</find>
+      <find>mui</find>
+      <find>updateImage</find>
+      <find>read_csvfile</find>
+      <find>model_plot</find>
+      <find>setupUI</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -170,20 +165,23 @@
         <option value="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
         <option value="$PROJECT_DIR$/namedpipe/main.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay_test.py" />
-        <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/video_test.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/fps_test.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py" />
-        <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" />
+        <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" />
         <option value="$PROJECT_DIR$/timeseriese_viewer/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="174" />
-    <option name="y" value="35" />
-    <option name="width" value="1599" />
-    <option name="height" value="982" />
+    <option name="x" value="268" />
+    <option name="y" value="83" />
+    <option name="width" value="1538" />
+    <option name="height" value="977" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -233,6 +231,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Terada\Documents\Projects\home\modules\timeseriese_viewer\tmp\tmp_py" />
       <recent name="C:\Users\Terada\Documents\Projects\home\modules\namedpipe" />
     </key>
   </component>
@@ -249,19 +248,19 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="QtPainter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="fps_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/qml" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="modules" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qml/QtPainter.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/fps_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -285,74 +284,14 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="qml_new_windowtest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/namedpipe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="modules" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="treeview_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/namedpipe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="modules" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/treeview_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="visual_recevier_graph_timeseriese" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/namedpipe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="modules" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.visual_recevier_graph_timeseriese" />
-      <item index="1" class="java.lang.String" itemvalue="Python.treeview_test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.QtPainter" />
-      <item index="3" class="java.lang.String" itemvalue="Python.qml_new_windowtest" />
-      <item index="4" class="java.lang.String" itemvalue="Python.main" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python.main" />
+      <item index="1" class="java.lang.String" itemvalue="Python.fps_test" />
     </list>
     <recent_temporary>
-      <list size="5">
+      <list size="2">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.qml_new_windowtest" />
-        <item index="2" class="java.lang.String" itemvalue="Python.visual_recevier_graph_timeseriese" />
-        <item index="3" class="java.lang.String" itemvalue="Python.QtPainter" />
-        <item index="4" class="java.lang.String" itemvalue="Python.treeview_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.fps_test" />
       </list>
     </recent_temporary>
   </component>
@@ -373,14 +312,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="174" y="35" width="1599" height="982" extended-state="0" />
+    <frame x="268" y="83" width="1538" height="977" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23310171" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24244416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23549107" sideWeight="0.5076239" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2416953" sideWeight="0.49237612" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24308756" sideWeight="0.49237612" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -444,29 +383,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8670">
-          <caret line="532" column="28" lean-forward="false" selection-start-line="532" selection-start-column="28" selection-end-line="532" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -505,7 +426,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -513,7 +436,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7939">
           <caret line="487" column="0" lean-forward="true" selection-start-line="487" selection-start-column="0" selection-end-line="487" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -528,7 +453,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -583,32 +510,60 @@
     <entry file="file://$PROJECT_DIR$/namedpipe/qml_new_windowtest.py" />
     <entry file="file://$PROJECT_DIR$/namedpipe/visual_recevier_graph_timeseriese.py" />
     <entry file="file://$PROJECT_DIR$/namedpipe/main.py" />
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/PyQt5/QtWidgets.pyi">
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/qmldisplay_test.py" />
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/matplotlib/axis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="7104" column="6" lean-forward="false" selection-start-line="7104" selection-start-column="6" selection-end-line="7104" selection-end-column="6" />
+        <state relative-caret-position="195">
+          <caret line="1329" column="0" lean-forward="false" selection-start-line="1329" selection-start-column="0" selection-end-line="1329" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/qmldisplay_test.py" />
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py">
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/PyQt5/QtWidgets.pyi">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        <state relative-caret-position="160">
+          <caret line="148" column="62" lean-forward="true" selection-start-line="148" selection-start-column="62" selection-end-line="148" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/video_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="51" column="10" lean-forward="true" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/tmp/tmp_py/fps_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="88" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+        <state relative-caret-position="255">
+          <caret line="15" column="21" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/plotdisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+        <state relative-caret-position="62">
+          <caret line="74" column="59" lean-forward="false" selection-start-line="74" selection-start-column="59" selection-end-line="74" selection-end-column="59" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -617,18 +572,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="151" column="0" lean-forward="true" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="384" column="51" lean-forward="true" selection-start-line="384" selection-start-column="51" selection-end-line="384" selection-end-column="51" />
+        <state relative-caret-position="8806">
+          <caret line="518" column="0" lean-forward="true" selection-start-line="518" selection-start-column="0" selection-end-line="518" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -637,26 +582,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="95" column="45" lean-forward="false" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+        <state relative-caret-position="-731">
+          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/matplotlib/axis.py">
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="1329" column="0" lean-forward="false" selection-start-line="1329" selection-start-column="0" selection-end-line="1329" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="-1292">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py">
+    <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="91" column="18" lean-forward="false" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="18" />
+        <state relative-caret-position="980">
+          <caret line="398" column="32" lean-forward="true" selection-start-line="398" selection-start-column="32" selection-end-line="398" selection-end-column="32" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -665,9 +612,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="333" column="35" lean-forward="true" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="4503">
+          <caret line="475" column="40" lean-forward="false" selection-start-line="475" selection-start-column="40" selection-end-line="475" selection-end-column="40" />
+          <folding>
+            <element signature="e#22#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

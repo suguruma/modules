@@ -44,22 +44,19 @@ class UI_MainWindow(object):
         main_frame = QWidget()
         mui.main_plot = MainPlotWindow(main_frame)
 
-        vbox = QVBoxLayout()
-        vbox.addWidget(mui.gb_readData)
-        vbox.addWidget(mui.gb_connectData)
-        vbox.addWidget(mui.gb_frameInfo)
-        vbox.addStretch(1)
-        hbox1 = QHBoxLayout()
-        hbox1.addWidget(mui.gb_imageInfo)
-        hbox1.addWidget(mui.gb_figureInfo)
-        vbox.addLayout(hbox1)
-        main_frame.setLayout(vbox)
-
+        grid = QGridLayout()
+        grid.addWidget(mui.gb_readData, 0, 0, 1, 2)
+        grid.addWidget(mui.gb_connectData, 1, 0, 1, 2)
+        grid.addWidget(mui.gb_frameInfo, 2, 0, 1, 2)
+        grid.addWidget(mui.gb_imageInfo, 3, 0)
+        grid.addWidget(mui.gb_figureInfo, 3, 1)
+        main_frame.setLayout(grid)
         mui.setCentralWidget(main_frame)
 
     def barUI(self, mui):
         ### Action UI
         self.exitActionUI(mui)
+        self.connectViewActionUI(mui)
         self.readActionUI(mui)
         self.connectActionUI(mui)
         self.opensubWindowActionUI(mui)
@@ -70,22 +67,22 @@ class UI_MainWindow(object):
         menubar = mui.menuBar()
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(mui.exitAction)
-        menubar.addMenu('&Run')
-        menubar.addMenu('&Tool')
-        menubar.addMenu('&Window')
+        viewMenu = menubar.addMenu('&View')
+        viewMenu.addAction(mui.connectViewAction)
+        runMenu = menubar.addMenu('&Run')
+        runMenu.addAction(mui.readAction)
+        runMenu.addAction(mui.connectAction)
+        windowMenu = menubar.addMenu('&Window')
+        windowMenu.addAction(mui.openwindowAction)
+        windowMenu.addAction(mui.openQMLAction)
         menubar.addMenu('&Help')
-
-        toolbar = mui.addToolBar('MainToolBar')
-        toolbar.addAction(mui.readAction)
-        toolbar.addAction(mui.connectAction)
-        toolbar.addAction(mui.openwindowAction)
-        toolbar.addAction(mui.openQMLAction)
 
     def readDataUI(self, mui):
         ### Add Element
         mui.fnameQle = QLineEdit()
         mui.fnameQle.setText("CSV File")
         mui.openfile_Btn = QPushButton('Open File')
+        mui.openfile_Btn.setFixedWidth(120)
         mui.openfile_Btn.clicked.connect(mui.open_file)
         mui.openfolder_Btn = QPushButton('Open Folder')
         mui.openfolder_Btn.clicked.connect(mui.open_folder)
@@ -128,6 +125,8 @@ class UI_MainWindow(object):
         mui.pnameQle.setText("NPtest")
         pnlabel = QLabel()
         pnlabel.setText('Pipe Name:')
+        btn_connectStart = QPushButton('Connect')
+        btn_connectStart.clicked.connect(mui.connect_namedpipe)
         registBtn = QPushButton("Register")
         registBtn.clicked.connect(mui.regist_namedpipe)
         mui.regist_namedpipe()
@@ -136,6 +135,7 @@ class UI_MainWindow(object):
 
         ### -1-
         hbox_gb_connectData = QHBoxLayout()
+        hbox_gb_connectData.addWidget(btn_connectStart)
         hbox_gb_connectData.addWidget(registBtn)
         hbox_gb_connectData.addWidget(pnlabel)
         hbox_gb_connectData.addWidget(mui.pnameQle)
@@ -162,8 +162,10 @@ class UI_MainWindow(object):
         mui.sld.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         mui.sld.setTickPosition(QSlider.TicksBothSides)
         mui.sld.valueChanged.connect(lcd.display)
-        restopBtn = QPushButton("Stop | Restart")
-        restopBtn.clicked.connect(mui.process_stop_restart)
+        btn_analysisStart = QPushButton('Start')
+        btn_analysisStart.clicked.connect(mui.read_csvfile)
+        mui.restopBtn = QPushButton("Stop")
+        mui.restopBtn.clicked.connect(mui.process_stop_restart)
         mui.framelabel = QLabel()
         mui.framelabel.setText("Frame:")
         mui.frameNumbSpb = QSpinBox()
@@ -195,7 +197,8 @@ class UI_MainWindow(object):
         hbox1.addWidget(mui.sld)
         ### -2-
         hbox2 = QHBoxLayout()
-        hbox2.addWidget(restopBtn)
+        hbox2.addWidget(btn_analysisStart)
+        hbox2.addWidget(mui.restopBtn)
         hbox2.addWidget(mui.framelabel)
         hbox2.addWidget(mui.frameNumbSpb)
         hbox2.addWidget(mui.sld_frameNum)
@@ -219,7 +222,7 @@ class UI_MainWindow(object):
         mui.sldv1 = QSlider(Qt.Vertical)
         mui.sldv1.setRange(1, 200)
         mui.sldv1.setValue(1)
-        mui.sldv1.setFixedHeight(200)
+        mui.sldv1.setMinimumHeight(100)
         mui.sldv1qsb = QSpinBox()
         mui.sldv1qsb.setRange(1, 9999)
         mui.sldv1qsb.setValue(mui.sldv1.value())
@@ -228,7 +231,7 @@ class UI_MainWindow(object):
         mui.sldv2 = QSlider(Qt.Vertical)
         mui.sldv2.setRange(-200, 0)
         mui.sldv2.setValue(-1)
-        mui.sldv2.setFixedHeight(200)
+        mui.sldv2.setMinimumHeight(100)
         mui.sldv2qsb = QSpinBox()
         mui.sldv2qsb.setRange(-9999, 0)
         mui.sldv2qsb.setValue(mui.sldv2.value())
@@ -266,8 +269,12 @@ class UI_MainWindow(object):
         mui.cb_imgDisplay.stateChanged.connect(mui.isDisplayImageInfomation)
         mui.grid_cb = QCheckBox('Grid')
         mui.grid_cb.setChecked(True)
-        mui.cb_Animation = QCheckBox('Animation')
+        mui.cb_Animation = QCheckBox('Draw')
         mui.cb_Animation.setChecked(True)
+        lbl_skipNum = QLabel('Skip:')
+        mui.sb_skipNum = QSpinBox()
+        mui.sb_skipNum.setRange(0, 30)
+        mui.sb_skipNum.setValue(0)
 
         ###
         mui.sldh1 = QSlider(Qt.Horizontal)
@@ -296,6 +303,8 @@ class UI_MainWindow(object):
         hbox1 = QHBoxLayout()
         hbox1.addWidget(mui.cb_imgDisplay)
         hbox1.addWidget(mui.cb_Animation)
+        hbox1.addWidget(lbl_skipNum)
+        hbox1.addWidget(mui.sb_skipNum)
         hbox1.addWidget(refreshBtn)
         hbox1.addWidget(mui.grid_cb)
         hbox1.addWidget(mui.combo)
@@ -307,7 +316,6 @@ class UI_MainWindow(object):
         vbox1 = QVBoxLayout()
         vbox1.addWidget(mui.sldv1)
         vbox1.addWidget(mui.sldv1qsb)
-        vbox1.addStretch(1)
         vbox1.addWidget(mui.sldv2qsb)
         vbox1.addWidget(mui.sldv2)
         ### -2-
@@ -325,8 +333,8 @@ class UI_MainWindow(object):
         vbox2.addLayout(hbox2)
         ### -3|1|2|-
         hbox3 = QHBoxLayout()
-        hbox3.addLayout(vbox1)
         hbox3.addLayout(vbox2)
+        hbox3.addLayout(vbox1)
         ### |-1-3-|
         vbox_gb_figureInfo = QVBoxLayout()
         vbox_gb_figureInfo.addLayout(hbox1)
@@ -379,31 +387,35 @@ class UI_MainWindow(object):
 
     ### ActionUI
     def exitActionUI(self, mui):
-        mui.exitAction = QAction('Exit')
+        mui.exitAction = QAction('終了')
         mui.exitAction.setShortcut('Ctrl+Q')
         mui.exitAction.setStatusTip('Exit application')
         mui.exitAction.triggered.connect(mui.close)
 
+    def connectViewActionUI(self, mui):
+        mui.connectViewAction = QAction('接続フォーム')
+        mui.connectViewAction.triggered.connect(mui.changeConnectViewMode)
+
     def readActionUI(self, mui):
-        mui.readAction = QAction('Start')
+        mui.readAction = QAction('テキスト解析スタート')
         mui.readAction.setShortcut('Ctrl+S')
         mui.readAction.setStatusTip('Start to read the data from the text file')
         mui.readAction.triggered.connect(mui.read_csvfile)
 
     def connectActionUI(self, mui):
-        mui.connectAction = QAction('Connect')
+        mui.connectAction = QAction('接続解析スタート')
         mui.connectAction.setShortcut('Ctrl+C')
         mui.connectAction.setStatusTip('Connect to get the data by the NamedPipes from other application')
         mui.connectAction.triggered.connect(mui.connect_namedpipe)
 
     def opensubWindowActionUI(self, mui):
-        mui.openwindowAction= QAction('Display')
+        mui.openwindowAction = QAction('時間計測設定画面表示')
         mui.openwindowAction.setShortcut('Ctrl+W')
         mui.openwindowAction.setStatusTip('Open the table window of features')
         mui.openwindowAction.triggered.connect(mui.open_subwindow)
 
     def openQMLWindowActionUI(self, mui):
-        mui.openQMLAction= QAction('Model')
+        mui.openQMLAction= QAction('モデル画面表示')
         mui.openQMLAction.setShortcut('Ctrl+M')
-        mui.openQMLAction.setStatusTip('Model')
+        mui.openQMLAction.setStatusTip('Compare current frame and feature with model')
         mui.openQMLAction.triggered.connect(mui.open_qmlwindow)

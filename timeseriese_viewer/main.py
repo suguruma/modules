@@ -2,24 +2,14 @@
 import sys
 import numpy as np
 from collections import deque
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 from PyQt5.QtCore import (Qt, QUrl, QTimer, QModelIndex, QPoint)
 from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QPixmap)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
-                               QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog
+                               QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
+                               QMessageBox
                              )
-from PyQt5.QtQuickWidgets import QQuickWidget
 
-#from PyQt5.QtGui import QGuiApplication
-#from PyQt5.QtCore import (QLineF, QPointF, QRectF)
-#from PyQt5.QtWidgets import (QGraphicsView, QGraphicsScene, QGraphicsItem, QListWidget)
-#from PyQt5.QtQuick import QQuickView
-#from PyQt5.QtQml import QQmlApplicationEngine
-
-from mypackage.plotdisplay import MainPlotWindow
-from mypackage.qmldisplay_test import QMLWindow
 from mypackage.modeldisplay import ModelWindow
 from mypackage.calcactivity import KeyActivityTime
 from mypackage.timedisplay import OperatingTimeWindow
@@ -29,7 +19,8 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
-        self.setWindowTitle('Time Seriese Analysis ver.0.3')
+        g_verstion = 0.4
+        self.setWindowTitle('Time Seriese Analysis ver.{0}'.format(g_verstion))
         self.setGeometry(50, 50, 0, 0);
         self.setParameter()
         self.ui = UI_MainWindow()
@@ -41,11 +32,18 @@ class MainWindow(QMainWindow):
         self.timeWindow.setupUI(self)
         self.timeWindow.show()
 
+        ### Model
         self.modelWindow = ModelWindow()
         self.modelWindow.setupUI(self)
 
-        #QMLform = QMLWindow(self)
-        #QMLform.show()
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Close Message', "Are you sure to quit?", QMessageBox.Yes, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.modelWindow.close()
+            self.timeWindow.close()
+            event.accept()
+        else:
+            event.ignore()
 
     def setParameter(self):
         self.autoReadFileIndex = 0
@@ -189,9 +187,11 @@ class MainWindow(QMainWindow):
         if self.runOn:
             self.timer.stop()
             self.runOn = self.timer.isActive()
+            self.restopBtn.setText('Restart')
         else:
             self.timer.start()
             self.runOn = self.timer.isActive()
+            self.restopBtn.setText('Stop')
 
     def open_file(self):
         filename = QFileDialog.getOpenFileName(self, 'Open file', '.') #, os.path.expanduser('~') + '/Desktop')
@@ -256,6 +256,12 @@ class MainWindow(QMainWindow):
         self.sld_thZ1.setValue(self.sb_thZ1.value())
         self.sld_thZ2.setValue(self.sb_thZ2.value())
 
+    ### View
+    def changeConnectViewMode(self):
+        if self.gb_connectData.isVisible():
+            self.gb_connectData.setVisible(False)
+        else:
+            self.gb_connectData.setVisible(True)
 
     #### new form
     def open_subwindow(self):
@@ -295,14 +301,11 @@ class MainWindow(QMainWindow):
             self.flagKeyActiveZ2 = True
 
         if self.flagKeyActiveX1 and self.flagKeyActiveY1 and self.flagKeyActiveZ1 and check_flagKeyActive1:
-            self.keyfunc.setFrameLabel(1) # "key")
-            #print("Key Frame:{0}".format(self.counter))
+            self.keyfunc.setFrameLabel(1)
         elif self.flagKeyActiveX2 and self.flagKeyActiveY2 and self.flagKeyActiveZ2 and check_flagKeyActive2:
-            self.keyfunc.setFrameLabel(1) # "key")
-            #print("Key Frame:{0}".format(self.counter))
+            self.keyfunc.setFrameLabel(1)
         else:
-            self.keyfunc.setFrameLabel(0) # "main")
-            #print("Main Frame:{0}".format(self.counter))
+            self.keyfunc.setFrameLabel(0)
 
     ### graph update
     def update_figure(self):
@@ -328,7 +331,8 @@ class MainWindow(QMainWindow):
                 if self.qlw_model.rowCount() <= self.autoReadFileIndex:
                     return 0
                 self.qlistview.setCurrentIndex(self.qlw_model.index(self.autoReadFileIndex, 0))
-                if not self.modelWindow.thread_stop:
+                if not self.modelWindow.thread_stop and not self.modelWindow.textname == "":
+                    self.modelWindow.thread_stop_i = 1
                     self.modelWindow.th_me.join()
                 self.setfile_from_filelist()
                 self.read_csvfile()
@@ -417,8 +421,14 @@ class MainWindow(QMainWindow):
         self.modelWindow.update_model_frame(self)
         self.calcActivityStatus()
 
-        if self.cb_Animation.checkState() or not self.runOn:
+        if self.skipDrawCounter() and self.cb_Animation.checkState() or not self.runOn:
             self.main_plot.draw()
+
+    def skipDrawCounter(self):
+        if 0 == self.counter % (self.sb_skipNum.value() + 1):
+            return True
+        else:
+            return False
 
     def updateImage(self):
         if self.frameNumbSpb.value() < len(self.imglist):
@@ -468,12 +478,13 @@ class MainWindow(QMainWindow):
 
                 self.updateTargetData()
                 self.frameNumbSpb.setValue(self.counter - 1)
-                self.framelabel.setText("Frame:") #{0}".format(self.counter - 1))
+                self.framelabel.setText("Frame:")
 
 def main(args):
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     mainWindow.show()
+    mainWindow.changeConnectViewMode()
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

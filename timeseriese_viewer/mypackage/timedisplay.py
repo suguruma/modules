@@ -8,7 +8,8 @@ from PyQt5.QtGui import (QStandardItemModel, QStandardItem)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
-                               QDoubleSpinBox, QGroupBox, QSizePolicy, QMessageBox
+                               QDoubleSpinBox, QGroupBox, QSizePolicy, QMessageBox, QStackedWidget,
+                               QStackedLayout
                               )
 from PyQt5.QtQuickWidgets import QQuickWidget
 from configparser import ConfigParser
@@ -22,6 +23,7 @@ class OperatingTimeWindow(QMainWindow):
         self.timeUI()
         self.timeFigureUI(mui)
 
+        self.draw_figure()
         ## value
         self.cycle_counter = 0
 
@@ -29,18 +31,26 @@ class OperatingTimeWindow(QMainWindow):
         self.gb_config = QGroupBox()
         self.gb_oprTime = QGroupBox()
         mui.gb_setThreshold = QGroupBox()
-        mui.gb_setThreshold.setVisible(False)
         self.gb_figTIme = QGroupBox()
 
     def mainUI(self, mui):
         self.setWindowTitle('Operating Time Calclation')
         self.setGeometry(1200, 50, 0, 0);
         main_frame = QWidget()
+
+        sw_optForm = QStackedWidget()
+        sw_optForm.addWidget(mui.gb_setThreshold)
+        sw_optForm.addWidget(self.gb_figTIme)
+        combo_optForm = QComboBox()
+        combo_optForm.addItem('1: Setting Threshold')
+        combo_optForm.addItem('2: Operating Time Graph')
+        combo_optForm.currentIndexChanged.connect(sw_optForm.setCurrentIndex)
+
         vbox_main = QVBoxLayout()
         vbox_main.addWidget(self.gb_config)
-        vbox_main.addWidget(mui.gb_setThreshold)
         vbox_main.addWidget(self.gb_oprTime)
-        vbox_main.addWidget(self.gb_figTIme)
+        vbox_main.addWidget(combo_optForm)
+        vbox_main.addWidget(sw_optForm)
         main_frame.setLayout(vbox_main)
         self.setCentralWidget(main_frame)
 
@@ -191,7 +201,7 @@ class OperatingTimeWindow(QMainWindow):
         vbox_gb_figTIme.addLayout(hbox2)
 
         self.gb_figTIme.setMinimumHeight(350)
-        self.gb_figTIme.setTitle("Operation Time Graph")
+        #self.gb_figTIme.setTitle("Operation Time Graph")
         self.gb_figTIme.setLayout(vbox_gb_figTIme)
 
     def thresholdUI(self, mui):
@@ -351,9 +361,8 @@ class OperatingTimeWindow(QMainWindow):
         vbox_gb_setThreshold.addLayout(hbox1)
         vbox_gb_setThreshold.addLayout(hbox2)
 
-        mui.gb_setThreshold.setMinimumHeight(320)
-        mui.gb_setThreshold.setVisible(True)
-        mui.gb_setThreshold.setTitle("Setting Threshold")
+        mui.gb_setThreshold.setMinimumHeight(350)
+        #mui.gb_setThreshold.setTitle("Setting Threshold")
         mui.gb_setThreshold.setLayout(vbox_gb_setThreshold)
 
     def readConfig(self, mui):
