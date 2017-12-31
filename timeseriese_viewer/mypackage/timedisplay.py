@@ -4,7 +4,7 @@ from collections import deque
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from PyQt5.QtCore import (Qt, QUrl, QTimer)
-from PyQt5.QtGui import (QStandardItemModel, QStandardItem)
+from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QPen, QPainter, QColor)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QV
                                QStackedLayout
                               )
 from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from configparser import ConfigParser
 
 class OperatingTimeWindow(QMainWindow):
@@ -22,6 +23,7 @@ class OperatingTimeWindow(QMainWindow):
         self.thresholdUI(mui)
         self.timeUI()
         self.timeFigureUI(mui)
+        self.activetiyDetailUI(mui)
 
         self.draw_figure()
         ## value
@@ -31,7 +33,8 @@ class OperatingTimeWindow(QMainWindow):
         self.gb_config = QGroupBox()
         self.gb_oprTime = QGroupBox()
         mui.gb_setThreshold = QGroupBox()
-        self.gb_figTIme = QGroupBox()
+        self.gb_figTime = QGroupBox()
+        self.gb_actDetail = QGroupBox()
 
     def mainUI(self, mui):
         self.setWindowTitle('Operating Time Calclation')
@@ -40,10 +43,12 @@ class OperatingTimeWindow(QMainWindow):
 
         sw_optForm = QStackedWidget()
         sw_optForm.addWidget(mui.gb_setThreshold)
-        sw_optForm.addWidget(self.gb_figTIme)
+        sw_optForm.addWidget(self.gb_figTime)
+        sw_optForm.addWidget(self.gb_actDetail)
         combo_optForm = QComboBox()
         combo_optForm.addItem('1: Setting Threshold')
         combo_optForm.addItem('2: Operating Time Graph')
+        combo_optForm.addItem('3: Activity Details')
         combo_optForm.currentIndexChanged.connect(sw_optForm.setCurrentIndex)
 
         vbox_main = QVBoxLayout()
@@ -151,6 +156,25 @@ class OperatingTimeWindow(QMainWindow):
         self.gb_oprTime.setTitle("Operating Time")
         self.gb_oprTime.setLayout(vbox_gb_oprTime)
 
+    def activetiyDetailUI(self, mui):
+
+        series = QPieSeries()
+        chart = QChart()
+        chart.addSeries(series)
+        #chart.setTitle("Activity Details")
+        #chart.legend().hide()
+
+        self.chartView =QChartView()
+        self.chartView.setChart(chart)
+        self.chartView.setRenderHint(QPainter.Antialiasing)
+        self.chartView.setMinimumWidth(350)
+
+        vbox_gb_actDetail = QVBoxLayout()
+        vbox_gb_actDetail.addWidget(self.chartView)
+
+        self.gb_actDetail.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        self.gb_actDetail.setLayout(vbox_gb_actDetail)
+
     def timeFigureUI(self, mui):
         fig = Figure((10,5), dpi=100)
         self.canvas_time = FigureCanvas(fig)
@@ -195,14 +219,13 @@ class OperatingTimeWindow(QMainWindow):
         hbox2.addWidget(self.le_variance)
 
         ### |-1-2-|
-        vbox_gb_figTIme = QVBoxLayout()
-        vbox_gb_figTIme.addLayout(hbox1)
-        vbox_gb_figTIme.addWidget(self.canvas_time)
-        vbox_gb_figTIme.addLayout(hbox2)
+        vbox_gb_figTime = QVBoxLayout()
+        vbox_gb_figTime.addLayout(hbox1)
+        vbox_gb_figTime.addWidget(self.canvas_time)
+        vbox_gb_figTime.addLayout(hbox2)
 
-        self.gb_figTIme.setMinimumHeight(350)
-        #self.gb_figTIme.setTitle("Operation Time Graph")
-        self.gb_figTIme.setLayout(vbox_gb_figTIme)
+        self.gb_figTime.setMinimumHeight(350)
+        self.gb_figTime.setLayout(vbox_gb_figTime)
 
     def thresholdUI(self, mui):
         ### Add Element
@@ -361,8 +384,7 @@ class OperatingTimeWindow(QMainWindow):
         vbox_gb_setThreshold.addLayout(hbox1)
         vbox_gb_setThreshold.addLayout(hbox2)
 
-        mui.gb_setThreshold.setMinimumHeight(350)
-        #mui.gb_setThreshold.setTitle("Setting Threshold")
+        mui.gb_setThreshold.setMinimumHeight(400)
         mui.gb_setThreshold.setLayout(vbox_gb_setThreshold)
 
     def readConfig(self, mui):
@@ -441,6 +463,27 @@ class OperatingTimeWindow(QMainWindow):
         config.set('thresholdUI', 'Threshold_VarianceZ2', str(mui.sb_thZ2Variance.value()))
         config.set('figureUI', 'TargetSkeltonParts', str(mui.combo.currentText()))
         config.write(open(self.le_saveConfig.text(), 'w'))
+
+    def drawChart(self, mui):
+        series = QPieSeries()
+        series.append("Main", mui.keyfunc.mainActivityFrame)
+        series.append("Key", mui.keyfunc.keyActivityFrame)
+        slice1 = series.slices()[0]
+        #slice1.setExploded()
+        slice1.setLabelVisible()
+        slice1.setPen(QPen(QColor(40, 100, 240, 250), 2))
+        slice1.setBrush(QColor(40, 100, 240, 200))
+        slice2 = series.slices()[1]
+        slice2.setLabelVisible()
+        slice2.setPen(QPen(QColor(20, 150, 240, 250), 2))
+        slice2.setBrush(QColor(20, 150, 240, 200))
+
+        chart = QChart()
+        chart.addSeries(series)
+        #chart.setTitle("Activity Details")
+        #chart.legend().hide()
+
+        self.chartView.setChart(chart)
 
     def getCalclationTime(self, mui):
         if self.cb_registrationTime.checkState():

@@ -26,6 +26,7 @@ class KeyActivityTime():
         self.labelFrame = deque([])
         self.runOn = False
         self.mainActivityFrame = 0
+        self.keyActivityFrame = 0
 
     def setFrameLabel(self, _sLabel):
         self.labelFrame.append(_sLabel)
@@ -102,6 +103,7 @@ class KeyActivityTime():
 
         ### SetFrame
         self.mainActivityFrame = main_max_count
+        self.keyActivityFrame = key_max_count
 
     def determineKeyFrame(self):
         self.mainActivityTime = self.mainActivityFrame / self.FPS

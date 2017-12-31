@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QV
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
                                QMessageBox
-                             )
+                              )
 
 from mypackage.modeldisplay import ModelWindow
 from mypackage.calcactivity import KeyActivityTime
@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
-        g_verstion = 0.4
+        g_verstion = 0.5
         self.setWindowTitle('Time Seriese Analysis ver.{0}'.format(g_verstion))
         self.setGeometry(50, 50, 0, 0);
         self.setParameter()
@@ -34,7 +34,9 @@ class MainWindow(QMainWindow):
 
         ### Model
         self.modelWindow = ModelWindow()
-        self.modelWindow.setupUI(self)
+        self.modelWindow.run(self)
+        #self.test = QMLWindow()
+        #self.test.show()
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Close Message', "Are you sure to quit?", QMessageBox.Yes, QMessageBox.No)
@@ -323,6 +325,7 @@ class MainWindow(QMainWindow):
             self.keyfunc.displayLabel()
             self.timeWindow.calcOprTimeLabel.setText("{0:.2f}".format(self.keyfunc.mainActivityTime))
             self.timeWindow.getCalclationTime(self)
+            self.timeWindow.drawChart(self)
             self.modelWindow.update_model_frame_last(self)
 
             if self.cb_autoSelectFileOn.checkState():

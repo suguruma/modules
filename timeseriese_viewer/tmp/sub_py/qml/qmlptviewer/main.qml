@@ -31,5 +31,5 @@ Rectangle {
             ctx.strokeRect(200, 300, 50, 150)
         }
     }
-    PointingView{}
+    PointingRightHand{}
 }

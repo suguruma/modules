@@ -31,5 +31,23 @@ Rectangle {
             ctx.strokeRect(200, 300, 50, 150)
         }
     }
-    PointingView{}
+    PointingRightHand{}
+    Button{
+        id : quitButton
+        width: 100; height: 30;
+
+        Text{
+            text: qsTr("Close")
+            font.weight: Font.DemiBold
+            anchors.centerIn: parent
+        }
+        function test()
+        {
+
+        }
+        onClicked: {
+            test()
+            Qt.quit()
+        }
+    }
 }
