@@ -21,7 +21,7 @@ import cv2 as cv
 import video
 
 
-def draw_flow(img, flow, step=32):
+def draw_flow(img, flow, step=16):
     h, w = img.shape[:2]
     y, x = np.mgrid[step/2:h:step, step/2:w:step].reshape(2,-1).astype(int)
     fx, fy = flow[y,x].T
@@ -44,6 +44,9 @@ def draw_hsv(flow):
     hsv[...,1] = 255
     hsv[...,2] = np.minimum(v*4, 255)
     bgr = cv.cvtColor(hsv, cv.COLOR_HSV2BGR)
+    bgr = cv.cvtColor(bgr, cv.COLOR_BGR2GRAY)
+    #ret, bgr = cv.threshold(bgr, 30, 255, cv.THRESH_BINARY)
+
     return bgr
 
 
