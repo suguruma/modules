@@ -8,7 +8,7 @@ from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QPixmap, QPainter, Q
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
-                               QGroupBox, QScrollArea, QSizePolicy
+                               QGroupBox, QScrollArea, QSizePolicy, QProgressBar
                              )
 from PyQt5.QtQuickWidgets import QQuickWidget
 from PyQt5.QtChart import QChart, QChartView, QBarSet, QHorizontalBarSeries, QBarCategoryAxis, QValueAxis
@@ -47,11 +47,17 @@ class UI_ModelWindow(object):
         smwui.cb_frontWindow.stateChanged.connect(smwui.changeWindowStaysMode)
         smwui.cb_drawFigure = QCheckBox('Draw')
         smwui.cb_drawFigure.setChecked(True)
+        smwui.cb_analysis = QCheckBox('Analysis')
+        smwui.cb_analysis.setChecked(True)
+        smwui.pbar = QProgressBar()
+        smwui.pbar.setRange(0, 14)
 
         toolbar = smwui.addToolBar('ToolBar')
         toolbar.addWidget(btn_openFile)
         toolbar.addWidget(smwui.cb_frontWindow)
         toolbar.addWidget(smwui.cb_drawFigure)
+        toolbar.addWidget(smwui.cb_analysis)
+        toolbar.addWidget(smwui.pbar)
 
     def drawUI(self, smwui):
         ### Image
@@ -199,7 +205,6 @@ class UI_ModelWindow(object):
         hbox.addWidget(smwui.chartView)
         hbox.addWidget(scrollArea_viewParts)
 
-        self.gb_analysis.setFixedHeight(400)
         self.gb_analysis.setTitle("Analysis")
         self.gb_analysis.setLayout(hbox)
 
@@ -264,6 +269,7 @@ class ModelWindow(QMainWindow):
         self.flagFront = False
         self.thread_stop = False
         self.flag_drawOn = True
+        self.keep_fval = -1
         self.thread_stop_i = -1
         self.ctd = CalcTimeserieseDistance()
         self.parts_dict = { "SpineBase":0, "SpineMid":1, "Neck":2, "Head":3,
@@ -272,15 +278,26 @@ class ModelWindow(QMainWindow):
                             "SpineShoulder":12, "HandTipLeft":13, "HandTipRight":14
         }
 
+    # DTW
+    def updateAllDistance(self, mui):
+        distanceList = deque([])
+        target_fvalT = np.array(mui.fval).T
+        model_fvalT = np.array(self.keep_fval).T
+        for i in range(len(self.parts_dict)):
+            for j in range(3):
+                target_y = target_fvalT[j + 3 * i]
+                model_y = model_fvalT[j + 3 * i]
+                self.ctd.setTargetData(target_y.reshape(-1, 1))
+                self.ctd.setModelData(model_y.reshape(-1, 1))
+                self.ctd.runDTW()
+                distanceList.append(self.ctd.distance)
+            self.pbar.setValue(i)
+        self.ctd.distanceList = distanceList
+
     def update_chart(self):
 
         if not self.cb_targetAxis1.checkState() and not self.cb_targetAxis2.checkState() and not self.cb_targetAxis3.checkState():
             return -1
-
-        ## data
-        n = self.ctd.generateLabel(45)
-        for i in range(45):
-            self.ctd.setNum(n[i])
 
         ## draw chart
         set1 = QBarSet("X")
@@ -364,7 +381,7 @@ class ModelWindow(QMainWindow):
         self.update_parts()
 
     def update_parts(self):
-        set_max = [0, 0, 0]
+        set_max = [-1, -1, -1]
         set_max_categories = [-1, -1, -1]
         for i in range(len(self.categories)):
             if set_max[0] < self.set1_val[i]:
@@ -443,6 +460,9 @@ class ModelWindow(QMainWindow):
         self.th_me.start()
 
         ## 2
+        self.updateFigure(mui)
+        if self.cb_analysis.checkState():
+            self.updateAllDistance(mui)
         self.update_chart()
 
     def updateImage(self, mui):
@@ -479,6 +499,7 @@ class ModelWindow(QMainWindow):
             if str_data == '':
                 self.f.close()
                 #self.model_timer.stop()
+                self.keep_fval = self.fval
                 self.x = deque([])
                 self.fval = deque([])
             else:
@@ -487,6 +508,7 @@ class ModelWindow(QMainWindow):
                 features = np.array(features).astype(np.float64)
 
                 self.fval.append(features)
+                self.keep_fval = self.fval
 
                 #if self.counter - 1 > self.pltnum_qsb.value():
                 #    self.fval.popleft()
@@ -515,4 +537,3 @@ class ModelWindow(QMainWindow):
             if len(str_data[i]) == 0:
                 str_data[i] = np.nan
         return str_data
-

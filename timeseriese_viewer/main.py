@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
-        g_verstion = 0.5
+        g_verstion = 0.6
         self.setWindowTitle('Time Seriese Analysis ver.{0}'.format(g_verstion))
         self.setGeometry(50, 50, 0, 0);
         self.setParameter()

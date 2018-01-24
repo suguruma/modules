@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import sys
 import numpy as np
+import numpy.linalg as ln
 from collections import deque
+from dtw import dtw
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -20,14 +22,17 @@ from PyQt5.QtQuickWidgets import QQuickWidget
 
 # DTW + diffparts
 # Median + selectionModel
+
 class CalcTimeserieseDistance():
     def __init__(self, parent=None):
-        self.distanceList = []
-    def main(self):
-        pass
+        self.distanceList = deque([])
+        self.distance = -1
+        self.targetData = None
+        self.modelData = None
 
     def setNum(self, num):
         self.distanceList.append(num)
+        
     def getNum(self):
         return self.distanceList
 
@@ -36,10 +41,37 @@ class CalcTimeserieseDistance():
         n = (rand(randnum) + 0.5)
         return n
 
+    def setTargetData(self, _targetData):
+        self.targetData = _targetData
+
+    def setModelData(self, _modelData):
+        self.modelData = _modelData
+
+    def runDTW(self):
+        func = lambda x1, y1: ln.norm(x1 - y1, ord=1) #差の絶対値を関数として定義
+        dist, cost, acc, path = dtw(self.targetData, self.modelData, dist=func)
+        self.distance = dist
+        
 if __name__ == "__main__":
 
+    from line_profiler import LineProfiler
+
+    A = np.array([0, 3, 3, 3, 5, 5, 2, 2, 1, 1, 1, 2]).reshape(-1, 1)
+    B = np.array([0, 3, 3, 5, 5, 5, 5, 5, 5, 2, 2, 2, 1, 1, 1, 1, 1]).reshape(-1, 1) 
+
     ctd = CalcTimeserieseDistance()
-    n = ctd.generateLabel(100)
-    for i in range(100):
-        ctd.setNum(n[i])
-    print(ctd.getNum())
+    n1 = ctd.generateLabel(300)
+    n2 = ctd.generateLabel(300)   
+    A = n1.reshape(-1, 1)
+    B = n2.reshape(-1, 1)
+
+    ctd.setTargetData(A)
+    ctd.setModelData(B)
+    ctd.runDTW()
+    print(ctd.distance)
+    
+    prf = LineProfiler()
+    prf.add_function( ctd.runDTW )
+    prf.runcall( ctd.runDTW )
+    prf.print_stats()
+    

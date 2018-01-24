@@ -4,72 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" line="391" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/calcdistance.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/main.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/main.py" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/subdisplay_test.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" afterPath="$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View1.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View1.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View2.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View2.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View3.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/View3.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlaxes/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcharttest/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcharttest/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/Data.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/Data.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/NewButton.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/NewButton.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustominput/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/AnimatedAreaSeries.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/AnimatedAreaSeries.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewHighlighted.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewHighlighted.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewSelector.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewSelector.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewStacked.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/ChartViewStacked.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/CustomLegend.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/CustomLegend.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlcustomlegend/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View1.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View1.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View2.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View2.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View3.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/View3.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlpolarchart/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingHead.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingLeftArm.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingLeftHand.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingRightArm.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingRightHand.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/PointingRightHand.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/main.qml" afterPath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/main.qml" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/main.qmlc" afterPath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlptviewer/main.qmlc" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/Data.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/Data.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/NewButton.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/NewButton.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlscatter/main.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/Data.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/Data.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/NewButton.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/NewButton.qmlc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/main.qml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/timeseriese_viewer/qml/qmlspectrogram/main.qmlc" afterPath="" />
-    </list>
+    <list default="true" id="96ddba02-4041-480a-a7d4-2e038da471ee" name="デフォルト" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +17,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="5338">
               <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
@@ -94,7 +29,7 @@
       <file leaf-file-name="uidisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
+            <state relative-caret-position="5576">
               <caret line="341" column="0" lean-forward="false" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -106,7 +41,7 @@
       <file leaf-file-name="modeldisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="1836">
               <caret line="124" column="44" lean-forward="false" selection-start-line="124" selection-start-column="22" selection-end-line="124" selection-end-column="44" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -118,8 +53,8 @@
       <file leaf-file-name="calcactivity.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+            <state relative-caret-position="1547">
+              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -130,8 +65,8 @@
       <file leaf-file-name="calcdistance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcdistance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+            <state relative-caret-position="408">
+              <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -143,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="262">
-              <caret line="474" column="50" lean-forward="true" selection-start-line="474" selection-start-column="50" selection-end-line="474" selection-end-column="50" />
+              <caret line="474" column="50" lean-forward="false" selection-start-line="474" selection-start-column="50" selection-end-line="474" selection-end-column="50" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -250,8 +185,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="229" />
-    <option name="y" value="38" />
+    <option name="x" value="160" />
+    <option name="y" value="25" />
     <option name="width" value="1538" />
     <option name="height" value="976" />
   </component>
@@ -271,7 +206,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -301,6 +235,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -410,7 +345,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="229" y="38" width="1538" height="976" extended-state="0" />
+    <frame x="160" y="25" width="1538" height="976" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24244416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -605,15 +540,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="2874" column="8" lean-forward="false" selection-start-line="2874" selection-start-column="8" selection-end-line="2874" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/qmldisplay_test.py" />
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcdistance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+        <state relative-caret-position="408">
+          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>
@@ -622,7 +556,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/modeldisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
+        <state relative-caret-position="1836">
           <caret line="124" column="44" lean-forward="false" selection-start-line="124" selection-start-column="22" selection-end-line="124" selection-end-column="44" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -632,7 +566,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/uidisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
+        <state relative-caret-position="5576">
           <caret line="341" column="0" lean-forward="false" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -642,8 +576,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/calcactivity.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        <state relative-caret-position="1547">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>
@@ -652,7 +586,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="5338">
           <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
@@ -663,7 +597,7 @@
     <entry file="file://$PROJECT_DIR$/timeseriese_viewer/mypackage/timedisplay.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="262">
-          <caret line="474" column="50" lean-forward="true" selection-start-line="474" selection-start-column="50" selection-end-line="474" selection-end-column="50" />
+          <caret line="474" column="50" lean-forward="false" selection-start-line="474" selection-start-column="50" selection-end-line="474" selection-end-column="50" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
