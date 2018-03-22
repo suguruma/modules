@@ -16,6 +16,9 @@ class ImageProcessing:
         self.s_vs_p = 0.5
         self.amount = 0.01
 
+        # opticalflow
+        self.flag_prev_img = False
+
     def background_diff(self, _img):
         if self.flag_back_img == False:
             self.flag_back_img = True
@@ -26,7 +29,6 @@ class ImageProcessing:
         return diff_frame.astype(np.uint8)
 
     def salt_pepper_noise(self, _img):
-
         dst = _img.copy()
         #numpy.random.randint(low, high=None, size=None, dtype='l')
         num_salt = np.ceil(self.amount * _img.size * self.s_vs_p)
@@ -39,71 +41,6 @@ class ImageProcessing:
 
         return dst
 
-
-class CameraStreamer:
-
-    ### init
-    def init(self):
-        self.sensor = 0
-        self.width = 640
-        self.height = 480
-        self.recode_on = -1
-
-        self.flag_prev_img = False
-
-        ##
-        self.acm_img_list = deque([])
-
-        self.ip = ImageProcessing()
-        self.ip.init()
-
-    ### set param
-    def set_sensor(self, _sensor):
-        self.sensor = _sensor
-
-    def set_recoding_mode(self, _mode):
-        self.recode_on = _mode
-        if self.recode_on == 0:
-            self.set_video_recoder()
-        if self.recode_on == 1:
-            self.set_frame_recoder()
-
-    def set_video_recoder(self):
-        self.filename = "{0}.avi".format(datetime.datetime.now().strftime('%Y%m%d_%H%M%S'))
-        self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        self.fps = 12
-        self.out = cv2.VideoWriter(self.filename, self.fourcc, self.fps, (self.width, self.height))
-
-    def set_frame_recoder(self, _save_path = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')):
-        self.im_counter = 0
-        self.ext = "jpg"
-        self.save_path = _save_path
-        if(os.path.exists(_save_path)):
-            print("{}: Found folder".format(_save_path))
-        else:
-            os.mkdir(_save_path)
-
-    ### processing
-    def recording(self, _img):
-        if self.recode_on == 0:
-            self.out.write(_img)
-        if self.recode_on == 1:
-            self.save_frame(_img)
-
-    def recording_close(self):
-        if self.recode_on == 0:
-            self.out.release()
-
-    def save_frame(self, _img):
-        cv2.imwrite(self.save_path + "/{0:06d}.{1}".format(self.im_counter, self.ext), _img)
-        self.im_counter = self.im_counter + 1
-
-    ### background image diff
-    def do_backgroundDiff(self, _img):
-        dst = self.ip.background_diff(_img)
-        cv2.imshow("back", self.ip.back_img.astype(np.uint8))
-        return dst
-
     def do_opticalflow(self, _img):
 
         if self.flag_prev_img == False:
@@ -112,7 +49,6 @@ class CameraStreamer:
         flow = cv2.calcOpticalFlowFarneback(self.prevgray, _img, None, 0.5, 3, 10, 3, 7, 1.5, 0)
         #(prev, next, flow(None), pyrScale(0.5), levels(3), winsize(15), iterations(3), polyN(5), polySigma, flags)
         self.prevgray = _img
-
         return flow
 
     def draw_flow(self, img, flow, step=8):
@@ -139,6 +75,65 @@ class CameraStreamer:
         bgr = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
         return bgr
 
+class CameraStreamer:
+    def __init__(self, parent=None):
+        self.resize_on = False
+        self.sensor = 0
+        self.recode_on = -1
+        self.img_proc_on = False
+
+    ### init
+    def init(self):
+        self.acm_img_list = deque([])
+        self.ip = ImageProcessing()
+        self.ip.init()
+
+    ### set param
+    def set_size(self, _width=320, _height=240):
+        self.width = _width
+        self.height = _height
+
+    def set_sensor(self, _sensor):
+        self.sensor = _sensor
+
+    def set_recoding_mode(self, _mode):
+        self.recode_on = _mode
+        if self.recode_on == 0:
+            self.set_video_recoder()
+        if self.recode_on == 1:
+            self.set_frame_recoder()
+
+    def set_video_recoder(self):
+        self.filename = "{0}.avi".format(datetime.datetime.now().strftime('%Y%m%d_%H%M%S'))
+        fourcc = "XVID"
+        self.fps = 12
+        self.out = cv2.VideoWriter(self.filename, cv2.VideoWriter_fourcc(*fourcc), self.fps, (self.width, self.height))
+
+    def set_frame_recoder(self, _save_path = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')):
+        self.im_counter = 0
+        self.ext = "jpg"
+        self.save_path = _save_path
+        if(os.path.exists(_save_path)):
+            print("{}: Found folder".format(_save_path))
+        else:
+            os.mkdir(_save_path)
+
+    ### processing
+    def recording(self, _img):
+        if self.recode_on == 0:
+            self.out.write(_img)
+        if self.recode_on == 1:
+            self.save_frame(_img)
+
+    def recording_close(self):
+        if self.recode_on == 0:
+            self.out.release()
+
+    def save_frame(self, _img):
+        cv2.imwrite(self.save_path + "/{0:06d}.{1}".format(self.im_counter, self.ext), _img)
+        self.im_counter = self.im_counter + 1
+
+    ###
     def accumulateImage(self, _img, accumulate_frame = 10, frame_ratio = 3.5):
 
         ### init
@@ -163,25 +158,35 @@ class CameraStreamer:
     def do_imageProcessing(self, _img):
         noise_img = self.ip.salt_pepper_noise(_img)
         g_img = cv2.cvtColor(noise_img, cv2.COLOR_RGB2GRAY)
-        flow = self.do_opticalflow(g_img)
+        flow = self.ip.do_opticalflow(g_img)
 
-        flow_img = self.draw_hsv(flow)
+        flow_img = self.ip.draw_hsv(flow)
         flow_img = cv2.dilate(flow_img, kernel=np.ones((3, 3), np.uint8), iterations=3)
         flow_img = cv2.GaussianBlur(flow_img, ksize=(5, 5), sigmaX=3.0)
 
-        accumulate_img = self.accumulateImage(flow_img)
+        dst = self.accumulateImage(flow_img)
 
-        cv2.imshow('Accumulate Motion Image', accumulate_img)
+        return dst
 
-    def set_init_data(self, _img):
-        pass
+    def set_init_data(self, _cap):
+
+        ret, img = _cap.read()
+        if not self.resize_on:
+            if len(img.shape) == 3:
+                _height, _width, _channels = img.shape[:3]
+            else:
+                _height, _width = img.shape[:2]
+                _channels = 1
+            # size = _cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+            self.width = _width
+            self.height = _height
+        #self.fps = _cap.get(cv2.CAP_PROP_FPS)
 
     ### main
     def videoCameraView(self):
         cap = cv2.VideoCapture(self.sensor)
-        ret, img = cap.read()
 
-        self.set_init_data(img)
+        self.set_init_data(cap)
         skip_num = 0
 
         while True:
@@ -190,18 +195,16 @@ class CameraStreamer:
 
             if ret == False:
                 break
-            if len(img.shape) == 3:
-                _height, _width, _channels = img.shape[:3]
-            else:
-                _height, _width = img.shape[:2]
-                _channels = 1
 
             ###
-            img = cv2.resize(img, (self.width, self.height))
+            if self.resize_on:
+                img = cv2.resize(img, (self.width, self.height))
             self.recording(img)
 
             ###
-            self.do_imageProcessing(img)
+            if self.img_proc_on:
+                ip_img = self.do_imageProcessing(img)
+                cv2.imshow('Accumulate Motion Image', ip_img)
 
             ###
             cv2.imshow("Stream Video", img)
@@ -225,11 +228,6 @@ class CameraStreamer:
             f = io.BytesIO(urllib.request.urlopen(self.sensor).read())
             img = cv2.cvtColor(np.array(Image.open(f)), cv2.COLOR_BGR2RGB)
 
-            if len(img.shape) == 3:
-                _height, _width, _channels = img.shape[:3]
-            else:
-                _height, _width = img.shape[:2]
-                _channels = 1
             img = cv2.resize(img, (self.width, self.height))
             self.recording(img)
 
@@ -241,19 +239,20 @@ class CameraStreamer:
         self.recording_close()
         cv2.destroyAllWindows()
 
-
-
 if __name__ == "__main__":
 
-    #VIDEODATA = "http://10.232.163.38/mjpg/1/video.mjpg"
+    VIDEODATA = "http://10.232.163.38/mjpg/1/video.mjpg"
     #VIDEODATA = "http://10.232.163.38/jpg/1/image.jpg"
     #VIDEODATA = "20180124_143122.avi"
-    VIDEODATA = 0
+    #VIDEODATA = 0
 
     cam = CameraStreamer()
     cam.init()
+    cam.img_proc_on = True
+    cam.resize_on = True
+    cam.set_size(640, 480)
     cam.set_sensor(VIDEODATA)
-    #cam.set_recoding_mode(0) # 0(movie) or 1(frame)
+    cam.set_recoding_mode(-1) # 0(movie) or 1(frame)
 
     cam.videoCameraView()
     #cam.frameCameraView()
