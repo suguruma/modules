@@ -1,337 +1,429 @@
-from __future__ import with_statement
-
 import sys
-from PyQt5.QtCore import (QObject, Qt, QUrl, QTimer, QModelIndex, QPoint, QRect, QEvent,
-                            QAbstractItemModel
-                            )
-from PyQt5.QtGui import (QStandardItemModel, QStandardItem, QPixmap, QKeySequence, QImage, QCursor, 
-                            QPainter, QBrush, QColor
-                            )
+from PyQt5.QtCore import (Qt, QEvent)
+from PyQt5.QtGui import (QPixmap, QImage, QCursor, QBrush, QColor, QPalette)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
-                                QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QListView,
-                                QLCDNumber, QSlider, QTableWidget, QTableWidgetItem, QAction, QFileDialog,
-                                QMessageBox, QGraphicsPixmapItem, QGraphicsScene, QGraphicsView,
-                                QMenu, QGraphicsItem, QGraphicsEllipseItem, QTreeView, QAbstractItemView,
-                                QStyledItemDelegate, QGroupBox, QRadioButton
-                                )
-import numpy as np
-import cv2
+                             QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QFileDialog,
+                             QGraphicsPixmapItem, QGraphicsScene, QGraphicsView,
+                             QMenu, QGraphicsItem, QGraphicsEllipseItem, QColorDialog,
+                             QGroupBox, QSizePolicy
+                             )
 
-class Model(QAbstractItemModel):
-    headers = 'トッピング', 'うどん/そば', '温/冷', 'POS'
+from mypackage.opencv_ip import ImageProcessing
+from mypackage.landmark_detection import PredictLandmark
+from mypackage.table_parts import Model, View
+
+class MainWindow(QMainWindow):
     def __init__(self, parent=None):
-        super(Model, self).__init__(parent)
-        self.items = [
-            ['たぬき','そば','温'],
-            ['きつね','うどん','温'],
-            ['月見','うどん','冷'],
-            ['天ぷら','そば','温'],
-            ]
+        super(MainWindow, self).__init__(parent)
+        self.setWindowTitle("Landmarker ver.2.0")
+        self.setAcceptDrops(True)
 
-    def index(self, row, column, parent=QModelIndex()):
-        return self.createIndex(row, column, None)
+        self.init()
+        self.imageMenu()
+        self.imageProcessingMenu()
+        self.drawImageMenu()
+        self.labelMenu()
+        self.landmarkMenu()
+        self.labelDataMenu()
 
-    def parent(self, child):
-        return QModelIndex()
-
-    def rowCount(self, parent=QModelIndex()):
-        return len(self.items)
-
-    def columnCount(self, parent=QModelIndex()):
-        return len(self.headers)
-
-    def data(self, index, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole:
-            try:
-                return self.items[index.row()][index.column()]
-            except:
-                return
-        return
-
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role != Qt.DisplayRole:
-            return
-        if orientation == Qt.Horizontal:
-            return self.headers[section]
-
-    def addRow(self, topping, menkind, hotcold, tmp = 1):
-        self.beginInsertRows(QModelIndex(), len(self.items), 1)
-        self.items.append([topping, menkind, hotcold, tmp])
-        self.endInsertRows()
-
-    def removeRows(self, rowIndexes):
-        for row in sorted(rowIndexes, reverse=True):
-            self.beginRemoveRows(QModelIndex(), row, row + 1)
-            del self.items[row]
-            self.endRemoveRows()
-
-    def flags(self, index):
-        return super(Model, self).flags(index) | Qt.ItemIsEditable
-
-    def setData(self, index, value, role=Qt.EditRole):
-        if role == Qt.EditRole:
-            self.items[index.row()][index.column()] = value
-            return True
-        return False
-
-
-class View(QTreeView):
-    def __init__(self, parent=None):
-        super(View, self).__init__(parent)
-        self.setItemsExpandable(False)
-        self.setIndentation(0)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
-    def drawBranches(self, painter, rect, index):
-        return
-
-
-class opencv_test:
-	#初期化
-	def __init__(self, file, parent = None):
-		self.file = file
-	#ファイルを読み込み、BGRをRGBに変換する関数
-	def open_pic(self,file):
-		pic = cv2.imread(file)
-		pic_color = cv2.cvtColor(pic,cv2.COLOR_BGR2RGB)
-		return pic,pic_color
-	#Canny処理してエッジ検出した後に、元の画像と重ねる関数
-	def canny(self,pic):
-		img =cv2.cvtColor(pic,cv2.COLOR_BGR2GRAY)
-		edges = cv2.Canny(img,100,200)
-		edges2 = np.zeros_like(pic)
-		for i in (0,1,2):
-			edges2[:,:,i] = edges
-		add = cv2.addWeighted(pic,1,edges2,0.4,0)
-		return add
-
-class InputWidget(QWidget):
-    toppings = 'きつね', 'たぬき', '天ぷら', '月見', '肉', 'カレー'
-    noodles = 'うどん', 'そば'
-    hotcold = '温', '冷'
-    columns = toppings, noodles, hotcold
-
-    def __init__(self, parent=None):
-        super(InputWidget, self).__init__(parent)
-        layout = QVBoxLayout()
-
-        self.toppingInput = InputWidget.comboBox(InputWidget.toppings)
-        layout.addWidget(self.toppingInput)
-
-        grpbox, self.noodles = InputWidget.radioButtons(InputWidget.noodles)
-        layout.addWidget(grpbox)
-
-        grpbox, self.hotcold = InputWidget.radioButtons(InputWidget.hotcold)
-        layout.addWidget(grpbox)
-
-        self.addButton = QPushButton('確定')
-        layout.addWidget(self.addButton)
-
-        layout.addStretch()
-
-        self.setLayout(layout)
-
-    @staticmethod
-    def comboBox(values):
-        comboBox = QComboBox()
-        for value in values:
-            comboBox.addItem(value)
-        return comboBox
-
-    @staticmethod
-    def radioButtons(values):
-        grpbox = QGroupBox()
-        layout = QHBoxLayout()
-        buttons = []
-        for value in values:
-            rb = QRadioButton(value)
-            layout.addWidget(rb)
-            buttons.append(rb)
-        buttons[0].setChecked(True)
-        grpbox.setLayout(layout)
-        return grpbox, buttons
-
-    def values(self):
-        topping = self.toppingInput.currentText()
-
-        udonsoba = '?'
-        for btn in self.noodles:
-            if btn.isChecked():
-                udonsoba = btn.text()
-                break
-
-        hotcold = '?'
-        for btn in self.hotcold:
-            if btn.isChecked():
-                hotcold = btn.text()
-                break
-
-        return topping, udonsoba, hotcold
-
-class Delegate(QStyledItemDelegate):
-    def __init__(self, parent=None):
-        super(Delegate, self).__init__(parent)
-
-    def createEditor(self, parent, option, index):
-        editor = InputWidget.comboBox(InputWidget.columns[index.column()])
-        editor.setParent(parent)
-        return editor
-
-    def setEditorData(self, editor, index):
-        value = index.model().data(index, Qt.DisplayRole)
-        editor.setCurrentIndex(editor.findText(value))
-
-    def setModelData(self, editor, model, index):
-        model.setData(index, editor.currentText())
-
-#http://tatabox.hatenablog.com/entry/2014/09/16/194456
-class DesignerMainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super(DesignerMainWindow, self).__init__(parent)
-        
         mainframe = QWidget()
         grid = QGridLayout()
-
-        btn = QPushButton("Open File")
-        btn.clicked.connect(self.open_file)
-        grid.addWidget(btn, 0, 0)
-
-        self.file_edit = QLineEdit()
-        grid.addWidget(self.file_edit, 1, 0)
-
-        self.pic_View = QGraphicsView()
-        grid.addWidget(self.pic_View, 2, 0)
-
-        btn2 = QPushButton("EXE")
-        btn2.clicked.connect(self.exe_canny)
-        grid.addWidget(btn2, 3, 0)
-
-        ####
-        self.view = View(self)
-        self.model = Model(self)
-        self.view.setModel(self.model)
-        self.view.setItemDelegate(Delegate())
-        grid.addWidget(self.view, 0, 1, 4, 1)
-
-        self.inputWidget = InputWidget()
-        self.inputWidget.addButton.clicked.connect(self.addItem)
-        grid.addWidget(self.inputWidget, 0, 2, 4, 1)
-
-
+        grid.addWidget(self.grbox_imageMenu, 0, 0)
+        grid.addWidget(self.grbox_IP, 1, 0)
+        grid.addWidget(self.picView, 2, 0)
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.grbox_labelMenu)
+        vbox.addWidget(self.grbox_landmark)
+        vbox.addWidget(self.grbox_labelDataMenu)
+        grid.addLayout(vbox, 0, 1, 3, 1)
         mainframe.setLayout(grid)
         self.setCentralWidget(mainframe)
 
-        pic_view = self.pic_View
+    def init(self):
+        self.ptColor = QColor("lime")
+        self.openFileFlags = False
+        self.ipModule = ImageProcessing()
+        self.src_img = ""
+        self.dst_img = ""
+    # ui function
+    def imageMenu(self):
+        btn_open = QPushButton("Open File")
+        btn_open.clicked.connect(self.openFile)
+        self.file_edit = QLineEdit()
+        self.label_imgWidth = QLabel("(width)")
+        self.label_imgHeihgt = QLabel("(height)")
+        self.sb_maxImgWidth = QSpinBox()
+        self.sb_maxImgWidth.setMaximum(3840)
+        self.sb_maxImgWidth.setValue(1080)
+        self.sb_maxImgHeihgt = QSpinBox()
+        self.sb_maxImgHeihgt.setMaximum(2160)
+        self.sb_maxImgHeihgt.setValue(720)
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(btn_open)
+        hbox1.addWidget(self.file_edit)
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(QLabel("Image Size:"))
+        hbox2.addWidget(self.label_imgWidth)
+        hbox2.addWidget(QLabel("x"))
+        hbox2.addWidget(self.label_imgHeihgt)
+        hbox2.addStretch(0)
+        hbox2.addWidget(QLabel("Max Window:"))
+        hbox2.addWidget(self.sb_maxImgWidth)
+        hbox2.addWidget(QLabel("x"))
+        hbox2.addWidget(self.sb_maxImgHeihgt)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
+        self.grbox_imageMenu = QGroupBox("Image Menu")
+        self.grbox_imageMenu.setLayout(vbox)
+    # ui function
+    def imageProcessingMenu(self):
+        btn_ipRun = QPushButton("Run")
+        btn_ipRun.clicked.connect(self.selectImageProcessing)
+        self.cmb_IP = QComboBox()
+        IPs = ["Grayscale", "Flip(Horizon)", "Translation","Sobel(X)","Sobel(Y)", "Laplacian", "Canny"]
+        for IP in IPs:
+            self.cmb_IP.addItem(IP)
+        self.cb_keepImage = QCheckBox("Keep")
+        self.cb_keepImage.stateChanged.connect(self.keepImage)
+        btn_saveImage = QPushButton("Save")
+        btn_saveImage.clicked.connect(self.saveImage)
+        btn_initImage = QPushButton("Clear")
+        btn_initImage.clicked.connect(self.clearItems)
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.cmb_IP)
+        hbox.addWidget(btn_ipRun)
+        hbox.addWidget(self.cb_keepImage)
+        hbox.addWidget(btn_saveImage)
+        hbox.addWidget(btn_initImage)
+        hbox.addStretch(0)
+        self.grbox_IP = QGroupBox("Image Processing")
+        self.grbox_IP.setLayout(hbox)
+    # ui function
+    def drawImageMenu(self):
+        self.picView = QGraphicsView()
+        self.picView.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.picView.customContextMenuRequested.connect(self.contextMenue)
+        self.picView.installEventFilter(self)
+    # ui function
+    def labelMenu(self):
+        self.cmb_ID = QComboBox()
+        values = ["0:None","1:RightEye","2:LeftEye", "3:Nose"]
+        for value in values:
+            self.cmb_ID.addItem(value)
+        self.sb_radius = QSpinBox()
+        self.sb_radius.setValue(5)
+        btn_color = QPushButton("Color")
+        btn_color.clicked.connect(self.selectColor)
+        self.label_color = QLabel("●")
+        pal = self.label_color.palette()
+        pal.setColor(QPalette.Foreground, self.ptColor)
+        self.label_color.setPalette(pal)
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(QLabel("ID:"))
+        hbox1.addWidget(self.cmb_ID)
+        hbox1.addStretch(0)
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(QLabel("Point:"))
+        hbox2.addWidget(self.label_color)
+        hbox2.addWidget(btn_color)
+        hbox2.addWidget(QLabel("Size"))
+        hbox2.addWidget(self.sb_radius)
+        hbox2.addStretch(0)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
+        self.grbox_labelMenu = QGroupBox("Label Menu")
+        self.grbox_labelMenu.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.grbox_labelMenu.setLayout(vbox)
+    # ui function
+    def landmarkMenu(self):
+        self.sb_inputWidth = QSpinBox()
+        self.sb_inputWidth.setMaximum(1080)
+        self.sb_inputWidth.setValue(90)
+        # self.sb_inputWidth.setEnabled(False)
+        self.sb_inputHeight = QSpinBox()
+        self.sb_inputHeight.setMaximum(720)
+        self.sb_inputHeight.setValue(100)
+        # self.sb_inputHeight.setEnabled(False)
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(QLabel("Input Size:"))
+        hbox1.addWidget(self.sb_inputWidth)
+        hbox1.addWidget(QLabel("x"))
+        hbox1.addWidget(self.sb_inputHeight)
+        hbox1.addStretch(0)
+        btn_modelPath = QPushButton("Model Path")
+        btn_modelPath.clicked.connect(self.selectModelPath)
+        self.le_modelPath = QLineEdit()
+        self.le_modelPath.setText("model/mdl_ep1000")
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(btn_modelPath)
+        hbox2.addWidget(self.le_modelPath)
+        btn_landmark = QPushButton("Run")
+        btn_landmark.clicked.connect(self.detectLandmarks)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
+        vbox.addWidget(btn_landmark)
+        self.grbox_landmark = QGroupBox("Landmark Detection")
+        self.grbox_landmark.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.grbox_landmark.setLayout(vbox)
+    # ui function
+    def labelDataMenu(self):
+        btn_load = QPushButton("Load")
+        btn_load.clicked.connect(self.loadFile)
+        btn_save = QPushButton("Save")
+        btn_save.clicked.connect(self.saveFile)
+        self.tableView = View(self)
+        self.model = Model(self)
+        self.model.setHeaders(['No.', 'ID', 'POS(X)', 'POS(Y)'])
+        self.tableView.setModel(self.model)
+        self.tableView.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        self.tableView.setMaximumWidth(215)
+        self.tableView.setColumnWidth(0, 20) # have to load the tableview before setting size
+        self.tableView.setColumnWidth(1, 20)
+        self.tableView.setColumnWidth(2, 50)
+        self.tableView.setColumnWidth(3, 50)
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(btn_load)
+        hbox1.addWidget(btn_save)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addWidget(self.tableView)
+        self.grbox_labelDataMenu = QGroupBox("Label Data")
+        self.grbox_labelDataMenu.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        self.grbox_labelDataMenu.setLayout(vbox)
 
-        pic_view.setContextMenuPolicy(Qt.CustomContextMenu)
-        pic_view.customContextMenuRequested.connect(self.contextMenue)
-        
-        self.pic_View.installEventFilter(self)
-
-    ####
-    def addItem(self):
-        self.model.addRow(*self.inputWidget.values())
-
-    def selectedRows(self):
-        rows = []
-        for index in self.view.selectedIndexes():
-            if index.column() == 0:
-                rows.append(index.row())
-        return rows
-
-    def removeItems(self):
-        self.model.removeRows(self.selectedRows())
-
-    #-
-
+    # event function
     def contextMenue(self, event):
-        menu = QMenu()
-        menu.addAction('canny',self.exe_canny)
-        menu.addAction('test1',self.exe_canny)
-        menu.addAction('test2',self.exe_canny)
-        menu.exec_(QCursor.pos())
-
+        if self.openFileFlags:
+            menu = QMenu()
+            menu.addAction('Remove Selected Items', self.removeItems)
+            menu.addAction('Clear Items', self.clearItems)
+            menu.exec_(QCursor.pos())
+    # event function
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+    # event function
+    def dropEvent(self, event):
+        self.file = ["".join(u.toLocalFile() for u in event.mimeData().urls()),""]
+        self.readImage()
+    # event function
     def eventFilter(self, source, event):
-        if (event.type() == QEvent.MouseButtonPress and source is self.pic_View):
+        # event MouseButtonPress
+        if (event.type() == QEvent.MouseButtonPress and source is self.picView):
             if event.button() == Qt.RightButton:
                 pass
-                #self.scene.clear()
-                #self.scene.removeItem(self.scene.focusItem)
             else:
                 pos = event.pos()
-                msgbox = QMessageBox(self)
-                msgbox.setText('mouse position: (%d, %d)' % (pos.x(), pos.y()))
-                #ret = msgbox.exec_()
-                print(pos.x(), pos.y())
+                h_sbar_val = self.picView.horizontalScrollBar().value()
+                v_sbar_val = self.picView.verticalScrollBar().value()
 
-                h_sbar_val = self.pic_View.horizontalScrollBar().value()
-                v_sbar_val = self.pic_View.verticalScrollBar().value()
-
-                radius = 5
-                item = QGraphicsEllipseItem(pos.x()-radius+h_sbar_val, pos.y()-radius+v_sbar_val, radius*2, radius*2)
-                item.setBrush(QBrush(QColor("lime")))
-                item.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable | 
-                                QGraphicsItem.ItemIsFocusable)
+                item = QGraphicsEllipseItem(pos.x() - self.sb_radius.value() + h_sbar_val,
+                                            pos.y() - self.sb_radius.value() + v_sbar_val,
+                                            self.sb_radius.value() * 2, self.sb_radius.value() * 2)
+                item.setBrush(QBrush(self.ptColor))
+                item.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
+                item.setData(0, self.cmb_ID.currentText().split(':')[0])
 
                 self.scene.addItem(item)
-                for i in range(1, len(self.scene.items(0))):
-                    print(len(self.scene.items(0)))
-                    print(self.scene.items(0)[i].rect())
-                    print(self.scene.items(0)[i].scenePos())
+                self.updateItems()
 
-                a = item.rect().x()
-                b = item.rect().y()
-                c = 0
-                d = 0
-                self.model.addRow(a,b,c,d)
+        # event Leave
+        if (event.type() == QEvent.Leave and source is self.picView):
+            self.updateItems()
 
         return QWidget.eventFilter(self, source, event)
 
-    def open_file(self):
-        self.file = QFileDialog.getOpenFileName()
-        if self.file:
+    # button function
+    def removeItems(self):
+        items = self.scene.selectedItems()
+        for item in items:
+            self.scene.removeItem(item)
+        self.updateItems()
+    # button function
+    def clearItems(self):
+        self.scene.clear()
+        self.model.itemsClear()
+        pic_Item = QGraphicsPixmapItem(QPixmap(self.file[0]))
+        self.scene.addItem(pic_Item)
+        self.src_img = self.dst_img = ""
+
+    # button function
+    def openFile(self):
+        fileFilter = 'Image Files (*.png *.jpg *.bmp)'
+        self.file = QFileDialog.getOpenFileName(self, 'Open file', '', fileFilter)
+        self.readImage()
+
+    # function
+    def updateItems(self):
+        if self.openFileFlags:
+            self.model.itemsClear()
+            for i in range(len(self.scene.items(0))):
+                if self.scene.items(0)[i].type() == QGraphicsEllipseItem().type():
+                    a = self.scene.items(0)[i].rect().x()
+                    b = self.scene.items(0)[i].rect().y()
+                    c = self.scene.items(0)[i].scenePos().x()
+                    d = self.scene.items(0)[i].scenePos().y()
+                    id = self.scene.items(0)[i].data(0)
+
+                    self.model.addRow(i, id, a + c + self.sb_radius.value(), b + d + self.sb_radius.value())
+                    self.scene.items(0)[i].setToolTip("No.{0}".format(i))
+            self.tableView.scrollToBottom()
+
+    def readImage(self):
+        if not self.file[0] == "":
             self.file_edit.setText(self.file[0])
             self.scene = QGraphicsScene()
             pic_Item = QGraphicsPixmapItem(QPixmap(self.file[0]))
-            __width = pic_Item.boundingRect().width()
-            __height = pic_Item.boundingRect().height()
-            __x = self.pic_View.x()
-            __y = self.pic_View.y()
-            self.pic_View.setAlignment(Qt.AlignLeft | Qt.AlignTop)
-            #self.pic_View.setGeometry(QRect(__x, __y, __width, __height))
-
-            #__main_x = int(__x + __width + 20)
-            #__main_y = int(__y + __height + 20)
-            #self.resize(__main_x, __main_y)
             self.scene.addItem(pic_Item)
+            self.picView.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+            self.picView.setScene(self.scene)
 
-            self.pic_View.setScene(self.scene)
+            self.openFileFlags = True
+            imgWidth = int(pic_Item.boundingRect().width())
+            imgHeight = int(pic_Item.boundingRect().height())
+            self.label_imgWidth.setText(str(imgWidth))
+            self.label_imgHeihgt.setText(str(imgHeight))
+            self.resizeWindow(imgWidth, imgHeight)
 
-        return self.file
+            self.cb_keepImage.setChecked(False)
+            self.src_img = self.dst_img = ""
 
-    # exe_canny関数：opecvのcanny処理画像をQtのQPixmapに変換し描画
-    def exe_canny(self):
-        cv_test = opencv_test(self.file[0]) # opencv_testファイルからクラスの読み込み
-        pic, pic2 = cv_test.open_pic(self.file[0]) # ファイルを読み込んでRとBを交換
-        self.cv_img = cv_test.canny(pic2) # エッジ検出
+    def resizeWindow(self, _imgWidth, _imgHeight):
+        winWidth = _imgWidth
+        winHeight = _imgHeight
+        if self.sb_maxImgWidth.value() < _imgWidth:
+            winWidth = self.sb_maxImgWidth.value()
+        if self.sb_maxImgWidth.value() < _imgHeight:
+            winHeight = self.sb_maxImgWidth.value()
 
-        height, width, dim = self.cv_img.shape # 画像の高さ、幅を読み込み
-        bytesPerLine = dim * width # 全ピクセル数
-        self.image = QImage(self.cv_img.data, width, height, bytesPerLine, QImage.Format_RGB888) # Opencv（numpy）画像をQtのQImageに変換
-        pic_Item = QGraphicsPixmapItem(QPixmap.fromImage(self.image)) # QImageをQPixmapに変換し、アイテムとして読み込む
+        pos = self.picView.pos()
+        menuWidth = self.grbox_labelDataMenu.width()
+        offset = [17, 11]
+        self.resize(pos.x() + winWidth + menuWidth + offset[0], pos.y() + winHeight + offset[1])
 
+    # button function
+    def loadFile(self):
+        import csv
+        fileFilter = 'CSV Files (*.csv);;Text Files (*.txt)'
+        file = QFileDialog.getOpenFileName(self, 'Load File', '', fileFilter)
+        if not file[0] == "":
+            with open(file[0], 'r') as f:
+                reader = csv.reader(f)
+                header = next(reader) #header pass
+                for row in reader:
+                    item = QGraphicsEllipseItem(int(float(row[2]))-self.sb_radius.value(), int(float(row[3]))-self.sb_radius.value(), self.sb_radius.value() * 2, self.sb_radius.value() * 2)
+                    item.setBrush(QBrush(self.ptColor))
+                    item.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
+                    item.setData(0, int(float(row[1])))
+                    self.scene.addItem(item)
+                self.updateItems()
+
+    # button function
+    def saveFile(self):
+        import csv
+        fileFilter = 'CSV Files (*.csv);;Text Files (*.txt)'
+        file = QFileDialog.getSaveFileName(self, 'Save File', '', fileFilter)
+        if not file[0] == "":
+            with open(file[0], 'w', newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(self.model.headers)
+                for item in self.model.items:
+                    writer.writerow(item)
+
+    # button function
+    def selectColor(self):
+        self.ptColor = QColorDialog.getColor()
+        
+        pal = self.label_color.palette()
+        pal.setColor(QPalette.Foreground, self.ptColor)
+        self.label_color.setPalette(pal)
+
+    # button function
+    def selectImageProcessing(self):
+        if self.openFileFlags:
+            self.openImage()
+            if self.cmb_IP.currentText() == "Grayscale":
+                self.dst_img = self.ipModule.grayscale(self.src_img)
+            elif self.cmb_IP.currentText() == "Flip(Horizon)":
+                self.dst_img = self.ipModule.flip(self.src_img)
+            elif self.cmb_IP.currentText() == "Translation":
+                self.dst_img = self.ipModule.translation(self.src_img)
+            elif self.cmb_IP.currentText() == "Sobel(X)":
+                self.dst_img = self.ipModule.sobelX(self.src_img)
+            elif self.cmb_IP.currentText() == "Sobel(Y)":
+                self.dst_img = self.ipModule.sobelY(self.src_img)
+            elif self.cmb_IP.currentText() == "Laplacian":
+                self.dst_img = self.ipModule.laplacian(self.src_img)
+            elif self.cmb_IP.currentText() == "Canny":
+                self.dst_img = self.ipModule.canny(self.src_img)
+
+            self.setProcessedImage(self.dst_img)
+
+    def openImage(self):
+        if not self.cb_keepImage.isChecked() or len(self.src_img) == 0:
+            _, self.src_img = self.ipModule.open_img(self.file[0])
+            self.dst_img = self.src_img
+
+    def keepImage(self):
+        if self.openFileFlags and len(self.src_img) > 0:
+            if self.cb_keepImage.isChecked():
+                self.src_img = self.dst_img
+
+    def saveImage(self):
+        if self.openFileFlags and len(self.src_img) > 0:
+            fileFilter = 'JPEG Files (*.jpg);;PNG File (*.png);;BMP File (*.bmp)'
+            file = QFileDialog.getSaveFileName(self, 'Save File', '', fileFilter)
+            if not file[0] == "":
+                self.ipModule.save_img(file[0], self.dst_img)
+
+    def setProcessedImage(self, _img):
+        if len(_img.shape) == 3:
+            height, width, dim = _img.shape
+            bytesPerLine = dim * width
+            qimg = QImage(_img.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        if len(_img.shape) == 2:
+            height, width = _img.shape
+            bytesPerLine = width
+            qimg = QImage(_img.data, width, height, bytesPerLine, QImage.Format_Grayscale8)
+
+        pic_Item = QGraphicsPixmapItem(QPixmap.fromImage(qimg))
         self.scene = QGraphicsScene()
-        self.scene.addItem(pic_Item) # 画像を描画
-        self.pic_View.setScene(self.scene)
-
-    def resizeEvent(self, e):
-        #print("resize="+str(e.oldSize().height()) +"_"+str(e.oldSize().width())
-        # +":"+str(e.size().height()) +"_"+str(e.size().width()))
-
-        pass
+        self.scene.addItem(pic_Item)
+        self.picView.setScene(self.scene)
+        self.keepImage()
+    # button function
+    def selectModelPath(self):
+        path = QFileDialog.getExistingDirectory(self, 'Select Model Directory')
+        self.le_modelPath.setText(path)
+    # button function
+    def detectLandmarks(self):
+        if self.openFileFlags:
+            self.cb_keepImage.setChecked(True)
+            self.openImage()
+            # exe
+            lm_module = PredictLandmark()
+            lm_module.setImageSize(self.sb_inputWidth.value(), self.sb_inputHeight.value())
+            lm_module.setModel(self.le_modelPath.text())
+            lm_module.calcImageRatio(int(self.label_imgWidth.text()), int(self.label_imgHeihgt.text()))
+            posX, posY = lm_module.getLandmarkPos(self.dst_img)
+            # registration
+            for x, y in zip(posX, posY):
+                item = QGraphicsEllipseItem(int(float(x)) - self.sb_radius.value(),
+                                            int(float(y)) - self.sb_radius.value(),
+                                            self.sb_radius.value() * 2, self.sb_radius.value() * 2)
+                item.setBrush(QBrush(self.ptColor))
+                item.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
+                item.setData(0, int(float(0)))
+                self.scene.addItem(item)
+            self.updateItems()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    dmw = DesignerMainWindow()
+    dmw = MainWindow()
     dmw.show()
     sys.exit(app.exec_())
