@@ -55,9 +55,9 @@ class ImageProcessing:
 
 if __name__ == '__main__':
     file = "../lena.jpg"
-    a = opencv_ip()
-    b,c = a.open_img(file)
-    d = a.canny(b)
-    cv2.imshow("",d)
+    ip = ImageProcessing()
+    pic,cpic = ip.open_img(file)
+    dst = ip.canny(pic)
+    cv2.imshow("result",dst)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
