@@ -1,12 +1,10 @@
 import sys
 from PyQt5.QtCore import (Qt, QEvent)
 from PyQt5.QtGui import (QPixmap, QImage, QCursor, QBrush, QColor, QPalette)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
-                             QPushButton, QComboBox, QCheckBox, QLabel, QSpinBox, QLineEdit, QFileDialog,
-                             QGraphicsPixmapItem, QGraphicsScene, QGraphicsView,
-                             QMenu, QGraphicsItem, QGraphicsEllipseItem, QColorDialog,
-                             QGroupBox, QSizePolicy
-                             )
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QFileDialog,
+                              QGraphicsPixmapItem, QGraphicsScene, QMenu,
+                              QGraphicsItem, QGraphicsEllipseItem, QColorDialog,
+                              )
 
 from mypackage.ui_mainform import UIMainWindow
 from mypackage.opencv_ip import ImageProcessing
@@ -15,7 +13,7 @@ from mypackage.landmark_detection import PredictLandmark
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        self.setWindowTitle("Landmarker ver.2.1")
+        self.setWindowTitle("Landmarker ver.2.2")
         self.setAcceptDrops(True)
 
         self.init()
@@ -164,7 +162,8 @@ class MainWindow(QMainWindow):
                 reader = csv.reader(f)
                 header = next(reader) #header pass
                 for row in reader:
-                    item = QGraphicsEllipseItem(int(float(row[2]))-self.sb_radius.value(), int(float(row[3]))-self.sb_radius.value(), self.sb_radius.value() * 2, self.sb_radius.value() * 2)
+                    item = QGraphicsEllipseItem(int(float(row[2]))-self.ui.sb_radius.value(), int(float(row[3]))-self.ui.sb_radius.value(),
+                                                self.ui.sb_radius.value() * 2, self.ui.sb_radius.value() * 2)
                     item.setBrush(QBrush(self.ptColor))
                     item.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
                     item.setData(0, int(float(row[1])))
@@ -179,8 +178,8 @@ class MainWindow(QMainWindow):
         if not file[0] == "":
             with open(file[0], 'w', newline="") as f:
                 writer = csv.writer(f)
-                writer.writerow(self.model.headers)
-                for item in self.model.items:
+                writer.writerow(self.ui.model.headers)
+                for item in self.ui.model.items:
                     writer.writerow(item)
 
     # button function
