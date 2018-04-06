@@ -44,10 +44,13 @@ class UI_MainWindow(object):
         btn_start.clicked.connect(mainwindow.videoStart)
         btn_stop = QPushButton("Stop")
         btn_stop.clicked.connect(mainwindow.videoStop)
+        btn_test = QPushButton("Test")
+        btn_test.clicked.connect(mainwindow.videoTest)
 
         hbox.addWidget(btn_set)
         hbox.addWidget(btn_start)
         hbox.addWidget(btn_stop)
+        hbox.addWidget(btn_test)
 
         vbox = QVBoxLayout()
         scrollArea_image = QScrollArea()

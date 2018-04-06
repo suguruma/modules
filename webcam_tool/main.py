@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QV
 
 from image_viewer_ui import UI_MainWindow
 from streamer import CameraStreamer
+from cv_yolo import YOLOV2
 
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import (Qt, QUrl, QTimer, QModelIndex, QPoint)
@@ -101,6 +102,29 @@ class MainWindow(QMainWindow):
 
     def videoStop(self):
         self.timer.stop()
+
+    def videoTest(self):
+        if(self.ui.ledit_vURL.text().isdigit()):
+            self.VIDEOURL = int(self.ui.ledit_vURL.text())
+        else:
+            self.VIDEOURL = self.ui.ledit_vURL.text()
+
+        self.cam.init()
+        self.cam.set_size(self.ui.sb_width.value(), self.ui.sb_height.value())
+        self.cam.set_sensor(self.VIDEOURL)
+        self.cam.set_recoding_mode(self.ui.sb_recordingMode.value())
+        self.cam.videoCameraViewQT()
+
+        self.yolo = YOLOV2()
+        self.yolo.set_sensor(self.VIDEOURL)
+        self.yolo.init()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.doYolo)
+
+    def doYolo(self):
+        img = self.yolo.detection()
+        qimg = self.convertQImage(img)
+        self.lbl_image.setPixmap(QPixmap.fromImage(qimg))
 
     def drawVideoData(self):
         img = self.cam.getVideoImage()
