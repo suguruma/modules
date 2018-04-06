@@ -31,13 +31,32 @@ class UI_MainWindow(object):
         mainframe = QWidget()
         grid = QGridLayout()
         grid.addWidget(self.gb_setting_video, 0, 0)
-        #grid.addWidget(self.gb_display_frame, 0, 1)
+        grid.addWidget(self.gb_display_frame, 1, 0)
         mainframe.setLayout(grid)
         mainwindow.setCentralWidget(mainframe)
 
     def imageUI(self, mainwindow):
+
+        hbox =QHBoxLayout()
+        btn_set = QPushButton("Parameter Set")
+        btn_set.clicked.connect(mainwindow.videoSet)
+        btn_start = QPushButton("Play")
+        btn_start.clicked.connect(mainwindow.videoStart)
+        btn_stop = QPushButton("Stop")
+        btn_stop.clicked.connect(mainwindow.videoStop)
+
+        hbox.addWidget(btn_set)
+        hbox.addWidget(btn_start)
+        hbox.addWidget(btn_stop)
+
         vbox = QVBoxLayout()
-        self.scene = QGraphicsScene()
+        scrollArea_image = QScrollArea()
+        mainwindow.lbl_image = QLabel()
+        mainwindow.lbl_image.setFixedSize(640, 460)
+        scrollArea_image.setWidget(mainwindow.lbl_image)
+
+        vbox.addLayout(hbox)
+        vbox.addWidget(scrollArea_image)
         self.gb_display_frame.setLayout(vbox)
         
     def videoUI(self, mainwindow):

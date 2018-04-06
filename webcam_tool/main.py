@@ -12,10 +12,13 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QGridLayout, QV
 from image_viewer_ui import UI_MainWindow
 from streamer import CameraStreamer
 
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import (Qt, QUrl, QTimer, QModelIndex, QPoint)
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
-        g_verstion = 0.1
+        g_verstion = 0.2
         self.setWindowTitle('Viewer ver.{0}'.format(g_verstion))
         self.init()
 
@@ -78,6 +81,43 @@ class MainWindow(QMainWindow):
             self.cam.videoCameraView()
         if self.ui.cb_data_mode.currentText() == "Frame":
             self.cam.frameCameraView()
+
+    def videoSet(self):
+        if(self.ui.ledit_vURL.text().isdigit()):
+            self.VIDEOURL = int(self.ui.ledit_vURL.text())
+        else:
+            self.VIDEOURL = self.ui.ledit_vURL.text()
+
+        self.cam.init()
+        self.cam.set_size(self.ui.sb_width.value(), self.ui.sb_height.value())
+        self.cam.set_sensor(self.VIDEOURL)
+        self.cam.set_recoding_mode(self.ui.sb_recordingMode.value())
+        self.cam.videoCameraViewQT()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.drawVideoData)
+
+    def videoStart(self):
+        self.timer.start(30)
+
+    def videoStop(self):
+        self.timer.stop()
+
+    def drawVideoData(self):
+        img = self.cam.getVideoImage()
+        qimg = self.convertQImage(img)
+        self.lbl_image.setPixmap(QPixmap.fromImage(qimg))
+
+    def convertQImage(self, _img):
+        if len(_img.shape) == 3:
+            height, width, dim = _img.shape
+            bytesPerLine = dim * width
+            qimg = QImage(_img.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        if len(_img.shape) == 2:
+            height, width = _img.shape
+            bytesPerLine = width
+            qimg = QImage(_img.data, width, height, bytesPerLine, QImage.Format_Grayscale8)
+
+        return qimg
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

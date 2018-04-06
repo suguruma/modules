@@ -208,13 +208,38 @@ class CameraStreamer:
 
             ###
             cv2.imshow("Stream Video", img)
-            key = cv2.waitKey(1) & 0xff
+            key = cv2.waitKey(30) & 0xff
             if key == ord('q'):
                 break
 
         self.recording_close()
         cap.release()
         cv2.destroyAllWindows()
+
+    def videoCameraViewQT(self):
+        self.cap = cv2.VideoCapture(self.sensor)
+        self.set_init_data(self.cap)
+
+    def getVideoImage(self):
+
+        ret, img = self.cap.read()
+        if ret == False:
+            self.cap.release()
+            return -1
+        for i in range(0): self.cap.read()
+
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        ###
+        if self.resize_on:
+            img = cv2.resize(img, (self.width, self.height))
+
+        ###
+        if self.img_proc_on:
+            img = self.do_imageProcessing(img)
+
+        return img
+
 
     ### sub
     def frameCameraView(self):
