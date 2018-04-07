@@ -19,7 +19,7 @@ from PyQt5.QtCore import (Qt, QUrl, QTimer, QModelIndex, QPoint)
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
-        g_verstion = 0.2
+        g_verstion = "0.2.1"
         self.setWindowTitle('Viewer ver.{0}'.format(g_verstion))
         self.init()
 
@@ -83,11 +83,14 @@ class MainWindow(QMainWindow):
         if self.ui.cb_data_mode.currentText() == "Frame":
             self.cam.frameCameraView()
 
-    def videoSet(self):
+    def determineSensor(self):
         if(self.ui.ledit_vURL.text().isdigit()):
             self.VIDEOURL = int(self.ui.ledit_vURL.text())
         else:
             self.VIDEOURL = self.ui.ledit_vURL.text()
+
+    def videoSet(self):
+        self.determineSensor()
 
         self.cam.init()
         self.cam.set_size(self.ui.sb_width.value(), self.ui.sb_height.value())
@@ -95,7 +98,7 @@ class MainWindow(QMainWindow):
         self.cam.set_recoding_mode(self.ui.sb_recordingMode.value())
         self.cam.videoCameraViewQT()
         self.timer = QTimer()
-        self.timer.timeout.connect(self.drawVideoData)
+        self.timer.timeout.connect(self.doImageProcessing)
 
     def videoStart(self):
         self.timer.start(30)
@@ -104,16 +107,7 @@ class MainWindow(QMainWindow):
         self.timer.stop()
 
     def videoTest(self):
-        if(self.ui.ledit_vURL.text().isdigit()):
-            self.VIDEOURL = int(self.ui.ledit_vURL.text())
-        else:
-            self.VIDEOURL = self.ui.ledit_vURL.text()
-
-        self.cam.init()
-        self.cam.set_size(self.ui.sb_width.value(), self.ui.sb_height.value())
-        self.cam.set_sensor(self.VIDEOURL)
-        self.cam.set_recoding_mode(self.ui.sb_recordingMode.value())
-        self.cam.videoCameraViewQT()
+        self.determineSensor()
 
         self.yolo = YOLOV2()
         self.yolo.set_sensor(self.VIDEOURL)
@@ -122,14 +116,20 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.doYolo)
 
     def doYolo(self):
-        img = self.yolo.detection()
-        qimg = self.convertQImage(img)
-        self.lbl_image.setPixmap(QPixmap.fromImage(qimg))
+        self.yolo.set_size(self.ui.sb_width.value(), self.ui.sb_height.value())
+        self.yolo.resize_on = self.ui.cb_resize.isChecked()
 
-    def drawVideoData(self):
+        img = self.yolo.detection()
+        self.drawVideoData(img)
+
+    def doImageProcessing(self):
         img = self.cam.getVideoImage()
+        self.drawVideoData(img)
+
+    def drawVideoData(self, img):
         qimg = self.convertQImage(img)
         self.lbl_image.setPixmap(QPixmap.fromImage(qimg))
+        self.lbl_image.setFixedSize(self.ui.sb_width.value(), self.ui.sb_height.value())
 
     def convertQImage(self, _img):
         if len(_img.shape) == 3:

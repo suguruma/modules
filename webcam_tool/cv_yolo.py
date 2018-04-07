@@ -1,15 +1,14 @@
 #! /usr/bin/env python
-"""Run a YOLO_v2 style detection model on test images."""
+
 import argparse
 import colorsys
-import imghdr
 import os
 import random
 
 import numpy as np
 from keras import backend as K
 from keras.models import load_model
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 from yad2k.models.keras_yolo import yolo_eval, yolo_head
 
@@ -70,6 +69,9 @@ class YOLOV2:
     yolo_model = None
 
     cv_img = None
+    resize_on = None
+    width = 240
+    height = 320
 
     def init(self):
         args = parser.parse_args()
@@ -79,11 +81,6 @@ class YOLOV2:
         classes_path = os.path.expanduser(args.classes_path)
         test_path = os.path.expanduser(args.test_path)
         output_path = os.path.expanduser(args.output_path)
-
-        #if not os.path.exists(output_path):
-        #    print('Creating output path {}'.format(output_path))
-        #    os.mkdir(output_path)
-
         self.sess = K.get_session()  # TODO: Remove dependence on Tensorflow session.
 
         with open(classes_path) as f:
@@ -138,21 +135,18 @@ class YOLOV2:
     def set_sensor(self, _sensor):
         self.sensor = _sensor
 
+    def set_size(self, _width=320, _height=240):
+        self.width = _width
+        self.height = _height
+
     def detection(self):
         ret, img = self.cap.read()
         if ret == False:
             self.cap.release()
             return -1
 
-    #for image_file in os.listdir(test_path):
-        #try:
-        #    image_type = imghdr.what(os.path.join(test_path, image_file))
-        #    if not image_type:
-        #        continue
-        #except IsADirectoryError:
-        #    continue
-
-        #image = Image.open(os.path.join(test_path, image_file))
+        if self.resize_on:
+            img = cv2.resize(img, (self.width, self.height))
 
         image = Image.fromarray(img)
         if self.is_fixed_size:  # TODO: When resizing we can use minibatch input.
@@ -160,10 +154,8 @@ class YOLOV2:
                 tuple(reversed(self.model_image_size)), Image.BICUBIC)
             image_data = np.array(resized_image, dtype='float32')
         else:
-            # Due to skip connection + max pooling in YOLO_v2, inputs must have
-            # width and height as multiples of 32.
-            new_image_size = (image.width - (image.width % 32),
-                              image.height - (image.height % 32))
+            # Due to skip connection + max pooling in YOLO_v2, inputs must have width and height as multiples of 32.
+            new_image_size = (image.width - (image.width % 32), image.height - (image.height % 32))
             resized_image = image.resize(new_image_size, Image.BICUBIC)
             image_data = np.array(resized_image, dtype='float32')
             print(image_data.shape)
@@ -179,10 +171,6 @@ class YOLOV2:
                 K.learning_phase(): 0
             })
         #print('Found {} boxes for {}'.format(len(out_boxes), image_file))
-
-        font = ImageFont.truetype(
-            font='font/FiraMono-Medium.otf',
-            size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
 
         for i, c in reversed(list(enumerate(out_classes))):
@@ -197,7 +185,6 @@ class YOLOV2:
             label = '{} {:.2f}'.format(predicted_class, score)
 
             draw = ImageDraw.Draw(image)
-            label_size = draw.textsize(label, font)
 
             top, left, bottom, right = box
             top = max(0, np.floor(top + 0.5).astype('int32'))
@@ -206,20 +193,8 @@ class YOLOV2:
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             #print(label, (left, top), (right, bottom))
 
-            if top - label_size[1] >= 0:
-                text_origin = np.array([left, top - label_size[1]])
-            else:
-                text_origin = np.array([left, top + 1])
-
-            # My kingdom for a good redistributable image drawing library.
             for i in range(thickness):
-                draw.rectangle(
-                    [left + i, top + i, right - i, bottom - i],
-                    outline=(50, 200, 50))
-            #draw.rectangle(
-            #    [tuple(text_origin), tuple(text_origin + label_size)],
-            #    fill=colors[c])
-            #draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+                draw.rectangle([left + i, top + i, right - i, bottom - i], outline=(50, 200, 50))
             del draw
 
         img = cv2.cvtColor(np.asarray(image), cv2.COLOR_BGR2RGB)

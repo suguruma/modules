@@ -165,8 +165,8 @@ def _main(args):
 
         for i, c in reversed(list(enumerate(out_classes))):
 
-            if not class_names[c] == "person":
-                continue
+            #if not class_names[c] == "person":
+            #    continue
 
             predicted_class = class_names[c]
             box = out_boxes[i]
